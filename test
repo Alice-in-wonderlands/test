@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 Year Anniversary</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h1 {
+      color: #d63384;
+      margin-top: 20px;
+    }
+
+    /* Film strip carousel */
+    .film-carousel {
+      width: 90%;
+      overflow: hidden;
+      margin: 20px auto;
+      border: 5px solid #d63384;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+
+    .film-track {
+      display: flex;
+      animation: scroll 20s linear infinite;
+    }
+
+    .film-track img {
+      height: 200px;
+      margin: 5px;
+      border: 3px solid black;
+      border-radius: 5px;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Tabs for letters */
+    .tab {
+      display: inline-block;
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .tab:hover {
+      background-color: #f5c6cb;
+    }
+
+    .letter {
+      display: none;
+      margin: 20px auto;
+      max-width: 500px;
+      background-color: #fff0f5;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Happy 1 Year Anniversary ❤️</h1>
+
+  <div class="film-carousel">
+    <div class="film-track">
+      <img src="https://placekitten.com/300/200" alt="Photo 1">
+      <img src="https://placekitten.com/301/200" alt="Photo 2">
+      <img src="https://placekitten.com/302/200" alt="Photo 3">
+      <img src="https://placekitten.com/303/200" alt="Photo 4">
+      <img src="https://placekitten.com/300/200" alt="Photo 1">
+      <img src="https://placekitten.com/301/200" alt="Photo 2">
+    </div>
+  </div>
+
+  <div>
+    <div class="tab" onclick="showLetter('letter1')">Love Letter 1</div>
+    <div class="tab" onclick="showLetter('letter2')">Love Letter 2</div>
+    <div class="tab" onclick="showLetter('letter3')">Love Letter 3</div>
+  </div>
+
+  <div id="letter1" class="letter">
+    <h3>Letter 1</h3>
+    <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
+  </div>
+
+  <div id="letter2" class="letter">
+    <h3>Letter 2</h3>
+    <p>I still remember the day we met, and I cherish every day spent with you...</p>
+  </div>
+
+  <div id="letter3" class="letter">
+    <h3>Letter 3</h3>
+    <p>Happy 1-year anniversary! I hope our love keeps growing stronger each day...</p>
+  </div>
+
+  <script>
+    function showLetter(id) {
+      const letters = document.querySelectorAll('.letter');
+      letters.forEach(letter => letter.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+  </script>
+</body>
+</html>
