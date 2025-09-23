@@ -21,10 +21,11 @@
 
   /* Film-strip container */
   .film-carousel {
-    width: 100vw;         
-    height: 260px;        
+    width: 80%;             /* chỉ chiếm 80% màn hình, ở giữa */
+    max-width: 1000px;      /* có giới hạn để không quá rộng */
+    height: 260px;          /* chiều cao strip */
     overflow: hidden;
-    margin: 40px 0;
+    margin: 40px auto;      /* căn giữa */
     background-color: #222;
     position: relative;
   }
@@ -49,12 +50,13 @@
   /* Track ảnh chạy */
   .film-track {
     display: flex;
-    min-width: 200%; /* lặp để luôn full ngang */
+    min-width: 200%;  /* để luôn dài gấp đôi thanh film */
     animation: scroll 20s linear infinite;
   }
 
   .film-track img {
     height: 220px;
+    flex-shrink: 0;   /* không co lại */
     margin: 20px 5px;
     object-fit: cover;
     border-radius: 5px;
@@ -99,7 +101,7 @@
 <!-- Film strip -->
 <div class="film-carousel">
   <div class="film-track">
-    <!-- Lặp ảnh 2 lần để cuộn liên tục -->
+    <!-- Lặp ảnh nhiều lần để lấp kín film -->
     <img src="images/will1.png" alt="Photo 1">
     <img src="images/will2.png" alt="Photo 2">
     <img src="images/will1.png" alt="Photo 1">
