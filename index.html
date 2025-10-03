@@ -42,9 +42,9 @@
     margin-bottom: 20px;
   }
   .intro-overlay small {
-    font-size: 0.6em;   /* nhỏ hơn */
-    font-weight: 300;   /* mảnh hơn */
-    opacity: 0.8;       /* nhạt hơn */
+    font-size: 0.6em;   
+    font-weight: 300;   
+    opacity: 0.8;       
     margin-top: 25px;
   }
 
@@ -176,6 +176,10 @@ function showLetter(id) {
 
 function closeIntro() {
   document.querySelector('.intro-overlay').style.display = 'none';
+  // Play nhạc sau khi click overlay
+  const music = document.getElementById('bg-music');
+  music.volume = 0.7; // chỉnh âm lượng
+  music.play().catch(err => console.log("Autoplay bị chặn:", err));
 }
 </script>
 
