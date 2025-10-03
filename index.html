@@ -37,11 +37,10 @@
     cursor: pointer;
     flex-direction: column;
     opacity: 1;
-    transition: opacity 1.5s ease; /* hiệu ứng fade */
+    transition: opacity 1.5s ease;
   }
   .intro-overlay.fade-out {
-    opacity: 0;
-    pointer-events: none; /* tránh click thêm */
+    opacity: 0;   /* chỉ giảm opacity */
   }
   .intro-overlay span {
     font-size: 2em;
@@ -135,16 +134,4 @@
 </div>
   
 <!-- AUDIO (ẩn, loop) -->
-<audio id="bg-music" loop>
-  <source src="mylove.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-  
-<h1>Happy 1 Year Anniversary ❤️</h1>
-
-<!-- Film strip -->
-<div class="film-carousel">
-  <div class="film-track">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" al
+<audio id="bg-musi
