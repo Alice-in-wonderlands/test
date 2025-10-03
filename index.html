@@ -19,18 +19,40 @@
     color: #3b2f2f;
   }
 
+  /* ============ INTRO OVERLAY ============ */
+  .intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #3b2f2f;
+    color: #f2eee7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+    z-index: 9999;
+    cursor: pointer;
+    flex-direction: column;
+  }
+  .intro-overlay span {
+    font-size: 3em;
+    margin-bottom: 20px;
+  }
+
   /* Film-strip container */
   .film-carousel {
-    width: 80%;             /* chỉ chiếm 80% màn hình, ở giữa */
-    max-width: 1000px;      /* có giới hạn để không quá rộng */
-    height: 260px;          /* chiều cao strip */
+    width: 80%;
+    max-width: 1000px;
+    height: 260px;
     overflow: hidden;
-    margin: 40px auto;      /* căn giữa */
+    margin: 40px auto;
     background-color: #222;
     position: relative;
   }
 
-  /* Đục lỗ ngang trên & dưới */
   .film-carousel::before,
   .film-carousel::after {
     content: '';
@@ -47,28 +69,25 @@
   .film-carousel::before { top: 0; }
   .film-carousel::after { bottom: 0; }
 
-  /* Track ảnh chạy */
   .film-track {
     display: flex;
-    min-width: 200%;  /* để luôn dài gấp đôi thanh film */
+    min-width: 200%;
     animation: scroll 20s linear infinite;
   }
 
   .film-track img {
     height: 220px;
-    flex-shrink: 0;   /* không co lại */
+    flex-shrink: 0;
     margin: 20px 5px;
     object-fit: cover;
     border-radius: 5px;
   }
 
-  /* Animation scroll */
   @keyframes scroll {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
 
-  /* Tabs */
   .tab {
     display: inline-block;
     background-color: #e5e1d8;
@@ -96,12 +115,18 @@
 </head>
 <body>
 
+<!-- INTRO -->
+<div class="intro-overlay" onclick="closeIntro()">
+  <span>🎉 Happy Anniversary 🎉</span>
+  <div>1 Year Together ❤️</div>
+  <small>(Click anywhere to continue)</small>
+</div>
+
 <h1>Happy 1 Year Anniversary ❤️</h1>
 
 <!-- Film strip -->
 <div class="film-carousel">
   <div class="film-track">
-    <!-- Lặp ảnh nhiều lần để lấp kín film -->
     <img src="WILL1.jpg" alt="Photo 1">
     <img src="WILL2.jpg" alt="Photo 2">
     <img src="WILL1.jpg" alt="Photo 1">
@@ -135,6 +160,10 @@ function showLetter(id) {
   const letters = document.querySelectorAll('.letter');
   letters.forEach(letter => letter.style.display = 'none');
   document.getElementById(id).style.display = 'block';
+}
+
+function closeIntro() {
+  document.querySelector('.intro-overlay').style.display = 'none';
 }
 </script>
 
