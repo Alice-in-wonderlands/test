@@ -36,6 +36,12 @@
     z-index: 9999;
     cursor: pointer;
     flex-direction: column;
+    opacity: 1;
+    transition: opacity 1.5s ease; /* hiệu ứng fade */
+  }
+  .intro-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none; /* tránh click thêm */
   }
   .intro-overlay span {
     font-size: 2em;
@@ -141,47 +147,4 @@
   <div class="film-track">
     <img src="WILL1.jpg" alt="Photo 1">
     <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-  </div>
-</div>
-
-<!-- Tabs -->
-<div>
-  <div class="tab" onclick="showLetter('letter1')">Love Letter 1</div>
-  <div class="tab" onclick="showLetter('letter2')">Love Letter 2</div>
-</div>
-
-<!-- Letters -->
-<div id="letter1" class="letter">
-  <h3>Letter 1</h3>
-  <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
-</div>
-
-<div id="letter2" class="letter">
-  <h3>Letter 2</h3>
-  <p>I still remember the day we met, and I cherish every day spent with you...</p>
-</div>
-
-<script>
-function showLetter(id) {
-  const letters = document.querySelectorAll('.letter');
-  letters.forEach(letter => letter.style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-}
-
-function closeIntro() {
-  document.querySelector('.intro-overlay').style.display = 'none';
-  // Play nhạc sau khi click overlay
-  const music = document.getElementById('bg-music');
-  music.volume = 0.7; // chỉnh âm lượng
-  music.play().catch(err => console.log("Autoplay bị chặn:", err));
-}
-</script>
-
-</body>
-</html>
+    <img src="WILL1.jpg" al
