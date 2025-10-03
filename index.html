@@ -37,19 +37,19 @@
     cursor: pointer;
     flex-direction: column;
     opacity: 1;
-    transition: opacity 1.5s ease;
+    transition: opacity 1.5s ease; /* hiệu ứng fade */
   }
   .intro-overlay.fade-out {
-    opacity: 0;   /* chỉ giảm opacity */
+    opacity: 0;
   }
   .intro-overlay span {
     font-size: 2em;
     margin-bottom: 20px;
   }
   .intro-overlay small {
-    font-size: 0.6em;   
-    font-weight: 300;   
-    opacity: 0.8;       
+    font-size: 0.6em;
+    font-weight: 300;
+    opacity: 0.8;
     margin-top: 25px;
   }
 
@@ -111,27 +111,4 @@
   }
   .tab:hover { background-color: #d8d4c7; }
 
-  .letter {
-    display: none;
-    margin: 20px auto;
-    max-width: 500px;
-    background-color: #f7f4ee;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: left;
-    color: #3b2f2f;
-  }
-</style>
-</head>
-<body>
-
-<!-- INTRO -->
-<div class="intro-overlay" onclick="closeIntro()">
-  <span>🎉❤️Happy Anniversary❤️🎉</span>
-  <div>October 2024 - October 2025</div>
-  <small>(Click anywhere to continue)</small>
-</div>
-  
-<!-- AUDIO (ẩn, loop) -->
-<audio id="bg-musi
+  .le
