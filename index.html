@@ -14,7 +14,12 @@
     color: #3b2f2f;
   }
 
-  /* INTRO OVERLAY */
+  h1 {
+    margin-top: 20px;
+    color: #3b2f2f;
+  }
+
+  /* ============ INTRO OVERLAY ============ */
   .intro-overlay {
     position: fixed;
     top: 0;
@@ -26,32 +31,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    font-size: 1.5em;       /* giữ size như script ban đầu */
     font-weight: bold;
     z-index: 9999;
     cursor: pointer;
+    flex-direction: column;
   }
-
-  /* giữ size chữ như ban đầu */
   .intro-overlay span {
-    font-size: 2em;
+    font-size: 2em;         /* giữ size script gốc */
     margin-bottom: 20px;
-    white-space: pre; /* giữ khoảng trắng */
+    white-space: pre;
   }
-
   .intro-overlay .line2 {
-    font-size: 1.5em; /* giữ size như lúc đầu */
-    margin-top: 10px;
+    font-size: 1.5em;       /* giữ size script gốc */
+    margin-top: 0;           /* giữ margin gốc */
   }
-
   .intro-overlay small {
     font-size: 0.6em;   
     font-weight: 300;   
-    opacity: 0;          
+    opacity: 0;       
     margin-top: 25px;
-    transition: opacity 1.5s ease; /* fade-in */
+    transition: opacity 1.5s ease;
   }
-
   .intro-overlay small.visible {
     opacity: 0.8;
   }
@@ -70,6 +71,11 @@
 <script>
 function closeIntro() {
   document.querySelector('.intro-overlay').style.display = 'none';
+  const music = document.getElementById('bg-music');
+  if(music){
+    music.volume = 0.7;
+    music.play().catch(()=>{});
+  }
 }
 
 // Nội dung đánh máy
@@ -79,22 +85,20 @@ const line1 = document.getElementById("line1");
 const line2 = document.getElementById("line2");
 const clickText = document.getElementById("clickText");
 
-// Hàm đánh máy
-function typeText(text, el, callback) {
+function typeText(text, el, callback){
   let i = 0;
-  function typing() {
-    if(i < text.length) {
+  function typing(){
+    if(i < text.length){
       el.textContent += text.charAt(i);
       i++;
       setTimeout(typing, 100);
-    } else if(callback) {
+    } else if(callback){
       callback();
     }
   }
   typing();
 }
 
-// Thực hiện đánh máy lần lượt
 window.onload = () => {
   typeText(text1, line1, () => {
     typeText(text2, line2, () => {
