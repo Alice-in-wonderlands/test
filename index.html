@@ -31,20 +31,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em;       /* giữ size như script ban đầu */
+    font-size: 1.5em;
     font-weight: bold;
     z-index: 9999;
     cursor: pointer;
     flex-direction: column;
   }
   .intro-overlay span {
-    font-size: 2em;         /* giữ size script gốc */
+    font-size: 2em;
     margin-bottom: 20px;
     white-space: pre;
   }
   .intro-overlay .line2 {
-    font-size: 1.5em;       /* giữ size script gốc */
-    margin-top: 0;           /* giữ margin gốc */
+    font-size: 1.5em;
+    margin-top: 0;
   }
   .intro-overlay small {
     font-size: 0.6em;   
@@ -56,19 +56,133 @@
   .intro-overlay small.visible {
     opacity: 0.8;
   }
+
+  /* Film-strip container */
+  .film-carousel {
+    width: 80%;
+    max-width: 1000px;
+    height: 260px;
+    overflow: hidden;
+    margin: 40px auto;
+    background-color: #222;
+    position: relative;
+  }
+
+  .film-carousel::before,
+  .film-carousel::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #222;
+    background-image: radial-gradient(circle, #f2eee7 40%, #222 41%);
+    background-size: 40px 40px;
+    background-repeat: repeat-x;
+    z-index: 2;
+  }
+  .film-carousel::before { top: 0; }
+  .film-carousel::after { bottom: 0; }
+
+  .film-track {
+    display: flex;
+    min-width: 200%;
+    animation: scroll 20s linear infinite;
+  }
+
+  .film-track img {
+    height: 220px;
+    flex-shrink: 0;
+    margin: 20px 5px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  @keyframes scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .tab {
+    display: inline-block;
+    background-color: #e5e1d8;
+    color: #3b2f2f;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .tab:hover { background-color: #d8d4c7; }
+
+  .letter {
+    display: none;
+    margin: 20px auto;
+    max-width: 500px;
+    background-color: #f7f4ee;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: left;
+    color: #3b2f2f;
+  }
 </style>
 </head>
 <body>
 
+<!-- INTRO -->
 <div class="intro-overlay" onclick="closeIntro()">
   <span id="line1"></span>
   <span id="line2" class="line2"></span>
   <small id="clickText">(Click anywhere to continue)</small>
 </div>
 
+<!-- AUDIO (ẩn, loop) -->
+<audio id="bg-music" loop>
+  <source src="mylove.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
 <h1>Happy 1 Year Anniversary ❤️</h1>
 
+<!-- Film strip -->
+<div class="film-carousel">
+  <div class="film-track">
+    <img src="WILL1.jpg" alt="Photo 1">
+    <img src="WILL2.jpg" alt="Photo 2">
+    <img src="WILL1.jpg" alt="Photo 1">
+    <img src="WILL2.jpg" alt="Photo 2">
+    <img src="WILL1.jpg" alt="Photo 1">
+    <img src="WILL2.jpg" alt="Photo 2">
+    <img src="WILL1.jpg" alt="Photo 1">
+    <img src="WILL2.jpg" alt="Photo 2">
+  </div>
+</div>
+
+<!-- Tabs -->
+<div>
+  <div class="tab" onclick="showLetter('letter1')">Love Letter 1</div>
+  <div class="tab" onclick="showLetter('letter2')">Love Letter 2</div>
+</div>
+
+<!-- Letters -->
+<div id="letter1" class="letter">
+  <h3>Letter 1</h3>
+  <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
+</div>
+
+<div id="letter2" class="letter">
+  <h3>Letter 2</h3>
+  <p>I still remember the day we met, and I cherish every day spent with you...</p>
+</div>
+
 <script>
+function showLetter(id) {
+  const letters = document.querySelectorAll('.letter');
+  letters.forEach(letter => letter.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
+
 function closeIntro() {
   document.querySelector('.intro-overlay').style.display = 'none';
   const music = document.getElementById('bg-music');
@@ -78,7 +192,7 @@ function closeIntro() {
   }
 }
 
-// Nội dung đánh máy
+// Typing effect cho 2 dòng
 const text1 = "🎉❤️Happy Anniversary❤️🎉";
 const text2 = "October 2024 - October 2025";
 const line1 = document.getElementById("line1");
