@@ -47,9 +47,9 @@
     margin-top: 0;
   }
   .intro-overlay small {
-    font-size: 0.6em;   
-    font-weight: 300;   
-    opacity: 0;       
+    font-size: 0.6em;
+    font-weight: 300;
+    opacity: 0;
     margin-top: 25px;
     transition: opacity 1.5s ease;
   }
@@ -99,7 +99,7 @@
   }
 
   @keyframes scroll {
-    0%   { transform: translateX(0); }
+    0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
 
@@ -170,7 +170,6 @@
   <h3>Letter 1</h3>
   <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
 </div>
-
 <div id="letter2" class="letter">
   <h3>Letter 2</h3>
   <p>I still remember the day we met, and I cherish every day spent with you...</p>
@@ -186,13 +185,11 @@ function showLetter(id) {
 function closeIntro() {
   document.querySelector('.intro-overlay').style.display = 'none';
   const music = document.getElementById('bg-music');
-  if(music){
-    music.volume = 0.7;
-    music.play().catch(()=>{});
-  }
+  music.volume = 0.7;
+  music.play().catch(err => console.log("Autoplay bị chặn:", err));
 }
 
-// Typing effect cho 2 dòng
+// Typing effect cho overlay
 const text1 = "🎉❤️Happy Anniversary❤️🎉";
 const text2 = "October 2024 - October 2025";
 const line1 = document.getElementById("line1");
