@@ -32,20 +32,27 @@
     cursor: pointer;
   }
 
+  /* giữ size chữ như ban đầu */
   .intro-overlay span {
     font-size: 2em;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     white-space: pre; /* giữ khoảng trắng */
   }
 
-  .intro-overlay .fade-in {
-    font-size: 1.2em;
+  .intro-overlay .line2 {
+    font-size: 1.5em; /* giữ size như lúc đầu */
     margin-top: 10px;
-    opacity: 0;
-    transition: opacity 1.5s ease;
   }
 
-  .intro-overlay .fade-in.visible {
+  .intro-overlay small {
+    font-size: 0.6em;   
+    font-weight: 300;   
+    opacity: 0;          
+    margin-top: 25px;
+    transition: opacity 1.5s ease; /* fade-in */
+  }
+
+  .intro-overlay small.visible {
     opacity: 0.8;
   }
 </style>
@@ -54,8 +61,8 @@
 
 <div class="intro-overlay" onclick="closeIntro()">
   <span id="line1"></span>
-  <span id="line2"></span>
-  <small id="clickText" class="fade-in">(Click anywhere to continue)</small>
+  <span id="line2" class="line2"></span>
+  <small id="clickText">(Click anywhere to continue)</small>
 </div>
 
 <h1>Happy 1 Year Anniversary ❤️</h1>
