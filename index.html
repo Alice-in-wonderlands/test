@@ -14,12 +14,7 @@
     color: #3b2f2f;
   }
 
-  h1 {
-    margin-top: 20px;
-    color: #3b2f2f;
-  }
-
-  /* ============ INTRO OVERLAY ============ */
+  /* INTRO OVERLAY */
   .intro-overlay {
     position: fixed;
     top: 0;
@@ -36,176 +31,70 @@
     z-index: 9999;
     cursor: pointer;
   }
+
   .intro-overlay span {
     font-size: 2em;
-    margin-bottom: 20px;
-    white-space: pre; /* giữ khoảng trắng trong typing */
+    margin-bottom: 10px;
+    white-space: pre; /* giữ khoảng trắng */
   }
-  .intro-overlay small {
-    font-size: 0.6em;   
-    font-weight: 300;   
-    opacity: 0;          /* ban đầu ẩn */
-    margin-top: 25px;
-    transition: opacity 1.5s ease; /* fade-in */
+
+  .intro-overlay .fade-in {
+    font-size: 1.2em;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 1.5s ease;
   }
-  .intro-overlay small.visible {
+
+  .intro-overlay .fade-in.visible {
     opacity: 0.8;
-  }
-
-  /* Film-strip container */
-  .film-carousel {
-    width: 80%;
-    max-width: 1000px;
-    height: 260px;
-    overflow: hidden;
-    margin: 40px auto;
-    background-color: #222;
-    position: relative;
-  }
-
-  .film-carousel::before,
-  .film-carousel::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background-color: #222;
-    background-image: radial-gradient(circle, #f2eee7 40%, #222 41%);
-    background-size: 40px 40px;
-    background-repeat: repeat-x;
-    z-index: 2;
-  }
-  .film-carousel::before { top: 0; }
-  .film-carousel::after { bottom: 0; }
-
-  .film-track {
-    display: flex;
-    min-width: 200%;
-    animation: scroll 20s linear infinite;
-  }
-
-  .film-track img {
-    height: 220px;
-    flex-shrink: 0;
-    margin: 20px 5px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-
-  @keyframes scroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .tab {
-    display: inline-block;
-    background-color: #e5e1d8;
-    color: #3b2f2f;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  .tab:hover { background-color: #d8d4c7; }
-
-  .letter {
-    display: none;
-    margin: 20px auto;
-    max-width: 500px;
-    background-color: #f7f4ee;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: left;
-    color: #3b2f2f;
   }
 </style>
 </head>
 <body>
 
-<!-- INTRO -->
 <div class="intro-overlay" onclick="closeIntro()">
-  <span id="typingText"></span>
-  <div>October 2024 - October 2025</div>
-  <small id="clickText">(Click anywhere to continue)</small>
+  <span id="line1"></span>
+  <span id="line2"></span>
+  <small id="clickText" class="fade-in">(Click anywhere to continue)</small>
 </div>
-  
-<!-- AUDIO (ẩn, loop) -->
-<audio id="bg-music" loop>
-  <source src="mylove.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-  
+
 <h1>Happy 1 Year Anniversary ❤️</h1>
 
-<!-- Film strip -->
-<div class="film-carousel">
-  <div class="film-track">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-  </div>
-</div>
-
-<!-- Tabs -->
-<div>
-  <div class="tab" onclick="showLetter('letter1')">Love Letter 1</div>
-  <div class="tab" onclick="showLetter('letter2')">Love Letter 2</div>
-</div>
-
-<!-- Letters -->
-<div id="letter1" class="letter">
-  <h3>Letter 1</h3>
-  <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
-</div>
-
-<div id="letter2" class="letter">
-  <h3>Letter 2</h3>
-  <p>I still remember the day we met, and I cherish every day spent with you...</p>
-</div>
-
 <script>
-function showLetter(id) {
-  const letters = document.querySelectorAll('.letter');
-  letters.forEach(letter => letter.style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-}
-
 function closeIntro() {
   document.querySelector('.intro-overlay').style.display = 'none';
-  // Play nhạc sau khi click overlay
-  const music = document.getElementById('bg-music');
-  music.volume = 0.7;
-  music.play().catch(err => console.log("Autoplay bị chặn:", err));
 }
 
-// Typing effect
-const text = "🎉❤️Happy Anniversary❤️🎉";
-const typingEl = document.getElementById("typingText");
+// Nội dung đánh máy
+const text1 = "🎉❤️Happy Anniversary❤️🎉";
+const text2 = "October 2024 - October 2025";
+const line1 = document.getElementById("line1");
+const line2 = document.getElementById("line2");
 const clickText = document.getElementById("clickText");
-let i = 0;
 
-function typeWriter() {
-  if (i < text.length) {
-    typingEl.textContent += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 100); // tốc độ đánh máy
-  } else {
-    // hiện dòng click sau khi typing xong
-    setTimeout(() => {
-      clickText.classList.add("visible");
-    }, 500);
+// Hàm đánh máy
+function typeText(text, el, callback) {
+  let i = 0;
+  function typing() {
+    if(i < text.length) {
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(typing, 100);
+    } else if(callback) {
+      callback();
+    }
   }
+  typing();
 }
 
-window.onload = typeWriter;
+// Thực hiện đánh máy lần lượt
+window.onload = () => {
+  typeText(text1, line1, () => {
+    typeText(text2, line2, () => {
+      clickText.classList.add("visible");
+    });
+  });
+};
 </script>
 
 </body>
