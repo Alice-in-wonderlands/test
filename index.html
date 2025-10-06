@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>1 Year Anniversary</title>
 <style>
-  /* ======= BACKGROUND NIGHT SKY ======= */
   body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -14,6 +13,7 @@
     background: linear-gradient(to bottom, #0b0b2e, #1b1440, #3b2f2f);
   }
 
+  /* ======= NIGHT SKY ======= */
   .sky {
     position: fixed;
     width: 100%;
@@ -48,6 +48,29 @@
     to { opacity: 1; }
   }
 
+  /* ======= SHOOTING STAR ======= */
+  .shooting-star {
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, white, rgba(255,255,255,0));
+    opacity: 0.8;
+    transform: rotate(-45deg);
+    animation: shoot 1.5s linear forwards;
+    pointer-events: none;
+  }
+
+  @keyframes shoot {
+    0% {
+      transform: translate(0, 0) rotate(-45deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(600px, 600px) rotate(-45deg);
+      opacity: 0;
+    }
+  }
+
   .cloud {
     position: absolute;
     background: rgba(255, 255, 255, 0.1);
@@ -61,34 +84,35 @@
     to { left: 100vw; }
   }
 
-  /* ======= INTRO OVERLAY ======= */
+  /* ======= OVERLAY ======= */
   .intro-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background-color: #590818;
     color: #f2eee7;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     font-size: 1.5em;
     font-weight: bold;
-    z-index: 9999;
-    cursor: pointer;
-    flex-direction: column;
     text-align: center;
+    cursor: pointer;
+    z-index: 9999;
   }
+
   .intro-overlay span {
     font-size: 2em;
     margin-bottom: 20px;
     white-space: pre;
   }
+
   .intro-overlay .line2 {
     font-size: 1.5em;
     margin-top: 0;
   }
+
   .intro-overlay small {
     font-size: 0.6em;
     font-weight: 300;
@@ -96,17 +120,18 @@
     margin-top: 25px;
     transition: opacity 1.5s ease;
   }
+
   .intro-overlay small.visible { opacity: 0.8; }
 
-  /* ======= MAIN CONTENT ======= */
+  /* ======= MAIN SECTIONS ======= */
   section {
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
-    padding: 140px 20px; /* 👉 tăng khoảng cách giữa các mục */
+    padding: 140px 20px;
     text-align: center;
-    color: #f2eee7;
   }
+
   section.visible { opacity: 1; transform: translateY(0); }
 
   .timeline {
@@ -118,9 +143,10 @@
   }
 
   .event {
-    margin: 100px 0; /* 👉 mỗi cột mốc xa nhau hơn */
+    margin: 100px 0;
     position: relative;
   }
+
   .event::before {
     content: "";
     position: absolute;
@@ -146,6 +172,7 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
+
   .tab:hover { background-color: #d8d4c7; }
 
   .letter {
@@ -164,10 +191,10 @@
 
 <div class="sky" aria-hidden="true">
   <div class="moon" id="moon"></div>
-  <!-- 🌟 Tạo nhiều sao hơn -->
+  <!-- 🌟 nhiều sao hơn -->
   <script>
     const sky = document.currentScript.parentElement;
-    for (let i = 0; i < 120; i++) { // 👉 tăng số lượng sao
+    for (let i = 0; i < 120; i++) {
       const s = document.createElement('div');
       s.className = 'star';
       const size = Math.random() * 3 + 1;
@@ -179,6 +206,21 @@
       s.style.animationDelay = `${Math.random() * 3}s`;
       sky.appendChild(s);
     }
+
+    // 🌠 tạo sao băng ngẫu nhiên
+    function createShootingStar() {
+      const star = document.createElement('div');
+      star.className = 'shooting-star';
+      star.style.top = `${Math.random() * 40}%`;
+      star.style.left = `${Math.random() * 60}%`;
+      sky.appendChild(star);
+      setTimeout(() => star.remove(), 1500);
+    }
+
+    // xuất hiện sao băng ngẫu nhiên
+    setInterval(() => {
+      if (Math.random() < 0.5) createShootingStar();
+    }, 4000);
   </script>
   <div class="cloud" style="top:30%; width:400px; height:150px;"></div>
   <div class="cloud" style="top:60%; width:300px; height:120px; animation-delay: 10s;"></div>
@@ -194,7 +236,6 @@
 <!-- AUDIO -->
 <audio id="bg-music" loop>
   <source src="mylove.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
 
 <!-- CONTENT -->
@@ -331,7 +372,7 @@ function walkFootsteps() {
   let pos = 0;
   function step() {
     if (pos < steps) {
-      let y = pos * 90 + 20; /* 👉 khoảng cách bước chân xa hơn */
+      let y = pos * 90 + 20;
       if (pos % 2 === 0) {
         left.style.opacity = 1;
         left.style.top = y + "px";
