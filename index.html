@@ -74,6 +74,7 @@
     position: relative;
     width: 80%;
     margin: 80px auto;
+    height: 600px;
   }
 
   .timeline-line {
@@ -86,45 +87,37 @@
     transform: translateX(-50%);
   }
 
-  .footsteps {
-    position: absolute;
-    left: 49%;
-    top: 0;
-    width: 30px;
-    height: 100%;
-    pointer-events: none;
-  }
-
   .footstep {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 30px;
     opacity: 0;
-    transform: scale(0.8);
-    animation: fadeInStep 0.6s forwards;
+    transition: all 0.6s ease;
   }
 
   .footstep img {
     width: 100%;
-    transform: rotate(20deg);
     opacity: 0.9;
   }
 
-  @keyframes fadeInStep {
-    0% { opacity: 0; transform: scale(0.5); }
-    100% { opacity: 1; transform: scale(1); }
+  @keyframes walk {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 1; }
+    100% { top: 500px; opacity: 1; }
   }
 
   .timeline-item {
     background: #f7f4ee;
     border-radius: 10px;
     padding: 20px;
-    position: relative;
+    position: absolute;
     width: 45%;
-    margin: 40px 0;
   }
   .timeline-item.left { left: 0; }
   .timeline-item.right { left: 55%; }
+  .timeline-item:nth-child(1) { top: 40px; }
+  .timeline-item:nth-child(2) { top: 180px; }
+  .timeline-item:nth-child(3) { top: 340px; }
+  .timeline-item:nth-child(4) { top: 500px; }
 
   .timeline-item::after {
     content: '';
@@ -132,13 +125,12 @@
     width: 20px;
     height: 20px;
     background: #590818;
-    top: 20px;
     border-radius: 50%;
   }
-  .timeline-item.left::after { right: -10px; }
-  .timeline-item.right::after { left: -10px; }
+  .timeline-item.left::after { right: -10px; top: 20px; }
+  .timeline-item.right::after { left: -10px; top: 20px; }
 
-  /* Letters */
+  /* Love Letters + Game */
   .tab {
     display: inline-block;
     background-color: #e5e1d8;
@@ -163,7 +155,6 @@
     color: #3b2f2f;
   }
 
-  /* Mini Game */
   .game-box {
     background: #fff9f5;
     padding: 30px;
@@ -180,7 +171,6 @@
     cursor: pointer;
   }
   .btn:hover { background: #7c1b29; }
-
 </style>
 </head>
 <body>
@@ -208,7 +198,8 @@
   <div class="timeline-container">
     <div class="timeline-line"></div>
 
-    <div class="footsteps" id="footsteps"></div>
+    <div class="footstep" id="leftFoot"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Footprint_icon.svg"></div>
+    <div class="footstep" id="rightFoot"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Footprint_icon.svg"></div>
 
     <div class="timeline-item left"><strong>Oct 2024</strong> – The day we started this beautiful journey ❤️</div>
     <div class="timeline-item right"><strong>Dec 2024</strong> – Our first Christmas together 🎄</div>
@@ -243,7 +234,6 @@
 </section>
 
 <script>
-// Typing effect overlay
 const text1 = "🎉❤️Happy Anniversary❤️🎉";
 const text2 = "October 2024 - October 2025";
 const line1 = document.getElementById("line1");
@@ -311,30 +301,40 @@ function loveGame() {
   res.textContent = msgs[Math.floor(Math.random() * msgs.length)];
 }
 
-// Footstep animation on timeline
+// Moving footsteps animation
+let walked = false;
 window.addEventListener("scroll", () => {
   const timeline = document.getElementById("timeline-section");
-  const footsteps = document.getElementById("footsteps");
   const rect = timeline.getBoundingClientRect();
   const windowHeight = window.innerHeight;
-
-  if (rect.top < windowHeight * 0.8 && footsteps.children.length === 0) {
-    createFootsteps();
+  if (rect.top < windowHeight * 0.8 && !walked) {
+    walked = true;
+    walkFootsteps();
   }
 });
 
-function createFootsteps() {
-  const steps = document.getElementById("footsteps");
-  const numSteps = 8;
-  for (let i = 0; i < numSteps; i++) {
-    const step = document.createElement("div");
-    step.classList.add("footstep");
-    step.style.top = `${i * 80 + 20}px`;
-    step.style.left = (i % 2 === 0) ? "47%" : "51%";
-    step.style.animationDelay = `${i * 0.5}s`;
-    step.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Footprint_icon.svg">`;
-    steps.appendChild(step);
+function walkFootsteps() {
+  const left = document.getElementById("leftFoot");
+  const right = document.getElementById("rightFoot");
+  let steps = 8;
+  let pos = 0;
+  function step() {
+    if (pos < steps) {
+      let y = pos * 70 + 20;
+      if (pos % 2 === 0) {
+        left.style.opacity = 1;
+        left.style.top = y + "px";
+        left.style.left = "47%";
+      } else {
+        right.style.opacity = 1;
+        right.style.top = y + "px";
+        right.style.left = "51%";
+      }
+      pos++;
+      setTimeout(step, 500);
+    }
   }
+  step();
 }
 </script>
 
