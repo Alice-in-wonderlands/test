@@ -48,7 +48,6 @@
     50% { opacity: 1; }
   }
 
-  /* ======= SHOOTING STAR ======= */
   .shooting-star {
     position: absolute;
     width: 120px;
@@ -104,6 +103,7 @@
     text-align: center;
     cursor: pointer;
     z-index: 9999;
+    overflow: hidden;
   }
 
   .intro-overlay span {
@@ -127,17 +127,31 @@
 
   .intro-overlay small.visible { opacity: 0.8; }
 
+  /* Floating icons inside overlay */
+  .floating-icon {
+    position: absolute;
+    font-size: 2em;
+    opacity: 0.6;
+    animation: floatUp 6s linear infinite;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-120vh) scale(0.9); opacity: 0; }
+  }
+
   /* ======= MAIN SECTIONS ======= */
   section {
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
-    padding: 140px 20px;
+    padding: 180px 20px;
     text-align: center;
   }
 
   section:first-of-type {
-    padding-top: 220px; /* 👈 chỉ thêm dòng này: cho phần Happy 1 Year thấp xuống hơn */
+    padding-top: 280px; /* 👈 thấp hơn nữa */
   }
 
   section.visible { opacity: 1; transform: translateY(0); }
@@ -197,6 +211,7 @@
 </head>
 <body>
 
+<!-- NIGHT SKY -->
 <div class="sky" aria-hidden="true" id="sky">
   <div class="moon" id="moon"></div>
   <script>
@@ -308,6 +323,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     typing();
   }
+
+  // Floating icons animation
+  const icons = ["❤️", "💫", "🌙", "💐", "✨"];
+  function createFloatingIcon() {
+    const icon = document.createElement("div");
+    icon.className = "floating-icon";
+    icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+    icon.style.left = `${Math.random() * 100}%`;
+    icon.style.bottom = `-30px`;
+    icon.style.animationDuration = `${5 + Math.random() * 4}s`;
+    overlay.appendChild(icon);
+    setTimeout(() => icon.remove(), 8000);
+  }
+  setInterval(createFloatingIcon, 800);
 
   typeText(text1, line1, () => {
     typeText(text2, line2, () => {
