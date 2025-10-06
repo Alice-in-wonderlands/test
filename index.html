@@ -44,7 +44,8 @@
   }
 
   @keyframes twinkle {
-    from { opacity: 0.2; } to { opacity: 1; }
+    from { opacity: 0.2; }
+    to { opacity: 1; }
   }
 
   .cloud {
@@ -56,7 +57,8 @@
   }
 
   @keyframes moveClouds {
-    from { left: -200px; } to { left: 100vw; }
+    from { left: -200px; }
+    to { left: 100vw; }
   }
 
   /* ======= INTRO OVERLAY ======= */
@@ -101,30 +103,49 @@
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
-    padding: 80px 20px;
+    padding: 140px 20px; /* 👉 tăng khoảng cách giữa các mục */
     text-align: center;
     color: #f2eee7;
   }
   section.visible { opacity: 1; transform: translateY(0); }
 
-  .timeline { position: relative; width: 80%; margin: 100px auto; max-width: 600px; text-align: left; }
+  .timeline {
+    position: relative;
+    width: 80%;
+    margin: 120px auto;
+    max-width: 600px;
+    text-align: left;
+  }
 
-  .event { margin: 80px 0; position: relative; }
+  .event {
+    margin: 100px 0; /* 👉 mỗi cột mốc xa nhau hơn */
+    position: relative;
+  }
   .event::before {
     content: "";
     position: absolute;
     left: 50%;
-    top: -60px;
+    top: -80px;
     width: 4px;
-    height: 120px;
+    height: 160px;
     background: #f2eee7;
     transform: translateX(-50%);
   }
 
   .footstep { position: absolute; width: 30px; height: 30px; opacity: 0; transition: opacity 0.5s; }
-  #leftFoot { transform: rotate(-20deg); } #rightFoot { transform: rotate(20deg); }
+  #leftFoot { transform: rotate(-20deg); }
+  #rightFoot { transform: rotate(20deg); }
 
-  .tab { display: inline-block; background-color: rgba(229, 225, 216, 0.8); color: #3b2f2f; padding: 10px 20px; margin: 10px; border-radius: 20px; cursor: pointer; transition: background-color 0.3s; }
+  .tab {
+    display: inline-block;
+    background-color: rgba(229, 225, 216, 0.8);
+    color: #3b2f2f;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
   .tab:hover { background-color: #d8d4c7; }
 
   .letter {
@@ -143,16 +164,28 @@
 
 <div class="sky" aria-hidden="true">
   <div class="moon" id="moon"></div>
-  <div class="star" style="top:10%; left:20%; width:2px; height:2px;"></div>
-  <div class="star" style="top:30%; left:70%; width:3px; height:3px;"></div>
-  <div class="star" style="top:50%; left:40%; width:1px; height:1px;"></div>
-  <div class="star" style="top:80%; left:90%; width:2px; height:2px;"></div>
+  <!-- 🌟 Tạo nhiều sao hơn -->
+  <script>
+    const sky = document.currentScript.parentElement;
+    for (let i = 0; i < 120; i++) { // 👉 tăng số lượng sao
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 3 + 1;
+      s.style.width = `${size}px`;
+      s.style.height = `${size}px`;
+      s.style.top = `${Math.random() * 100}%`;
+      s.style.left = `${Math.random() * 100}%`;
+      s.style.animationDuration = `${1 + Math.random() * 2}s`;
+      s.style.animationDelay = `${Math.random() * 3}s`;
+      sky.appendChild(s);
+    }
+  </script>
   <div class="cloud" style="top:30%; width:400px; height:150px;"></div>
   <div class="cloud" style="top:60%; width:300px; height:120px; animation-delay: 10s;"></div>
 </div>
 
 <!-- INTRO -->
-<div class="intro-overlay" id="intro" role="button" aria-label="Intro - click to continue" tabindex="0">
+<div class="intro-overlay" id="intro">
   <span id="line1"></span>
   <span id="line2" class="line2"></span>
   <small id="clickText">(Click anywhere to continue)</small>
@@ -203,7 +236,7 @@
 </section>
 
 <script>
-/* ------------------- init typing and attach handlers after DOM ready ------------------- */
+/* ---------- overlay typing ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   const text1 = "🎉❤️Happy Anniversary❤️🎉";
   const text2 = "October 2024 - October 2025";
@@ -219,32 +252,20 @@ document.addEventListener("DOMContentLoaded", () => {
         el.textContent += text.charAt(i);
         i++;
         setTimeout(typing, 100);
-      } else if(callback){
-        callback();
-      }
+      } else if(callback){ callback(); }
     }
     typing();
   }
 
-  // start typing sequence
   typeText(text1, line1, () => {
     typeText(text2, line2, () => {
       clickText.classList.add("visible");
     });
   });
 
-  // attach click and keyboard handlers reliably
   overlay.addEventListener('click', handleIntroClick);
-  overlay.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') handleIntroClick();
-  });
-
-  // make sure overlay is visible (in case CSS/JS reorder)
-  overlay.style.display = '';
-  overlay.style.opacity = '1';
 });
 
-/* ------------------- overlay close logic (idempotent and robust) ------------------- */
 let introClosing = false;
 function handleIntroClick(){
   if(introClosing) return;
@@ -254,42 +275,16 @@ function handleIntroClick(){
 
 function closeIntro() {
   const overlay = document.getElementById('intro');
-  if(!overlay) return;
-  // disable further pointer events immediately
-  overlay.style.pointerEvents = 'none';
-  // fade out
   overlay.style.transition = "opacity 0.9s ease";
   overlay.style.opacity = "0";
+  setTimeout(() => overlay.style.display = 'none', 900);
 
-  // when transition finishes, remove overlay
-  const onEnd = (e) => {
-    if (e.propertyName === 'opacity') {
-      overlay.style.display = 'none';
-      overlay.removeEventListener('transitionend', onEnd);
-    }
-  };
-  overlay.addEventListener('transitionend', onEnd);
-
-  // fallback timeout (in case transitionend doesn't fire)
-  setTimeout(() => {
-    if (overlay.style.display !== 'none') overlay.style.display = 'none';
-  }, 1100);
-
-  // play music (user initiated click — should be allowed)
   const music = document.getElementById('bg-music');
-  if (music) {
-    try {
-      music.volume = 0.7;
-      music.play();
-    } catch (err) {
-      console.log("Autoplay blocked or play error:", err);
-    }
-  }
+  music.volume = 0.7;
+  music.play().catch(err => console.log("Autoplay bị chặn:", err));
 }
 
-/* ------------------- page behaviors ------------------- */
-
-// Fade-in effect for sections
+/* ---------- scroll effects ---------- */
 const sections = document.querySelectorAll("section");
 window.addEventListener("scroll", () => {
   const trigger = window.innerHeight * 0.8;
@@ -299,13 +294,13 @@ window.addEventListener("scroll", () => {
   });
 });
 
-// Show letters
+/* ---------- letters ---------- */
 function showLetter(id) {
   document.querySelectorAll('.letter').forEach(l => l.style.display = 'none');
   document.getElementById(id).style.display = 'block';
 }
 
-// Mini game
+/* ---------- mini game ---------- */
 function loveGame() {
   const res = document.getElementById('loveResult');
   const msgs = [
@@ -317,7 +312,7 @@ function loveGame() {
   res.textContent = msgs[Math.floor(Math.random() * msgs.length)];
 }
 
-/* Timeline footsteps */
+/* ---------- footsteps ---------- */
 let walked = false;
 window.addEventListener("scroll", () => {
   const timeline = document.getElementById("timeline-section");
@@ -336,7 +331,7 @@ function walkFootsteps() {
   let pos = 0;
   function step() {
     if (pos < steps) {
-      let y = pos * 70 + 20;
+      let y = pos * 90 + 20; /* 👉 khoảng cách bước chân xa hơn */
       if (pos % 2 === 0) {
         left.style.opacity = 1;
         left.style.top = y + "px";
@@ -353,10 +348,9 @@ function walkFootsteps() {
   step();
 }
 
-/* Moon shrink on scroll */
+/* ---------- moon shrink ---------- */
 const moon = document.getElementById('moon');
 window.addEventListener('scroll', () => {
-  if (!moon) return;
   const scrollY = window.scrollY;
   const scale = Math.max(0.6, 1 - scrollY / 1000);
   const opacity = Math.max(0.4, 1 - scrollY / 800);
