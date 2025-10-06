@@ -131,9 +131,13 @@
   section {
     opacity: 0;
     transform: translateY(50px);
-    transition: opacity 2s ease, transform 2s ease;
+    transition: opacity 1s ease, transform 1s ease;
     padding: 140px 20px;
     text-align: center;
+  }
+
+  section:first-of-type {
+    padding-top: 220px; /* 👈 chỉ thêm dòng này: cho phần Happy 1 Year thấp xuống hơn */
   }
 
   section.visible { opacity: 1; transform: translateY(0); }
@@ -209,7 +213,6 @@
       sky.appendChild(s);
     }
 
-    // 🌠 sao băng ngẫu nhiên
     function createShootingStar() {
       const star = document.createElement('div');
       star.className = 'shooting-star';
@@ -223,7 +226,6 @@
       if (Math.random() < 0.4) createShootingStar();
     }, 4000);
 
-    // ☁️ đám mây
     for(let i=0;i<4;i++){
       const cloud=document.createElement('div');
       cloud.className='cloud';
@@ -287,7 +289,6 @@
 </section>
 
 <script>
-/* ---------- overlay typing ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   const text1 = "🎉❤️Happy Anniversary❤️🎉";
   const text2 = "October 2024 - October 2025";
@@ -335,7 +336,6 @@ function closeIntro() {
   music.play().catch(err => console.log("Autoplay bị chặn:", err));
 }
 
-/* ---------- scroll effects ---------- */
 const sections = document.querySelectorAll("section");
 window.addEventListener("scroll", () => {
   const trigger = window.innerHeight * 0.8;
@@ -345,13 +345,11 @@ window.addEventListener("scroll", () => {
   });
 });
 
-/* ---------- letters ---------- */
 function showLetter(id) {
   document.querySelectorAll('.letter').forEach(l => l.style.display = 'none');
   document.getElementById(id).style.display = 'block';
 }
 
-/* ---------- mini game ---------- */
 function loveGame() {
   const res = document.getElementById('loveResult');
   const msgs = [
@@ -363,7 +361,6 @@ function loveGame() {
   res.textContent = msgs[Math.floor(Math.random() * msgs.length)];
 }
 
-/* ---------- footsteps ---------- */
 let walked = false;
 window.addEventListener("scroll", () => {
   const timeline = document.getElementById("timeline-section");
@@ -399,7 +396,6 @@ function walkFootsteps() {
   step();
 }
 
-/* ---------- moon shrink ---------- */
 const moon = document.getElementById('moon');
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
