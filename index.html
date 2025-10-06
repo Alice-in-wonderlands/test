@@ -61,7 +61,7 @@
     to { transform: translateX(100vw); }
   }
 
-  /* 💫 SAO BĂNG */
+  /* 💫 SAO BĂNG (đã chỉnh mượt hơn) */
   .shooting-star {
     position: absolute;
     width: 120px;
@@ -70,21 +70,25 @@
     opacity: 0;
     transform: rotate(-30deg);
     filter: drop-shadow(0 0 6px white);
-    animation: shoot 1.8s ease-out forwards;
+    animation: shoot 2.5s ease-out forwards;
   }
 
   @keyframes shoot {
     0% {
+      opacity: 0;
+      transform: translate(0, 0) rotate(-30deg) scaleX(0.2);
+    }
+    10% {
       opacity: 1;
-      transform: translate(0, 0) rotate(-30deg);
+      transform: translate(0, 0) rotate(-30deg) scaleX(1);
     }
     70% {
       opacity: 1;
-      transform: translate(300px, 150px) rotate(-30deg);
+      transform: translate(400px, 200px) rotate(-30deg) scaleX(1);
     }
     100% {
       opacity: 0;
-      transform: translate(450px, 250px) rotate(-30deg);
+      transform: translate(600px, 300px) rotate(-30deg) scaleX(0.5);
     }
   }
 
@@ -252,10 +256,9 @@ window.onload = () => {
 };
 
 function closeIntro() {
-  document.querySelector('.intro-overlay').style.opacity = '0';
-  setTimeout(() => {
-    document.querySelector('.intro-overlay').style.display = 'none';
-  }, 800);
+  const overlay = document.querySelector('.intro-overlay');
+  overlay.style.opacity = '0';
+  setTimeout(() => overlay.style.display = 'none', 800);
   const music = document.getElementById('bg-music');
   music.volume = 0.6;
   music.play().catch(()=>{});
@@ -264,7 +267,7 @@ function closeIntro() {
 /* ========= NIGHT SKY EFFECT ========= */
 const sky = document.getElementById('sky');
 
-// tạo nhiều sao nhỏ ngẫu nhiên
+// 🌟 tạo nhiều sao nhỏ ngẫu nhiên
 for(let i=0; i<150; i++){
   const star = document.createElement('div');
   star.className = 'star';
@@ -275,7 +278,7 @@ for(let i=0; i<150; i++){
   sky.appendChild(star);
 }
 
-// tạo đám mây
+// ☁️ tạo đám mây
 for(let i=0; i<5; i++){
   const cloud = document.createElement('div');
   cloud.className = 'cloud';
@@ -287,21 +290,21 @@ for(let i=0; i<5; i++){
   sky.appendChild(cloud);
 }
 
-// sao băng tự nhiên
+// 💫 sao băng tự nhiên (đã mượt hơn)
 function createShootingStar() {
   const star = document.createElement('div');
   star.className = 'shooting-star';
   star.style.top = `${Math.random() * 40}%`;
   star.style.left = `${Math.random() * 60}%`;
   sky.appendChild(star);
-  setTimeout(() => star.remove(), 1800);
+  setTimeout(() => star.remove(), 2500);
 }
 
 setInterval(() => {
-  if (Math.random() < 0.3) createShootingStar();
-}, 4000);
+  if (Math.random() < 0.25) createShootingStar();
+}, 3500);
 
-// hiệu ứng trăng nhỏ dần khi cuộn
+// 🌕 hiệu ứng trăng nhỏ dần khi cuộn
 window.addEventListener('scroll', () => {
   const moon = document.getElementById('moon');
   const scale = Math.max(0.4, 1 - window.scrollY / 1000);
