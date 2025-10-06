@@ -239,3 +239,174 @@
 <!-- INTRO -->
 <div class="intro-overlay" id="intro">
   <span id="line1"></span>
+  <span id="line2" class="line2"></span>
+  <small id="clickText">(Click anywhere to continue)</small>
+</div>
+
+<!-- AUDIO -->
+<audio id="bg-music" loop>
+  <source src="mylove.mp3" type="audio/mpeg">
+</audio>
+
+<!-- CONTENT -->
+<section>
+  <h1>Happy 1 Year Anniversary ❤️</h1>
+  <p>Each step, each laugh, each tear... brought us closer together.</p>
+</section>
+
+<section id="timeline-section">
+  <h2>Our Journey 🌙</h2>
+  <div class="timeline">
+    <div class="footstep" id="leftFoot">👣</div>
+    <div class="footstep" id="rightFoot">👣</div>
+    <div class="event">✨ The First Message</div>
+    <div class="event">💌 The First Date</div>
+    <div class="event">🌸 The First "I Love You"</div>
+    <div class="event">🌕 Our 1st Anniversary</div>
+  </div>
+</section>
+
+<section>
+  <h2>Love Letters 💖</h2>
+  <div class="tab" onclick="showLetter('letter1')">Letter 1</div>
+  <div class="tab" onclick="showLetter('letter2')">Letter 2</div>
+  <div id="letter1" class="letter">
+    <h3>Letter 1</h3>
+    <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
+  </div>
+  <div id="letter2" class="letter">
+    <h3>Letter 2</h3>
+    <p>I still remember the day we met, and I cherish every day spent with you...</p>
+  </div>
+</section>
+
+<section>
+  <h2>Mini Game 💞</h2>
+  <button class="tab" onclick="loveGame()">How much do you love me?</button>
+  <p id="loveResult" style="margin-top:15px;"></p>
+</section>
+
+<script>
+/* ---------- overlay typing ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const text1 = "🎉❤️Happy Anniversary❤️🎉";
+  const text2 = "October 2024 - October 2025";
+  const line1 = document.getElementById("line1");
+  const line2 = document.getElementById("line2");
+  const clickText = document.getElementById("clickText");
+  const overlay = document.getElementById('intro');
+
+  function typeText(text, el, callback){
+    let i = 0;
+    function typing(){
+      if(i < text.length){
+        el.textContent += text.charAt(i);
+        i++;
+        setTimeout(typing, 100);
+      } else if(callback){ callback(); }
+    }
+    typing();
+  }
+
+  typeText(text1, line1, () => {
+    typeText(text2, line2, () => {
+      clickText.classList.add("visible");
+    });
+  });
+
+  overlay.addEventListener('click', handleIntroClick);
+});
+
+let introClosing = false;
+function handleIntroClick(){
+  if(introClosing) return;
+  introClosing = true;
+  closeIntro();
+}
+
+function closeIntro() {
+  const overlay = document.getElementById('intro');
+  overlay.style.transition = "opacity 0.9s ease";
+  overlay.style.opacity = "0";
+  setTimeout(() => overlay.style.display = 'none', 900);
+
+  const music = document.getElementById('bg-music');
+  music.volume = 0.7;
+  music.play().catch(err => console.log("Autoplay bị chặn:", err));
+}
+
+/* ---------- scroll effects ---------- */
+const sections = document.querySelectorAll("section");
+window.addEventListener("scroll", () => {
+  const trigger = window.innerHeight * 0.8;
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < trigger) sec.classList.add("visible");
+  });
+});
+
+/* ---------- letters ---------- */
+function showLetter(id) {
+  document.querySelectorAll('.letter').forEach(l => l.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
+
+/* ---------- mini game ---------- */
+function loveGame() {
+  const res = document.getElementById('loveResult');
+  const msgs = [
+    "I love you more 😘",
+    "Infinity and beyond ❤️",
+    "You’re my world 🌎",
+    "Always and forever 💞"
+  ];
+  res.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+}
+
+/* ---------- footsteps ---------- */
+let walked = false;
+window.addEventListener("scroll", () => {
+  const timeline = document.getElementById("timeline-section");
+  if (!timeline) return;
+  const rect = timeline.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.8 && !walked) {
+    walked = true;
+    walkFootsteps();
+  }
+});
+
+function walkFootsteps() {
+  const left = document.getElementById("leftFoot");
+  const right = document.getElementById("rightFoot");
+  let steps = 8;
+  let pos = 0;
+  function step() {
+    if (pos < steps) {
+      let y = pos * 90 + 20;
+      if (pos % 2 === 0) {
+        left.style.opacity = 1;
+        left.style.top = y + "px";
+        left.style.left = "47%";
+      } else {
+        right.style.opacity = 1;
+        right.style.top = y + "px";
+        right.style.left = "51%";
+      }
+      pos++;
+      setTimeout(step, 500);
+    }
+  }
+  step();
+}
+
+/* ---------- moon shrink ---------- */
+const moon = document.getElementById('moon');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const scale = Math.max(0.5, 1 - scrollY / 1000);
+  moon.style.transform = `scale(${scale})`;
+  moon.style.opacity = Math.max(0.5, 1 - scrollY / 800);
+});
+</script>
+</body>
+</html>
