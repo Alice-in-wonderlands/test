@@ -32,7 +32,7 @@
     border-radius: 50%;
     box-shadow: 0 0 50px 20px rgba(255,255,200,0.4);
     transform: scale(1);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 1.5s ease-out, opacity 1.5s ease-out;
   }
 
   .star {
@@ -60,18 +60,9 @@
   }
 
   @keyframes shoot {
-    0% {
-      opacity: 1;
-      transform: translate(0, 0) rotate(-30deg);
-    }
-    70% {
-      opacity: 1;
-      transform: translate(300px, 150px) rotate(-30deg);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(450px, 250px) rotate(-30deg);
-    }
+    0% { opacity: 1; transform: translate(0, 0) rotate(-30deg); }
+    70% { opacity: 1; transform: translate(300px, 150px) rotate(-30deg); }
+    100% { opacity: 0; transform: translate(450px, 250px) rotate(-30deg); }
   }
 
   .cloud {
@@ -138,11 +129,7 @@
     white-space: pre;
   }
 
-  .intro-overlay .line2 {
-    font-size: 1.5em;
-    margin-top: 0;
-  }
-
+  .intro-overlay .line2 { font-size: 1.5em; margin-top: 0; }
   .intro-overlay small {
     font-size: 0.6em;
     font-weight: 300;
@@ -150,7 +137,6 @@
     margin-top: 25px;
     transition: opacity 1.5s ease;
   }
-
   .intro-overlay small.visible { opacity: 0.8; }
 
   /* ======= MAIN SECTIONS ======= */
@@ -162,9 +148,7 @@
     text-align: center;
   }
 
-  section:first-of-type {
-    padding-top: 400px; /* 👇 thấp hơn nữa */
-  }
+  section:first-of-type { padding-top: 430px; } /* thấp hơn tí */
 
   section.visible { opacity: 1; transform: translateY(0); }
 
@@ -279,7 +263,7 @@
 </audio>
 
 <!-- CONTENT -->
-<section>
+<section id="section1">
   <h1>Happy 1 Year Anniversary ❤️</h1>
   <p>Each step, each laugh, each tear... brought us closer together.</p>
 </section>
@@ -340,7 +324,6 @@ document.addEventListener("DOMContentLoaded", () => {
     typing();
   }
 
-  // Floating icons — increase frequency
   const icons = ["❤️", "💫", "🌙", "💐", "✨"];
   function createFloatingIcon() {
     const icon = document.createElement("div");
@@ -352,9 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
     floatingIcons.appendChild(icon);
     setTimeout(() => icon.remove(), 7000);
   }
-  setInterval(createFloatingIcon, 500); // 👈 dày hơn
+  setInterval(createFloatingIcon, 500);
 
-  // Typing delay 2s
   setTimeout(() => {
     typeText(text1, line1, () => {
       typeText(text2, line2, () => {
@@ -382,8 +364,6 @@ function closeIntro() {
   const music = document.getElementById('bg-music');
   music.volume = 0.7;
   music.play().catch(err => console.log("Autoplay bị chặn:", err));
-
-  moonShrinkActive = true; // 🌕 chỉ bắt đầu sau khi overlay biến mất
 }
 
 const sections = document.querySelectorAll("section");
@@ -391,7 +371,11 @@ window.addEventListener("scroll", () => {
   const trigger = window.innerHeight * 0.8;
   sections.forEach(sec => {
     const top = sec.getBoundingClientRect().top;
-    if (top < trigger) sec.classList.add("visible");
+    if (top < trigger) {
+      sec.classList.add("visible");
+      // chỉ khi section1 (Happy) hiện ra -> mới kích hoạt shrink
+      if (sec.id === "section1") moonShrinkActive = true;
+    }
   });
 });
 
@@ -450,9 +434,9 @@ const moon = document.getElementById('moon');
 window.addEventListener('scroll', () => {
   if (!moonShrinkActive) return;
   const scrollY = window.scrollY;
-  const scale = Math.max(0.5, 1 - scrollY / 1000);
+  const scale = Math.max(0.7, 1 - scrollY / 2500); // 👈 chậm và nhẹ hơn
   moon.style.transform = `scale(${scale})`;
-  moon.style.opacity = Math.max(0.5, 1 - scrollY / 800);
+  moon.style.opacity = Math.max(0.5, 1 - scrollY / 1800);
 });
 </script>
 </body>
