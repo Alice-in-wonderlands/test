@@ -12,11 +12,26 @@
     padding: 0;
     text-align: center;
     color: #3b2f2f;
+    overflow-x: hidden;
   }
 
   h1 {
-    margin-top: 20px;
+    margin-top: 40px;
     color: #3b2f2f;
+    font-size: 2em;
+  }
+
+  section {
+    padding: 80px 20px;
+    max-width: 900px;
+    margin: auto;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* ============ INTRO OVERLAY ============ */
@@ -44,7 +59,6 @@
   }
   .intro-overlay .line2 {
     font-size: 1.5em;
-    margin-top: 0;
   }
   .intro-overlay small {
     font-size: 0.6em;
@@ -53,56 +67,49 @@
     margin-top: 25px;
     transition: opacity 1.5s ease;
   }
-  .intro-overlay small.visible {
-    opacity: 0.8;
-  }
+  .intro-overlay small.visible { opacity: 0.8; }
 
-  /* Film-strip container */
-  .film-carousel {
-    width: 80%;
-    max-width: 1000px;
-    height: 260px;
-    overflow: hidden;
-    margin: 40px auto;
-    background-color: #222;
+  /* Timeline */
+  .timeline {
     position: relative;
+    margin: 40px auto;
+    padding: 20px 0;
+    width: 80%;
   }
-
-  .film-carousel::before,
-  .film-carousel::after {
+  .timeline::after {
     content: '';
     position: absolute;
-    left: 0;
-    width: 100%;
+    width: 4px;
+    background: #590818;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+  }
+  .timeline-item {
+    padding: 20px;
+    background: #f7f4ee;
+    border-radius: 10px;
+    width: 45%;
+    position: relative;
+    margin: 20px 0;
+  }
+  .timeline-item.left { left: 0; }
+  .timeline-item.right { left: 55%; }
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
     height: 20px;
-    background-color: #222;
-    background-image: radial-gradient(circle, #f2eee7 40%, #222 41%);
-    background-size: 40px 40px;
-    background-repeat: repeat-x;
-    z-index: 2;
+    background: #590818;
+    top: 20px;
+    border-radius: 50%;
+    z-index: 1;
   }
-  .film-carousel::before { top: 0; }
-  .film-carousel::after { bottom: 0; }
+  .timeline-item.left::after { right: -10px; }
+  .timeline-item.right::after { left: -10px; }
 
-  .film-track {
-    display: flex;
-    min-width: 200%;
-    animation: scroll 20s linear infinite;
-  }
-
-  .film-track img {
-    height: 220px;
-    flex-shrink: 0;
-    margin: 20px 5px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-
-  @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
+  /* Letters */
   .tab {
     display: inline-block;
     background-color: #e5e1d8;
@@ -126,6 +133,26 @@
     text-align: left;
     color: #3b2f2f;
   }
+
+  /* Mini Game */
+  .game-box {
+    background: #fff9f5;
+    padding: 30px;
+    border-radius: 15px;
+    display: inline-block;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .btn {
+    background: #590818;
+    color: #f2eee7;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: #7c1b29;
+  }
 </style>
 </head>
 <body>
@@ -137,59 +164,55 @@
   <small id="clickText">(Click anywhere to continue)</small>
 </div>
 
-<!-- AUDIO (ẩn, loop) -->
+<!-- AUDIO -->
 <audio id="bg-music" loop>
   <source src="mylove.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
-<h1>Happy 1 Year Anniversary ❤️</h1>
+<!-- MAIN CONTENT -->
+<section id="intro-section">
+  <h1>Happy 1 Year Anniversary ❤️</h1>
+  <p>One year of love, laughter, and beautiful memories. Thank you for being my everything.</p>
+</section>
 
-<!-- Film strip -->
-<div class="film-carousel">
-  <div class="film-track">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
-    <img src="WILL1.jpg" alt="Photo 1">
-    <img src="WILL2.jpg" alt="Photo 2">
+<section id="timeline-section">
+  <h2>📅 Our Love Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-item left"><strong>Oct 2024</strong> – The day we started this beautiful journey ❤️</div>
+    <div class="timeline-item right"><strong>Dec 2024</strong> – Our first Christmas together 🎄</div>
+    <div class="timeline-item left"><strong>Apr 2025</strong> – The sweetest trip ever 🌸</div>
+    <div class="timeline-item right"><strong>Oct 2025</strong> – One year later, stronger than ever 💕</div>
   </div>
-</div>
+</section>
 
-<!-- Tabs -->
-<div>
-  <div class="tab" onclick="showLetter('letter1')">Love Letter 1</div>
-  <div class="tab" onclick="showLetter('letter2')">Love Letter 2</div>
-</div>
+<section id="letters-section">
+  <h2>💌 Love Letters</h2>
+  <div>
+    <div class="tab" onclick="showLetter('letter1')">Letter 1</div>
+    <div class="tab" onclick="showLetter('letter2')">Letter 2</div>
+  </div>
+  <div id="letter1" class="letter">
+    <h3>Letter 1</h3>
+    <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
+  </div>
+  <div id="letter2" class="letter">
+    <h3>Letter 2</h3>
+    <p>I still remember the day we met, and I cherish every day spent with you...</p>
+  </div>
+</section>
 
-<!-- Letters -->
-<div id="letter1" class="letter">
-  <h3>Letter 1</h3>
-  <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
-</div>
-<div id="letter2" class="letter">
-  <h3>Letter 2</h3>
-  <p>I still remember the day we met, and I cherish every day spent with you...</p>
-</div>
+<section id="game-section">
+  <h2>🎮 Mini Game: How Much Do You Love Me?</h2>
+  <div class="game-box">
+    <p>Click the button below if you love me 😘</p>
+    <button class="btn" onclick="loveGame()">I Love You ❤️</button>
+    <p id="loveResult"></p>
+  </div>
+</section>
 
 <script>
-function showLetter(id) {
-  const letters = document.querySelectorAll('.letter');
-  letters.forEach(letter => letter.style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-}
-
-function closeIntro() {
-  document.querySelector('.intro-overlay').style.display = 'none';
-  const music = document.getElementById('bg-music');
-  music.volume = 0.7;
-  music.play().catch(err => console.log("Autoplay bị chặn:", err));
-}
-
-// Typing effect cho overlay
+// ==== TYPEWRITER EFFECT (Overlay) ====
 const text1 = "🎉❤️Happy Anniversary❤️🎉";
 const text2 = "October 2024 - October 2025";
 const line1 = document.getElementById("line1");
@@ -217,6 +240,47 @@ window.onload = () => {
     });
   });
 };
+
+// ==== CLOSE INTRO ====
+function closeIntro() {
+  const overlay = document.querySelector('.intro-overlay');
+  overlay.style.transition = "opacity 1s ease";
+  overlay.style.opacity = "0";
+  setTimeout(() => overlay.style.display = "none", 1000);
+
+  const music = document.getElementById('bg-music');
+  music.volume = 0.7;
+  music.play().catch(err => console.log("Autoplay bị chặn:", err));
+}
+
+// ==== LETTERS ====
+function showLetter(id) {
+  const letters = document.querySelectorAll('.letter');
+  letters.forEach(letter => letter.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
+
+// ==== MINI GAME ====
+function loveGame() {
+  const res = document.getElementById('loveResult');
+  const msgs = [
+    "I love you more 😘",
+    "Infinity and beyond ❤️",
+    "You’re my world 🌎",
+    "Always and forever 💞"
+  ];
+  res.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+}
+
+// ==== SCROLL FADE EFFECT ====
+const sections = document.querySelectorAll("section");
+window.addEventListener("scroll", () => {
+  const trigger = window.innerHeight * 0.8;
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < trigger) sec.classList.add("visible");
+  });
+});
 </script>
 
 </body>
