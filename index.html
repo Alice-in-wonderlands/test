@@ -10,115 +10,109 @@
     font-family: 'Arial', sans-serif;
     color: #f2eee7;
     overflow-x: hidden;
-    background-color: #0b0b1a;
+    background: linear-gradient(to bottom, #0b0b2e, #1b1440, #3b2f2f);
   }
 
-  /* 🌙 BẦU TRỜI */
+  /* ======= NIGHT SKY ======= */
   .sky {
-    position: relative;
-    height: 100vh;
+    position: fixed;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
-    background: radial-gradient(circle at 50% 80%, #0b0b1a 0%, #01010a 100%);
+    z-index: -5;
   }
 
-  /* 🌕 MẶT TRĂNG */
   .moon {
     position: absolute;
-    top: 60px;
-    right: 100px;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle at 30% 30%, #fff, #ddd 60%, #aaa 100%);
+    top: 5%;
+    right: 8%;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, #fff6d1 40%, #f4e1a1 60%, #c9a63b 100%);
     border-radius: 50%;
-    box-shadow: 0 0 50px 20px rgba(255,255,200,0.4);
-    transition: transform 0.5s ease;
+    box-shadow: 0 0 60px 20px rgba(255, 245, 200, 0.6);
+    transform: scale(1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
-  /* ✨ NGÔI SAO */
   .star {
     position: absolute;
     background: white;
     border-radius: 50%;
     opacity: 0.8;
-    animation: twinkle 2s infinite ease-in-out;
+    animation: twinkle 2s infinite alternate;
   }
 
   @keyframes twinkle {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 1; }
+    from { opacity: 0.2; }
+    to { opacity: 1; }
   }
 
-  /* ☁️ ĐÁM MÂY */
-  .cloud {
-    position: absolute;
-    background: rgba(255,255,255,0.1);
-    border-radius: 50%;
-    animation: moveClouds 100s linear infinite;
-  }
-
-  @keyframes moveClouds {
-    from { transform: translateX(-200px); }
-    to { transform: translateX(100vw); }
-  }
-
-  /* 💫 SAO BĂNG (đã chỉnh mượt hơn) */
+  /* ======= SHOOTING STAR ======= */
   .shooting-star {
     position: absolute;
-    width: 120px;
+    width: 100px;
     height: 2px;
-    background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
-    opacity: 0;
-    transform: rotate(-30deg);
-    filter: drop-shadow(0 0 6px white);
-    animation: shoot 2.5s ease-out forwards;
+    background: linear-gradient(90deg, white, rgba(255,255,255,0));
+    opacity: 0.8;
+    transform: rotate(-45deg);
+    animation: shoot 1.5s linear forwards;
+    pointer-events: none;
   }
 
   @keyframes shoot {
     0% {
-      opacity: 0;
-      transform: translate(0, 0) rotate(-30deg) scaleX(0.2);
-    }
-    10% {
+      transform: translate(0, 0) rotate(-45deg);
       opacity: 1;
-      transform: translate(0, 0) rotate(-30deg) scaleX(1);
-    }
-    70% {
-      opacity: 1;
-      transform: translate(400px, 200px) rotate(-30deg) scaleX(1);
     }
     100% {
+      transform: translate(600px, 600px) rotate(-45deg);
       opacity: 0;
-      transform: translate(600px, 300px) rotate(-30deg) scaleX(0.5);
     }
   }
 
-  /* ============ INTRO OVERLAY ============ */
+  .cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: moveClouds 60s linear infinite;
+    filter: blur(30px);
+  }
+
+  @keyframes moveClouds {
+    from { left: -200px; }
+    to { left: 100vw; }
+  }
+
+  /* ======= OVERLAY ======= */
   .intro-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background-color: #590818;
     color: #f2eee7;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     font-size: 1.5em;
     font-weight: bold;
-    z-index: 9999;
+    text-align: center;
     cursor: pointer;
-    flex-direction: column;
+    z-index: 9999;
   }
+
   .intro-overlay span {
     font-size: 2em;
     margin-bottom: 20px;
     white-space: pre;
   }
+
   .intro-overlay .line2 {
     font-size: 1.5em;
     margin-top: 0;
   }
+
   .intro-overlay small {
     font-size: 0.6em;
     font-weight: 300;
@@ -126,71 +120,114 @@
     margin-top: 25px;
     transition: opacity 1.5s ease;
   }
-  .intro-overlay small.visible {
-    opacity: 0.8;
-  }
 
-  /* 🌸 MAIN SECTION */
+  .intro-overlay small.visible { opacity: 0.8; }
+
+  /* ======= MAIN SECTIONS ======= */
   section {
-    min-height: 100vh;
-    padding: 120px 20px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+    padding: 140px 20px;
     text-align: center;
-    background: transparent;
   }
 
-  h1 {
-    font-size: 2.5em;
-    color: #fff;
-    margin-bottom: 60px;
-  }
+  section.visible { opacity: 1; transform: translateY(0); }
 
   .timeline {
     position: relative;
     width: 80%;
-    margin: 0 auto;
+    margin: 120px auto;
+    max-width: 600px;
+    text-align: left;
   }
 
-  .timeline::before {
-    content: '';
+  .event {
+    margin: 100px 0;
+    position: relative;
+  }
+
+  .event::before {
+    content: "";
     position: absolute;
     left: 50%;
-    top: 0;
-    width: 3px;
-    height: 100%;
-    background: rgba(255,255,255,0.3);
+    top: -80px;
+    width: 4px;
+    height: 160px;
+    background: #f2eee7;
+    transform: translateX(-50%);
   }
 
-  .milestone {
-    position: relative;
-    width: 45%;
+  .footstep { position: absolute; width: 30px; height: 30px; opacity: 0; transition: opacity 0.5s; }
+  #leftFoot { transform: rotate(-20deg); }
+  #rightFoot { transform: rotate(20deg); }
+
+  .tab {
+    display: inline-block;
+    background-color: rgba(229, 225, 216, 0.8);
+    color: #3b2f2f;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .tab:hover { background-color: #d8d4c7; }
+
+  .letter {
+    display: none;
+    margin: 20px auto;
+    max-width: 500px;
+    background-color: rgba(247, 244, 238, 0.9);
     padding: 20px;
-    background: rgba(255,255,255,0.1);
     border-radius: 15px;
-    margin: 100px 0;
-    color: #fff;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    color: #3b2f2f;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
   }
-
-  .milestone.left { left: 0; }
-  .milestone.right { left: 55%; }
-
-  .milestone::before {
-    content: "👣";
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5em;
-  }
-  .milestone.left::before { right: -25px; }
-  .milestone.right::before { left: -25px; }
-
 </style>
 </head>
 <body>
 
+<div class="sky" aria-hidden="true">
+  <div class="moon" id="moon"></div>
+  <!-- 🌟 nhiều sao hơn -->
+  <script>
+    const sky = document.currentScript.parentElement;
+    for (let i = 0; i < 120; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 3 + 1;
+      s.style.width = `${size}px`;
+      s.style.height = `${size}px`;
+      s.style.top = `${Math.random() * 100}%`;
+      s.style.left = `${Math.random() * 100}%`;
+      s.style.animationDuration = `${1 + Math.random() * 2}s`;
+      s.style.animationDelay = `${Math.random() * 3}s`;
+      sky.appendChild(s);
+    }
+
+    // 🌠 tạo sao băng ngẫu nhiên
+    function createShootingStar() {
+      const star = document.createElement('div');
+      star.className = 'shooting-star';
+      star.style.top = `${Math.random() * 40}%`;
+      star.style.left = `${Math.random() * 60}%`;
+      sky.appendChild(star);
+      setTimeout(() => star.remove(), 1500);
+    }
+
+    // xuất hiện sao băng ngẫu nhiên
+    setInterval(() => {
+      if (Math.random() < 0.5) createShootingStar();
+    }, 4000);
+  </script>
+  <div class="cloud" style="top:30%; width:400px; height:150px;"></div>
+  <div class="cloud" style="top:60%; width:300px; height:120px; animation-delay: 10s;"></div>
+</div>
+
 <!-- INTRO -->
-<div class="intro-overlay" onclick="closeIntro()">
+<div class="intro-overlay" id="intro">
   <span id="line1"></span>
   <span id="line2" class="line2"></span>
   <small id="clickText">(Click anywhere to continue)</small>
@@ -201,116 +238,166 @@
   <source src="mylove.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 🌌 SKY -->
-<div class="sky" id="sky">
-  <div class="moon" id="moon"></div>
-</div>
-
-<!-- 🌸 MAIN CONTENT -->
+<!-- CONTENT -->
 <section>
   <h1>Happy 1 Year Anniversary ❤️</h1>
+  <p>Each step, each laugh, each tear... brought us closer together.</p>
+</section>
+
+<section id="timeline-section">
+  <h2>Our Journey 🌙</h2>
   <div class="timeline">
-    <div class="milestone left">
-      <h3>✨ The First Hello</h3>
-      <p>Our story began here — a spark that started everything...</p>
-    </div>
-    <div class="milestone right">
-      <h3>🌷 Our First Date</h3>
-      <p>That magical day, when time stood still for us...</p>
-    </div>
-    <div class="milestone left">
-      <h3>💌 First Anniversary</h3>
-      <p>One year of love, laughter, and memories under the same moon.</p>
-    </div>
+    <div class="footstep" id="leftFoot">👣</div>
+    <div class="footstep" id="rightFoot">👣</div>
+    <div class="event">✨ The First Message</div>
+    <div class="event">💌 The First Date</div>
+    <div class="event">🌸 The First "I Love You"</div>
+    <div class="event">🌕 Our 1st Anniversary</div>
   </div>
 </section>
 
+<section>
+  <h2>Love Letters 💖</h2>
+  <div class="tab" onclick="showLetter('letter1')">Letter 1</div>
+  <div class="tab" onclick="showLetter('letter2')">Letter 2</div>
+  <div id="letter1" class="letter">
+    <h3>Letter 1</h3>
+    <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
+  </div>
+  <div id="letter2" class="letter">
+    <h3>Letter 2</h3>
+    <p>I still remember the day we met, and I cherish every day spent with you...</p>
+  </div>
+</section>
+
+<section>
+  <h2>Mini Game 💞</h2>
+  <button class="tab" onclick="loveGame()">How much do you love me?</button>
+  <p id="loveResult" style="margin-top:15px;"></p>
+</section>
+
 <script>
-/* ========= OVERLAY SCRIPT ========= */
-const text1 = "🎉❤️Happy Anniversary❤️🎉";
-const text2 = "October 2024 - October 2025";
-const line1 = document.getElementById("line1");
-const line2 = document.getElementById("line2");
-const clickText = document.getElementById("clickText");
+/* ---------- overlay typing ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const text1 = "🎉❤️Happy Anniversary❤️🎉";
+  const text2 = "October 2024 - October 2025";
+  const line1 = document.getElementById("line1");
+  const line2 = document.getElementById("line2");
+  const clickText = document.getElementById("clickText");
+  const overlay = document.getElementById('intro');
 
-function typeText(text, el, callback){
-  let i = 0;
-  function typing(){
-    if(i < text.length){
-      el.textContent += text.charAt(i);
-      i++;
-      setTimeout(typing, 100);
-    } else if(callback){
-      callback();
+  function typeText(text, el, callback){
+    let i = 0;
+    function typing(){
+      if(i < text.length){
+        el.textContent += text.charAt(i);
+        i++;
+        setTimeout(typing, 100);
+      } else if(callback){ callback(); }
     }
+    typing();
   }
-  typing();
-}
 
-window.onload = () => {
   typeText(text1, line1, () => {
     typeText(text2, line2, () => {
       clickText.classList.add("visible");
     });
   });
-};
+
+  overlay.addEventListener('click', handleIntroClick);
+});
+
+let introClosing = false;
+function handleIntroClick(){
+  if(introClosing) return;
+  introClosing = true;
+  closeIntro();
+}
 
 function closeIntro() {
-  const overlay = document.querySelector('.intro-overlay');
-  overlay.style.opacity = '0';
-  setTimeout(() => overlay.style.display = 'none', 800);
+  const overlay = document.getElementById('intro');
+  overlay.style.transition = "opacity 0.9s ease";
+  overlay.style.opacity = "0";
+  setTimeout(() => overlay.style.display = 'none', 900);
+
   const music = document.getElementById('bg-music');
-  music.volume = 0.6;
-  music.play().catch(()=>{});
+  music.volume = 0.7;
+  music.play().catch(err => console.log("Autoplay bị chặn:", err));
 }
 
-/* ========= NIGHT SKY EFFECT ========= */
-const sky = document.getElementById('sky');
+/* ---------- scroll effects ---------- */
+const sections = document.querySelectorAll("section");
+window.addEventListener("scroll", () => {
+  const trigger = window.innerHeight * 0.8;
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < trigger) sec.classList.add("visible");
+  });
+});
 
-// 🌟 tạo nhiều sao nhỏ ngẫu nhiên
-for(let i=0; i<150; i++){
-  const star = document.createElement('div');
-  star.className = 'star';
-  star.style.width = star.style.height = `${Math.random()*2 + 1}px`;
-  star.style.top = `${Math.random()*100}%`;
-  star.style.left = `${Math.random()*100}%`;
-  star.style.animationDelay = `${Math.random()*3}s`;
-  sky.appendChild(star);
+/* ---------- letters ---------- */
+function showLetter(id) {
+  document.querySelectorAll('.letter').forEach(l => l.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
 }
 
-// ☁️ tạo đám mây
-for(let i=0; i<5; i++){
-  const cloud = document.createElement('div');
-  cloud.className = 'cloud';
-  cloud.style.width = `${150 + Math.random()*150}px`;
-  cloud.style.height = `${80 + Math.random()*50}px`;
-  cloud.style.top = `${20 + Math.random()*50}%`;
-  cloud.style.left = `${Math.random()*100}%`;
-  cloud.style.animationDuration = `${60 + Math.random()*60}s`;
-  sky.appendChild(cloud);
+/* ---------- mini game ---------- */
+function loveGame() {
+  const res = document.getElementById('loveResult');
+  const msgs = [
+    "I love you more 😘",
+    "Infinity and beyond ❤️",
+    "You’re my world 🌎",
+    "Always and forever 💞"
+  ];
+  res.textContent = msgs[Math.floor(Math.random() * msgs.length)];
 }
 
-// 💫 sao băng tự nhiên (đã mượt hơn)
-function createShootingStar() {
-  const star = document.createElement('div');
-  star.className = 'shooting-star';
-  star.style.top = `${Math.random() * 40}%`;
-  star.style.left = `${Math.random() * 60}%`;
-  sky.appendChild(star);
-  setTimeout(() => star.remove(), 2500);
+/* ---------- footsteps ---------- */
+let walked = false;
+window.addEventListener("scroll", () => {
+  const timeline = document.getElementById("timeline-section");
+  if (!timeline) return;
+  const rect = timeline.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.8 && !walked) {
+    walked = true;
+    walkFootsteps();
+  }
+});
+
+function walkFootsteps() {
+  const left = document.getElementById("leftFoot");
+  const right = document.getElementById("rightFoot");
+  let steps = 8;
+  let pos = 0;
+  function step() {
+    if (pos < steps) {
+      let y = pos * 90 + 20;
+      if (pos % 2 === 0) {
+        left.style.opacity = 1;
+        left.style.top = y + "px";
+        left.style.left = "47%";
+      } else {
+        right.style.opacity = 1;
+        right.style.top = y + "px";
+        right.style.left = "51%";
+      }
+      pos++;
+      setTimeout(step, 500);
+    }
+  }
+  step();
 }
 
-setInterval(() => {
-  if (Math.random() < 0.25) createShootingStar();
-}, 3500);
-
-// 🌕 hiệu ứng trăng nhỏ dần khi cuộn
+/* ---------- moon shrink ---------- */
+const moon = document.getElementById('moon');
 window.addEventListener('scroll', () => {
-  const moon = document.getElementById('moon');
-  const scale = Math.max(0.4, 1 - window.scrollY / 1000);
+  const scrollY = window.scrollY;
+  const scale = Math.max(0.6, 1 - scrollY / 1000);
+  const opacity = Math.max(0.4, 1 - scrollY / 800);
   moon.style.transform = `scale(${scale})`;
+  moon.style.opacity = opacity;
 });
 </script>
-
 </body>
 </html>
