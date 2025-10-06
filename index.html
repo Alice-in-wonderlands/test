@@ -106,7 +106,6 @@
     overflow: hidden;
   }
 
-  /* floating icons layer behind text */
   .floating-icons {
     position: absolute;
     top: 0; left: 0;
@@ -164,7 +163,7 @@
   }
 
   section:first-of-type {
-    padding-top: 360px; /* 👈 thấp hơn nữa */
+    padding-top: 400px; /* 👇 thấp hơn nữa */
   }
 
   section.visible { opacity: 1; transform: translateY(0); }
@@ -318,6 +317,8 @@
 </section>
 
 <script>
+let moonShrinkActive = false;
+
 document.addEventListener("DOMContentLoaded", () => {
   const text1 = "🎉❤️Happy Anniversary❤️🎉";
   const text2 = "October 2024 - October 2025";
@@ -339,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
     typing();
   }
 
-  // Floating icons start immediately and are behind text
+  // Floating icons — increase frequency
   const icons = ["❤️", "💫", "🌙", "💐", "✨"];
   function createFloatingIcon() {
     const icon = document.createElement("div");
@@ -347,18 +348,21 @@ document.addEventListener("DOMContentLoaded", () => {
     icon.textContent = icons[Math.floor(Math.random() * icons.length)];
     icon.style.left = `${Math.random() * 100}%`;
     icon.style.bottom = `-30px`;
-    icon.style.animationDuration = `${5 + Math.random() * 4}s`;
+    icon.style.animationDuration = `${4 + Math.random() * 3}s`;
     floatingIcons.appendChild(icon);
-    setTimeout(() => icon.remove(), 8000);
+    setTimeout(() => icon.remove(), 7000);
   }
-  setInterval(createFloatingIcon, 800);
+  setInterval(createFloatingIcon, 500); // 👈 dày hơn
 
-  typeText(text1, line1, () => {
-    typeText(text2, line2, () => {
-      clickText.classList.add("visible");
+  // Typing delay 2s
+  setTimeout(() => {
+    typeText(text1, line1, () => {
+      typeText(text2, line2, () => {
+        clickText.classList.add("visible");
+      });
     });
-  });
-
+  }, 2000);
+  
   overlay.addEventListener('click', handleIntroClick);
 });
 
@@ -378,6 +382,8 @@ function closeIntro() {
   const music = document.getElementById('bg-music');
   music.volume = 0.7;
   music.play().catch(err => console.log("Autoplay bị chặn:", err));
+
+  moonShrinkActive = true; // 🌕 chỉ bắt đầu sau khi overlay biến mất
 }
 
 const sections = document.querySelectorAll("section");
@@ -442,6 +448,7 @@ function walkFootsteps() {
 
 const moon = document.getElementById('moon');
 window.addEventListener('scroll', () => {
+  if (!moonShrinkActive) return;
   const scrollY = window.scrollY;
   const scale = Math.max(0.5, 1 - scrollY / 1000);
   moon.style.transform = `scale(${scale})`;
