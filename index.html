@@ -207,7 +207,15 @@
     background: transparent;
   }
   .slot.highlight { outline: 3px dashed rgba(214,51,108,0.45); }
-  #pieces { width: var(--size); display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 15px auto; }
+  #pieces {
+  width: calc(var(--cell) * 4 + 18px); /* 4 mảnh 1 hàng, có khoảng cách */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin: 15px auto;
+}
+
   .piece {
     width: var(--cell);
     height: var(--cell);
@@ -222,6 +230,13 @@
   .slot .piece { width: 100%; height: 100%; border: none; cursor: default; box-shadow: none; }
   button { background:#d6336c; color:white; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; font-size: 1rem; }
   button:hover { background:#b72559; }
+  
+@keyframes burst {
+  0% { transform: scale(0) translateY(0); opacity: 1; }
+  70% { transform: scale(1.6) translateY(-50px); opacity: 1; }
+  100% { transform: scale(0) translateY(-100px); opacity: 0; }
+}
+  
 </style>
 </head>
 <body>
@@ -535,6 +550,59 @@ function handleDrop(e) {
   checkWin();
 }
 
+/* 🎆 Hiệu ứng pháo hoa */
+function showFireworks() {
+  const fireContainer = document.createElement("div");
+  fireContainer.id = "fireworks";
+  fireContainer.style.position = "fixed";
+  fireContainer.style.inset = "0";
+  fireContainer.style.zIndex = "9999";
+  fireContainer.style.pointerEvents = "none";
+  document.body.appendChild(fireContainer);
+
+  for (let i = 0; i < 25; i++) {
+    const spark = document.createElement("div");
+    spark.className = "spark";
+    spark.style.position = "absolute";
+    spark.style.width = "6px";
+    spark.style.height = "6px";
+    spark.style.borderRadius = "50%";
+    spark.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+    spark.style.top = Math.random() * 100 + "%";
+    spark.style.left = Math.random() * 100 + "%";
+    spark.style.animation = "burst 1.2s ease-out forwards";
+    fireContainer.appendChild(spark);
+  }
+
+  setTimeout(() => {
+    fireContainer.remove();
+  }, 1800);
+}
+
+/* 🖼️ Hiện ảnh phần thưởng */
+function showReward() {
+  const reward = document.createElement("div");
+  reward.id = "reward";
+  reward.style.position = "fixed";
+  reward.style.inset = "0";
+  reward.style.display = "flex";
+  reward.style.alignItems = "center";
+  reward.style.justifyContent = "center";
+  reward.style.background = "rgba(0,0,0,0.7)";
+  reward.style.zIndex = "10000";
+
+  reward.innerHTML = `
+    <div style="text-align:center;">
+      <h2 style="color:#fff;font-size:2em;margin-bottom:15px;">🎉 You Did It! 🎉</h2>
+      <img src="anni.jpg" alt="Reward" style="width:400px;border-radius:20px;box-shadow:0 0 25px rgba(255,255,255,0.5);">
+      <p style="color:#fce4ec;margin-top:10px;">Happy Anniversary, my love 💖</p>
+      <button style="margin-top:15px;padding:10px 25px;border:none;border-radius:10px;background:#ff6f91;color:white;cursor:pointer;font-size:1rem;" onclick="document.getElementById('reward').remove();">Close 💫</button>
+    </div>
+  `;
+  document.body.appendChild(reward);
+}
+  
+  
 function checkWin() {
   const slots = board.querySelectorAll(".slot");
   let win = true;
@@ -542,8 +610,14 @@ function checkWin() {
     const piece = slot.querySelector(".piece");
     if (!piece || parseInt(piece.dataset.correctIndex, 10) !== idx) win = false;
   });
-  if (win) setTimeout(() => alert("🎉 Bạn đã ghép xong hình trái tim rồi! 💗"), 100);
+ if (win) {
+  setTimeout(() => {
+    showFireworks();
+    showReward();
+  }, 300);
 }
+}
+
 
 document.getElementById("shuffleBtn").addEventListener("click", () => createPieces(true));
 document.getElementById("resetBtn").addEventListener("click", () => { createSlots(); createPieces(false); });
