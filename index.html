@@ -59,6 +59,45 @@
   section:first-of-type{ padding-top:430px; }
   section.visible{ opacity:1; transform:translateY(0); }
 
+  /* 🌟 Hiệu ứng cho phần tiêu đề mở đầu */
+#section1 h1 {
+  font-size: 2.5em;
+  color: #fff4f7;
+  text-shadow:
+    0 0 8px rgba(255, 180, 200, 0.8),
+    0 0 16px rgba(255, 120, 160, 0.6),
+    0 0 30px rgba(255, 90, 140, 0.4);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* ✨ Hiệu ứng nhịp sáng nhẹ như tim đập */
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(255, 180, 200, 0.8),
+      0 0 16px rgba(255, 120, 160, 0.6),
+      0 0 30px rgba(255, 90, 140, 0.4);
+  }
+  50% {
+    text-shadow:
+      0 0 14px rgba(255, 210, 220, 1),
+      0 0 28px rgba(255, 160, 180, 0.8),
+      0 0 45px rgba(255, 100, 150, 0.6);
+  }
+}
+
+/* 💌 Dòng văn bản bên dưới – nghiêng, Times New Roman */
+#section1 p {
+  font-family: "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.1em;
+  color: #f2eee7;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 20px auto 0;
+}
+
+
   .timeline { position:relative; width:80%; margin:120px auto; max-width:600px; text-align:left; }
   .event { margin:120px 0; position:relative; }
   .event::before { content:""; position:absolute; left:50%; top:-80px; width:4px; height:160px; background:#f2eee7; transform:translateX(-50%); }
@@ -207,7 +246,7 @@
   <h1>Happy 1 Year Anniversary, My Love❤️</h1>
   <p>I can’t believe it’s already been a year since we started this crazy, beautiful journey together.
 From our first shy emails to all the adventures (and even the hard times), every moment with you has meant so much to me.
-
+<br><br>
 Here’s a little walk through our story — our laughs, our tears, our everything.💌</p>
 </section>
 
