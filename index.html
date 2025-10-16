@@ -14,8 +14,6 @@
     transition: background-color 1.5s ease;
   }
 
-  .main-content { visibility: hidden; }
-
   /* PASSWORD */
   .password-gate {
     position: fixed; inset: 0;
@@ -37,86 +35,149 @@
     position: fixed; inset: 0;
     display: none; align-items: center; justify-content: center;
     flex-direction: column; background-color: #590818;
-    color: #f2eee7; z-index: 9999; overflow: hidden;
-    transition: opacity 1s ease;
+    color: #f2eee7; z-index: 9999; overflow: hidden; cursor: pointer;
   }
-  .intro-overlay.fade-out { opacity: 0; pointer-events: none; }
-
   .floating-icons { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
-  .floating-icon {
-    position: absolute; font-size: 2em; opacity: 0.6;
-    animation: floatUp 6s linear infinite;
-  }
-  @keyframes floatUp {
-    0% { transform: translateY(0) scale(1); opacity: 0.8; }
-    80% { opacity: 1; }
-    100% { transform: translateY(-120vh) scale(0.9); opacity: 0; }
-  }
-
+  .floating-icon { position: absolute; font-size: 2em; opacity: 0.6; animation: floatUp 6s linear infinite; }
+  @keyframes floatUp { 0%{transform:translateY(0) scale(1);opacity:0.8;} 80%{opacity:1;} 100%{transform:translateY(-120vh) scale(0.9);opacity:0;} }
   .intro-overlay span, .intro-overlay small { position: relative; z-index: 2; }
   .intro-overlay span { font-size: 2em; margin-bottom: 20px; white-space: pre; }
-  .intro-overlay .line2 { font-size: 1.5em; }
-  .intro-overlay small { font-size: 0.6em; font-weight: 300; opacity: 0; margin-top: 25px; transition: opacity 1.5s; }
-  .intro-overlay small.visible { opacity: 0.8; }
+  .intro-overlay .line2 { font-size: 1.5em; margin-top:0; }
+  .intro-overlay small { font-size:0.6em; font-weight:300; opacity:0; margin-top:25px; transition:opacity 1.5s ease; }
+  .intro-overlay small.visible { opacity:0.8; }
 
-  /* SKY */
-  .sky {
-    position: fixed; inset: 0;
-    background: radial-gradient(circle at top right, #1a1333, #0b0b1d);
-    overflow: hidden; z-index: -5;
-    opacity: 0; transition: opacity 2s ease;
-  }
-  .sky.visible { opacity: 1; }
+  /* NIGHT SKY */
+  .sky { position: fixed; inset:0; overflow:hidden; z-index:-5; background: radial-gradient(circle at 50% 80%, #0b0b1a 0%, #01010a 100%); }
+  .moon { position:absolute; top:5%; right:8%; width:160px; height:160px; background: radial-gradient(circle at 30%30%, #fff,#ddd 60%,#aaa 100%); border-radius:50%; box-shadow:0 0 50px 20px rgba(255,255,200,0.4); transform:scale(1); transition:transform 1.5s ease-out,opacity 1.5s ease-out; }
+  .star { position:absolute; background:white; border-radius:50%; opacity:0.8; animation: twinkle 2s infinite ease-in-out; }
+  @keyframes twinkle { 0%,100%{opacity:0.2;} 50%{opacity:1;} }
+  .shooting-star { position:absolute; width:120px; height:2px; background:linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0)); opacity:0; transform:rotate(-30deg); filter:drop-shadow(0 0 6px white); animation:shoot 1.8s ease-out forwards; }
+  @keyframes shoot { 0%{opacity:1;transform:translate(0,0) rotate(-30deg);} 70%{opacity:1;transform:translate(300px,150px) rotate(-30deg);} 100%{opacity:0;transform:translate(450px,250px) rotate(-30deg);} }
 
-  .moon {
-    position: absolute; top: 5%; right: 8%;
-    width: 160px; height: 160px;
-    background: radial-gradient(circle at 30% 30%, #fff, #ddd 60%, #aaa 100%);
-    border-radius: 50%;
-    box-shadow: 0 0 50px 20px rgba(255,255,200,0.4);
-    transform: scale(1);
-    transition: transform 1.5s ease-out, opacity 1.5s ease-out;
-  }
-  .star {
-    position: absolute; background: white; border-radius: 50%; opacity: 0.8;
-  }
-  @keyframes twinkle { 0%,100%{opacity:0.2} 50%{opacity:1} }
+  /* SECTIONS */
+  section { opacity:0; transform:translateY(50px); transition:opacity 1s ease, transform 1s ease; padding:200px 20px; text-align:center; }
+  section:first-of-type{ padding-top:430px; }
+  section.visible{ opacity:1; transform:translateY(0); }
 
-  .shooting-star {
-    position: absolute; width: 120px; height: 2px;
-    background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
-    opacity: 0; transform: rotate(-30deg);
-    filter: drop-shadow(0 0 6px white);
-    animation: shoot 1.8s ease-out forwards;
-  }
-  @keyframes shoot {
-    0% { opacity: 1; transform: translate(0, 0) rotate(-30deg); }
-    70% { opacity: 1; transform: translate(300px, 150px) rotate(-30deg); }
-    100% { opacity: 0; transform: translate(450px, 250px) rotate(-30deg); }
-  }
-
-  .cloud {
-    position: absolute; background: rgba(255,255,255,0.1); border-radius: 50%;
-    animation: moveClouds 100s linear infinite; filter: blur(30px);
-  }
-  @keyframes moveClouds { from{transform:translateX(-200px);} to{transform:translateX(100vw);} }
-
-  /* MAIN SECTIONS */
-  section { opacity: 0; transform: translateY(50px); transition: opacity 1s, transform 1s; padding: 200px 20px; text-align: center; }
-  section:first-of-type { padding-top: 430px; }
-  section.visible { opacity: 1; transform: translateY(0); }
-
-  .timeline { width: 80%; margin: 120px auto; max-width: 600px; text-align: left; position: relative; }
-  .event { margin: 120px 0; position: relative; }
+  .timeline { position:relative; width:80%; margin:120px auto; max-width:600px; text-align:left; }
+  .event { margin:120px 0; position:relative; }
   .event::before { content:""; position:absolute; left:50%; top:-80px; width:4px; height:160px; background:#f2eee7; transform:translateX(-50%); }
+  .footstep { position:absolute; width:30px; height:30px; opacity:0; transition:0.5s; }
+  #leftFoot{ transform:rotate(-20deg); }
+  #rightFoot{ transform:rotate(20deg); }
 
-  .footstep { position:absolute; width:30px; height:30px; opacity:0; transition: opacity 0.5s; }
-  #leftFoot { transform: rotate(-20deg); } #rightFoot { transform: rotate(20deg); }
+  .milestone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 200px auto;
+  width: 90%;
+  max-width: 900px;
+  opacity: 0;
+  transform: translateY(80px);
+  transition: all 1.2s ease;
+}
 
-  .tab { display:inline-block; background-color:rgba(229,225,216,0.8); color:#3b2f2f; padding:10px 20px; margin:10px; border-radius:20px; cursor:pointer; transition: background-color 0.3s; }
-  .tab:hover { background-color:#d8d4c7; }
+.milestone.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
+.milestone.left .text { order: 1; text-align: right; padding-right: 30px; }
+.milestone.left .image { order: 2; }
+.milestone.right .text { order: 2; text-align: left; padding-left: 30px; }
+.milestone.right .image { order: 1; }
+
+.milestone .image img {
+  width: 280px;
+  height: 280px; /* 👈 Giữ tỉ lệ vuông */
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.35);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Hiệu ứng khi hover ảnh cho sinh động hơn */
+.milestone .image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 182, 193, 0.4);
+}
+
+
+.milestone .text h3 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+  color: #f9f5ef;
+}
+
+.milestone .text p {
+  font-size: 1em;
+  color: #f2eee7;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: rgba(255,255,255,0.4);
+  transform: translateX(-50%);
+}
+
+  
+  .tab { display:inline-block; background-color:rgba(229,225,216,0.8); color:#3b2f2f; padding:10px 20px; margin:10px; border-radius:20px; cursor:pointer; transition:0.3s; }
+  .tab:hover{ background-color:#d8d4c7; }
   .letter { display:none; margin:20px auto; max-width:500px; background-color:rgba(247,244,238,0.9); padding:20px; border-radius:15px; color:#3b2f2f; box-shadow:0 0 10px rgba(0,0,0,0.3); }
+
+  /* 🎯 Mini game trái tim */
+  :root {
+    --size: 450px;
+    --cell: calc(var(--size) / 3);
+  }
+  .board-wrap {
+    width: var(--size);
+    height: var(--size);
+    position: relative;
+    clip-path: polygon(
+      50% 92%, 20% 70%, 7% 45%, 20% 25%, 38% 10%, 50% 22%, 62% 10%, 80% 25%, 93% 45%, 80% 70%
+    );
+    background: linear-gradient(180deg, #fff, #ffeaf2);
+    border: 3px solid #ffb5ce;
+    box-shadow: 0 6px 20px rgba(214, 51, 108, 0.15);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin: 0 auto;
+  }
+  .slot {
+    border: 1px dashed rgba(150,150,150,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: transparent;
+  }
+  .slot.highlight { outline: 3px dashed rgba(214,51,108,0.45); }
+  #pieces { width: var(--size); display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 15px auto; }
+  .piece {
+    width: var(--cell);
+    height: var(--cell);
+    border: 1px solid #888;
+    background-image: url("anni.jpg");
+    background-size: var(--size) var(--size);
+    cursor: grab;
+    user-select: none;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .slot .piece { width: 100%; height: 100%; border: none; cursor: default; box-shadow: none; }
+  button { background:#d6336c; color:white; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; font-size: 1rem; }
+  button:hover { background:#b72559; }
 </style>
 </head>
 <body>
@@ -128,206 +189,322 @@
   <button onclick="checkPassword()">Enter</button>
 </div>
 
-<!-- OVERLAY -->
-<div class="intro-overlay" id="introOverlay" onclick="closeIntro()">
+<!-- INTRO -->
+<div class="intro-overlay" id="intro">
   <div class="floating-icons" id="floatingIcons"></div>
   <span id="line1"></span>
   <span id="line2" class="line2"></span>
   <small id="clickText">(Click anywhere to continue)</small>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="main-content" id="mainContent">
-  <div class="sky" id="sky">
-    <div class="moon" id="moon"></div>
-    <script>
-      const sky = document.currentScript.parentElement;
-      for(let i=0;i<150;i++){
-        const s=document.createElement('div');
-        s.className='star';
-        const size=Math.random()*2+1;
-        s.style.width=`${size}px`; s.style.height=`${size}px`;
-        s.style.top=`${Math.random()*100}%`; s.style.left=`${Math.random()*100}%`;
-        if(Math.random()<0.3){ s.style.animation=`twinkle ${2+Math.random()*2}s infinite ease-in-out`; s.style.animationDelay=`${Math.random()*3}s`; }
-        else s.style.opacity=0.7+Math.random()*0.2;
-        sky.appendChild(s);
-      }
-
-      function createShootingStar(){
-        const star=document.createElement('div');
-        star.className='shooting-star';
-        star.style.top=`${Math.random()*40}%`;
-        star.style.left=`${Math.random()*60}%`;
-        sky.appendChild(star);
-        setTimeout(()=>star.remove(),1800);
-      }
-      setInterval(()=>{ if(Math.random()<0.4) createShootingStar(); },4000);
-
-      for(let i=0;i<4;i++){
-        const cloud=document.createElement('div');
-        cloud.className='cloud';
-        cloud.style.width=`${200+Math.random()*250}px`;
-        cloud.style.height=`${100+Math.random()*60}px`;
-        cloud.style.top=`${20+Math.random()*50}%`;
-        cloud.style.animationDuration=`${80+Math.random()*40}s`;
-        sky.appendChild(cloud);
-      }
-    </script>
-  </div>
-
-  <section id="section1">
-    <h1>Happy 1 Year Anniversary ❤️</h1>
-    <p>Under this starry sky, it’s always been you and me 🌙</p>
-  </section>
-
-  <section id="timeline-section">
-    <h2>Our Journey 🌟</h2>
-    <div class="timeline">
-      <div class="footstep" id="leftFoot">👣</div>
-      <div class="footstep" id="rightFoot">👣</div>
-      <div class="event">✨ The First Message</div>
-      <div class="event">💌 The First Date</div>
-      <div class="event">🌸 The First "I Love You"</div>
-      <div class="event">🌕 Our 1st Anniversary</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Love Letters 💖</h2>
-    <div class="tab" onclick="showLetter('letter1')">Letter 1</div>
-    <div class="tab" onclick="showLetter('letter2')">Letter 2</div>
-    <div id="letter1" class="letter">
-      <h3>Letter 1</h3>
-      <p>My love, every star tonight reminds me of your eyes...</p>
-    </div>
-    <div id="letter2" class="letter">
-      <h3>Letter 2</h3>
-      <p>Through time and distance, my heart always finds its way back to you 💞</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>Mini Game 💞</h2>
-    <button class="tab" onclick="loveGame()">How much do you love me?</button>
-    <p id="loveResult" style="margin-top:15px;"></p>
-  </section>
+<!-- BACKGROUND -->
+<div class="sky" id="sky">
+  <div class="moon" id="moon"></div>
 </div>
+
+<!-- CONTENT -->
+<section id="section1">
+  <h1>Happy 1 Year Anniversary, My Love❤️</h1>
+  <p>I can’t believe it’s already been a year since we started this crazy, beautiful journey together.
+From our first shy emails to all the adventures (and even the hard times), every moment with you has meant so much to me.
+
+Here’s a little walk through our story — our laughs, our tears, our everything.💌</p>
+</section>
+
+<section id="timeline-section">
+  <h2>💞 Our Journey</h2>
+  <div class="timeline">
+    
+    <div class="milestone left">
+      <div class="text">
+        <h3>09/09/2024 – The First Email</h3>
+        <p>You emailed me to invite me to play badminton — pretending it was just a friendly game, but I know you were secretly trying to make a connection 😉.<br>
+        Still, I’m so glad you did. That simple message started everything. 💫</p>
+      </div>
+      <div class="image"><img src="Mail.jpg" alt="The First Email"></div>
+    </div>
+
+    <div class="milestone right">
+      <div class="image"><img src="BMT.jpg" alt="First Badminton"></div>
+      <div class="text">
+        <h3>22/09/2024 – First Badminton Together</h3>
+        <p>Our very first badminton game — with our friends, but it felt like our moment.<br>
+        You were funny, competitive, and (maybe) showing off a little 😏.<br>
+        I laughed so much that day. That’s when I started to see how special you are. 💖</p>
+      </div>
+    </div>
+
+    <div class="milestone left">
+      <div class="text">
+        <h3>15/10/2024 – 5AM to the Zoo</h3>
+        <p>Only we would decide to go to the zoo at 5 in the morning! 😂<br>
+        Sleepy faces, cold air, and hot coffee — but it was one of my favorite mornings ever.</p>
+      </div>
+      <div class="image"><img src="Zoo.jpg" alt="Zoo Morning"></div>
+    </div>
+
+    <div class="milestone right">
+      <div class="image"><img src="VT.jpg" alt="Vung Tau Trip"></div>
+      <div class="text">
+        <h3>24/12/2024 – Our First Trip to Vũng Tàu</h3>
+        <p>Our first real adventure together! The sea breeze, the laughter, the wedding, and the feeling of being side by side — it was perfect.<br>
+        (And yes, you looked very handsome in that suit at Lewis’s wedding 😌💖)</p>
+      </div>
+    </div>
+
+    <div class="milestone left">
+      <div class="text">
+        <h3>06/01/2025 – We Had a “Break”</h3>
+        <p>Not the best time, but an important one.<br>
+        It made me realize how much you mean to me — and that I never want to lose what we have again. 💔➡️❤️</p>
+      </div>
+      <div class="image"><img src="BREAK.jpg" alt="Break"></div>
+    </div>
+
+    <div class="milestone right">
+      <div class="image"><img src="WBD.jpg" alt="Worst Birthday"></div>
+      <div class="text">
+        <h3>15/04/2025 – “The Worst Birthday”</h3>
+        <p>Even though it wasn’t my happiest day, it showed me that love isn’t always about perfection.<br>
+        Sometimes, it’s about understanding, forgiving, and still choosing each other after everything.</p>
+      </div>
+    </div>
+
+    <div class="milestone left">
+      <div class="text">
+        <h3>01/07/2025 – Our 2nd Trip (China 🇨🇳)</h3>
+        <p>New places, new food, new memories!<br>
+        We explored, laughed, got lost, and found each other again (both literally and emotionally 😅).<br>
+        One of the best trips ever.</p>
+      </div>
+      <div class="image"><img src="China.jpg" alt="China Trip"></div>
+    </div>
+
+    <div class="milestone right">
+      <div class="image"><img src="Malay.jpg" alt="Malaysia Trip"></div>
+      <div class="text">
+        <h3>31/08/2025 – Our 3rd Trip (Malaysia 🇲🇾)</h3>
+        <p>Sun, smiles, and so many inside jokes.<br>
+        By then, traveling with you felt so natural — like home.<br>
+        Every trip, every moment, every second with you makes me love you even more. ❤️</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Love Letters 💖</h2>
+  <div class="tab" onclick="showLetter('letter1')">Letter 1</div>
+  <div class="tab" onclick="showLetter('letter2')">Letter 2</div>
+  <div id="letter1" class="letter">
+    <h3>Letter 1</h3>
+    <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
+  </div>
+  <div id="letter2" class="letter">
+    <h3>Letter 2</h3>
+    <p>I still remember the day we met, and I cherish every day spent with you...</p>
+  </div>
+</section>
+
+<!-- ❤️ Mini Game -->
+<section>
+  <h2>🧩 Xếp Hình Trái Tim 💗</h2>
+  <p>Kéo các mảnh vào khung trái tim — thử xem ghép nhanh không nha 😘</p>
+
+  <div class="board-wrap" id="board"></div>
+  <div id="pieces"></div>
+
+  <div style="margin-top:12px;">
+    <button id="shuffleBtn">🔀 Xáo lại mảnh</button>
+    <button id="resetBtn">♻️ Đặt lại</button>
+  </div>
+</section>
 
 <audio id="bg-music" loop>
   <source src="mylove.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function checkPassword(){
-  const pw=document.getElementById('pwInput');
-  if(pw.value==='1510'){
+/* ========== PASSWORD + INTRO ========== */
+function checkPassword() {
+  const pw = document.getElementById('pwInput');
+  if (pw.value==='1510'){
     const gate=document.getElementById('passwordGate');
+    showOverlay(); // 🔥 Hiển thị overlay ngay lập tức
     gate.style.opacity='0';
-    setTimeout(()=>{
-      gate.style.display='none';
-      showOverlay();
-    },800);
+    setTimeout(()=>{ gate.style.display='none'; },800);
   } else {
     pw.classList.add('wrong'); pw.value='Wrong';
-    setTimeout(()=>{ pw.classList.remove('wrong'); pw.value=''; },1000);
+    setTimeout(()=>{pw.classList.remove('wrong'); pw.value='';},1000);
   }
 }
 
 function showOverlay(){
-  const overlay=document.getElementById('introOverlay');
+  const overlay=document.getElementById('intro');
   overlay.style.display='flex';
-  document.getElementById('mainContent').style.visibility='hidden';
-
+  const line1=document.getElementById('line1');
+  const line2=document.getElementById('line2');
+  const clickText=document.getElementById('clickText');
   const icons=["❤️","💫","🌙","💐","✨"];
   const floatContainer=document.getElementById('floatingIcons');
   function createIcon(){
     const icon=document.createElement('div');
     icon.className='floating-icon';
     icon.textContent=icons[Math.floor(Math.random()*icons.length)];
-    icon.style.left=`${Math.random()*100}%`;
+    icon.style.left=Math.random()*100+'%';
     icon.style.bottom='-30px';
-    icon.style.animationDuration=`${4+Math.random()*3}s`;
+    icon.style.animationDuration=4+Math.random()*3+'s';
     floatContainer.appendChild(icon);
     setTimeout(()=>icon.remove(),7000);
   }
   setInterval(createIcon,500);
-
-  const text1="🎉❤️Happy Anniversary❤️🎉";
-  const text2="October 2024 - October 2025";
-  const line1=document.getElementById('line1');
-  const line2=document.getElementById('line2');
-  const clickText=document.getElementById('clickText');
-  setTimeout(()=>{ typeText(text1,line1,()=>typeText(text2,line2,()=>clickText.classList.add('visible'))); },2000);
+  setTimeout(()=>{ typeText("🎉❤️Happy Anniversary❤️🎉",line1,()=>{ typeText("October 2024 - October 2025",line2,()=>clickText.classList.add('visible')); });},2000);
+  overlay.addEventListener('click',closeIntro);
 }
 
 function typeText(text,el,callback){
   let i=0;
-  (function typing(){ if(i<text.length){ el.textContent+=text.charAt(i++); setTimeout(typing,100); } else if(callback) callback(); })();
+  function typing(){
+    if(i<text.length){ el.textContent+=text.charAt(i); i++; setTimeout(typing,100);}
+    else if(callback) callback();
+  } typing();
 }
 
 function closeIntro(){
-  const overlay=document.getElementById('introOverlay');
-  overlay.classList.add('fade-out');
-  document.getElementById('mainContent').style.visibility='visible';
+  const overlay=document.getElementById('intro');
+  overlay.style.transition='opacity 0.9s ease';
+  overlay.style.opacity=0;
   document.body.style.backgroundColor='#0b0b1d';
-  document.getElementById('sky').classList.add('visible');
-  const music=document.getElementById('bg-music'); music.volume=0.7;
-  music.play().catch(()=>{});
-  setTimeout(()=>overlay.style.display='none',1000);
+  const music=document.getElementById('bg-music');
+  music.volume=0.7; music.play().catch(()=>{});
+  setTimeout(()=>overlay.style.display='none',900);
 }
 
-let moonShrinkActive=false;
-const moon=document.getElementById('moon');
-window.addEventListener('scroll',()=>{
-  if(!moonShrinkActive) return;
-  const scrollY=window.scrollY;
-  const scale=Math.max(0.7,1-scrollY/2500);
-  moon.style.transform=`scale(${scale})`;
-  moon.style.opacity=Math.max(0.5,1-scrollY/1800);
-});
+/* ========== SKY ELEMENTS ========== */
+const sky=document.getElementById('sky'); const moon=document.getElementById('moon');
+for(let i=0;i<150;i++){
+  const s=document.createElement('div'); s.className='star';
+  const size=Math.random()*2+1;
+  s.style.width=size+'px'; s.style.height=size+'px';
+  s.style.top=Math.random()*100+'%'; s.style.left=Math.random()*100+'%';
+  s.style.animationDelay=Math.random()*3+'s';
+  sky.appendChild(s);
+}
+function createShootingStar(){
+  const s=document.createElement('div');
+  s.className='shooting-star';
+  s.style.top=Math.random()*40+'%'; s.style.left=Math.random()*60+'%';
+  sky.appendChild(s);
+  setTimeout(()=>s.remove(),1800);
+}
+setInterval(()=>{ if(Math.random()<0.4) createShootingStar();},4000);
 
+/* ========== SECTION REVEAL ========== */
+let moonShrinkActive=false; let walked=false;
 const sections=document.querySelectorAll('section');
 window.addEventListener('scroll',()=>{
   const trigger=window.innerHeight*0.8;
   sections.forEach(sec=>{
-    const top=sec.getBoundingClientRect().top;
-    if(top<trigger){
+    if(sec.getBoundingClientRect().top<trigger){
       sec.classList.add('visible');
       if(sec.id==='section1') moonShrinkActive=true;
     }
   });
+  if(moonShrinkActive){
+    const scrollY=window.scrollY;
+    moon.style.transform=`scale(${Math.max(0.7,1-scrollY/2500)})`;
+    moon.style.opacity=Math.max(0.5,1-scrollY/1800);
+  }
 });
 
-function showLetter(id){ document.querySelectorAll('.letter').forEach(l=>l.style.display='none'); document.getElementById(id).style.display='block'; }
+  /* ========== TIMELINE SCROLL REVEAL ========== */
+const milestones = document.querySelectorAll(".milestone");
+window.addEventListener("scroll", () => {
+  const trigger = window.innerHeight * 0.85;
+  milestones.forEach(ms => {
+    if (ms.getBoundingClientRect().top < trigger) {
+      ms.classList.add("visible");
+    }
+  });
+});
 
-function loveGame(){ 
-  const res=document.getElementById('loveResult');
-  const msgs=["I love you more 😘","Infinity and beyond ❤️","You’re my world 🌎","Always and forever 💞"];
-  res.textContent=msgs[Math.floor(Math.random()*msgs.length)];
+
+/* ========== MINI GAME ========== */
+const board = document.getElementById("board");
+const piecesContainer = document.getElementById("pieces");
+const gridSize = 3;
+const boardSize = 450;
+const cellSize = boardSize / gridSize;
+
+function createSlots() {
+  board.innerHTML = "";
+  for (let i = 0; i < gridSize * gridSize; i++) {
+    const slot = document.createElement("div");
+    slot.className = "slot";
+    slot.dataset.index = i;
+    slot.addEventListener("dragover", (e) => { e.preventDefault(); slot.classList.add("highlight"); });
+    slot.addEventListener("dragleave", () => slot.classList.remove("highlight"));
+    slot.addEventListener("drop", handleDrop);
+    board.appendChild(slot);
+  }
 }
 
-let walked=false;
-window.addEventListener('scroll',()=>{
-  const timeline=document.getElementById('timeline-section');
-  if(!timeline) return;
-  const rect=timeline.getBoundingClientRect();
-  if(rect.top<window.innerHeight*0.8 && !walked){ walked=true; walkFootsteps(); }
-});
-
-function walkFootsteps(){
-  const left=document.getElementById('leftFoot');
-  const right=document.getElementById('rightFoot');
-  let steps=8,pos=0;
-  function step(){
-    if(pos<steps){
-      let y=pos*90+20;
-      if(pos%2===0){ left.style.opacity=1; left.style.top=y+'px'; left.style.left='47%'; }
-      else { right.style.opacity=1; right.style.top=y+'px'; right.style.left='51%'; }
-      pos++; setTimeout(step,500);
+function createPieces(shuffle = true) {
+  piecesContainer.innerHTML = "";
+  const positions = [];
+  for (let r = 0; r < gridSize; r++) {
+    for (let c = 0; c < gridSize; c++) {
+      positions.push({ r, c, idx: r * gridSize + c });
     }
   }
-  step();
+  if (shuffle) {
+    for (let i = positions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [positions[i], positions[j]] = [positions[j], positions[i]];
+    }
+  }
+  positions.forEach((pos, i) => {
+    const piece = document.createElement("div");
+    piece.className = "piece";
+    piece.id = "p-" + i;
+    piece.style.backgroundPosition = `-${pos.c * cellSize}px -${pos.r * cellSize}px`;
+    piece.dataset.correctIndex = pos.idx;
+    piece.draggable = true;
+    piece.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", piece.id);
+      e.dataTransfer.effectAllowed = "move";
+    });
+    piecesContainer.appendChild(piece);
+  });
 }
+
+function handleDrop(e) {
+  e.preventDefault();
+  this.classList.remove("highlight");
+  const pieceId = e.dataTransfer.getData("text/plain");
+  const dragged = document.getElementById(pieceId);
+  if (!dragged) return;
+  if (this.querySelector(".piece")) return;
+  this.appendChild(dragged);
+  checkWin();
+}
+
+function checkWin() {
+  const slots = board.querySelectorAll(".slot");
+  let win = true;
+  slots.forEach((slot, idx) => {
+    const piece = slot.querySelector(".piece");
+    if (!piece || parseInt(piece.dataset.correctIndex, 10) !== idx) win = false;
+  });
+  if (win) setTimeout(() => alert("🎉 Bạn đã ghép xong hình trái tim rồi! 💗"), 100);
+}
+
+document.getElementById("shuffleBtn").addEventListener("click", () => createPieces(true));
+document.getElementById("resetBtn").addEventListener("click", () => { createSlots(); createPieces(false); });
+
+createSlots();
+createPieces(true);
 </script>
 </body>
 </html>
