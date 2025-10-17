@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>1 Year Anniversary</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     color: #f2eee7;
     overflow-x: hidden;
     background-color: #590818;
@@ -41,9 +42,9 @@
   .floating-icon { position: absolute; font-size: 2em; opacity: 0.6; animation: floatUp 6s linear infinite; }
   @keyframes floatUp { 0%{transform:translateY(0) scale(1);opacity:0.8;} 80%{opacity:1;} 100%{transform:translateY(-120vh) scale(0.9);opacity:0;} }
   .intro-overlay span, .intro-overlay small { position: relative; z-index: 2; }
-  .intro-overlay span { font-size: 2em; font-weight: 700; margin-bottom: 20px; white-space: pre; }
+  .intro-overlay span { font-size: 2em; font-weight: 1000; margin-bottom: 20px; white-space: pre; }
   .intro-overlay .line2 { font-size: 1.5em;  font-weight: 600; margin-top:0; }
-  .intro-overlay small { font-size:0.6em; font-weight:300; opacity:0; margin-top:25px; transition:opacity 1.5s ease; }
+  .intro-overlay small { font-size:0.6em; font-weight:700; opacity:0; margin-top:25px; transition:opacity 1.5s ease; }
   .intro-overlay small.visible { opacity:0.8; }
 
   /* NIGHT SKY */
@@ -51,8 +52,60 @@
   .moon { position:absolute; top:5%; right:8%; width:160px; height:160px; background: radial-gradient(circle at 30%30%, #fff,#ddd 60%,#aaa 100%); border-radius:50%; box-shadow:0 0 50px 20px rgba(255,255,200,0.4); transform:scale(1); transition:transform 1.5s ease-out,opacity 1.5s ease-out; }
   .star { position:absolute; background:white; border-radius:50%; opacity:0.8; animation: twinkle 2s infinite ease-in-out; }
   @keyframes twinkle { 0%,100%{opacity:0.2;} 50%{opacity:1;} }
-  .shooting-star { position:absolute; width:120px; height:2px; background:linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0)); opacity:0; transform:rotate(-30deg); filter:drop-shadow(0 0 6px white); animation:shoot 1.8s ease-out forwards; }
-  @keyframes shoot { 0%{opacity:1;transform:translate(0,0) rotate(-30deg);} 70%{opacity:1;transform:translate(300px,150px) rotate(-30deg);} 100%{opacity:0;transform:translate(450px,250px) rotate(-30deg);} }
+.shooting-star {
+  position: absolute;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1));
+  opacity: 0;
+  transform: rotate(30deg);
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.9)) blur(0.5px);
+  animation: shoot 1.8s cubic-bezier(0.3, 0.1, 0.7, 1) forwards;
+}
+
+@keyframes shoot {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(30deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(300px, 150px) rotate(30deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(450px, 250px) rotate(30deg);
+  }
+}
+
+  /* ☁️ Mây lửng lơ trôi nhẹ */
+.cloud {
+  position: absolute;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.05) 70%,
+    transparent 100%
+  );
+  filter: blur(40px);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: floatCloud linear infinite;
+}
+
+/* Mây trôi ngang chậm rãi, hơi dao động */
+@keyframes floatCloud {
+  0% {
+    transform: translateX(-200px) translateY(0);
+  }
+  50% {
+    transform: translateX(200px) translateY(10px);
+  }
+  100% {
+    transform: translateX(-200px) translateY(0);
+  }
+}
+
 
   /* SECTIONS */
   section { opacity:0; transform:translateY(50px); transition:opacity 1s ease, transform 1s ease; padding:200px 20px; text-align:center; }
@@ -172,12 +225,205 @@
   background: rgba(255,255,255,0.4);
   transform: translateX(-50%);
 }
+/* 💖 Tinh chỉnh bố cục và font cho phần timeline */
+.timeline h2 {
+  text-align: center;
+  font-size: 2em;
+  color: #ffeef3;
+  margin-bottom: 60px;
+  letter-spacing: 1px;
+}
 
+/* Thêm hiệu ứng nhẹ cho khi hiện ra */
+.milestone.visible .text {
+  animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🌸 Cải thiện text bên trong mỗi mốc */
+.milestone .text {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  padding: 30px 35px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.milestone .text:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(255, 182, 193, 0.25);
+}
+
+/* Tiêu đề mốc thời gian */
+.milestone .text h3 {
+  font-size: 1.6em;
+  color: #ffeaf0;
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-shadow: 0 0 6px rgba(255, 200, 210, 0.3);
+}
+
+/* Đoạn mô tả */
+.milestone .text p {
+  font-size: 1.05em;
+  line-height: 1.8;
+  color: #f8f4f0;
+  letter-spacing: 0.3px;
+}
+
+/* Căn lại vị trí và khoảng cách giữa ảnh và text */
+.milestone.left .text {
+  text-align: right;
+  padding-right: 50px;
+}
+.milestone.right .text {
+  text-align: left;
+  padding-left: 50px;
+}
+
+/* Hiệu ứng ảnh nhẹ để đồng bộ */
+.milestone .image img {
+  border: 3px solid rgba(255,255,255,0.2);
+}
+
+/* 🌟 Hiệu ứng slide-in theo hướng trái/phải khi milestone hiện ra */
+.milestone.left .text,
+.milestone.left .image {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.milestone.right .text,
+.milestone.right .image {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.milestone.visible .text,
+.milestone.visible .image {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ✨ Thêm độ trễ nhẹ giữa text và ảnh để vào form mượt */
+.milestone.visible .text {
+  transition-delay: 0.2s;
+}
+
+/* 💫 Làm cho phần text nổi bật hơn khi vào */
+.milestone.visible .text h3 {
+  animation: glowIn 1.2s ease forwards;
+}
+@keyframes glowIn {
+  0% { text-shadow: none; opacity: 0.6; }
+  100% { text-shadow: 0 0 10px rgba(255,180,200,0.8); opacity: 1; }
+}
+
+/* 💞 Nâng cấp phần nội dung timeline */
+.milestone .text {
+  width: 280px; /* 👈 cùng kích thước với ảnh */
+  max-width: none;
+  line-height: 1.8;
+  letter-spacing: 0.3px;
+  color: #f8f4f0;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 20px 25px;
+  border-radius: 18px;
+  box-shadow: 0 0 25px rgba(255, 200, 210, 0.08);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  transition: all 0.6s ease;
+}
+
+/* Khi hover vào phần text – nổi nhẹ lên, ánh hồng mơ */
+.milestone .text:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 35px rgba(255, 170, 200, 0.3);
+}
+
+/* 🌸 Tiêu đề ngày và sự kiện nổi bật, tinh tế hơn */
+.milestone .text h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #fff3f6;
+  text-shadow: 0 0 6px rgba(255, 180, 200, 0.4);
+  margin-bottom: 15px;
+}
+
+/* 💌 Nội dung mềm mại, nhẹ nhàng hơn */
+.milestone .text p {
+  font-size: 1.05em;
+  color: #f8f5f2;
+  line-height: 1.75;
+  font-style: italic;
+  text-align: justify;
+}
+
+/* 🎀 Dòng đầu tiên nhấn nhẹ hơn – tạo cảm giác mở câu */
+.milestone .text p::first-line {
+  font-weight: 600;
+  color: #ffe4ec;
+}
   
   .tab { display:inline-block; background-color:rgba(229,225,216,0.8); color:#3b2f2f; padding:10px 20px; margin:10px; border-radius:20px; cursor:pointer; transition:0.3s; }
   .tab:hover{ background-color:#d8d4c7; }
   .letter { display:none; margin:20px auto; max-width:500px; background-color:rgba(247,244,238,0.9); padding:20px; border-radius:15px; color:#3b2f2f; box-shadow:0 0 10px rgba(0,0,0,0.3); }
 
+ /* Nút play nằm giữa trái tim */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 20px rgba(255, 150, 180, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  z-index: 10;
+}
+
+.play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 25px rgba(255, 170, 200, 0.8);
+}
+
+/* Biểu tượng tam giác trong nút play */
+.play-btn::before {
+  content: "▶";
+  color: #d6336c;
+  font-size: 2rem;
+  margin-left: 5px;
+}
+
+/* Ẩn các phần game ban đầu */
+#game-content {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+#game-content.visible {
+  opacity: 1;
+  pointer-events: auto;
+}  
   /* 🎯 Mini game trái tim */
   :root {
     --size: 450px;
@@ -236,7 +482,175 @@
   70% { transform: scale(1.6) translateY(-50px); opacity: 1; }
   100% { transform: scale(0) translateY(-100px); opacity: 0; }
 }
+
+
+/* 🌅 Màn kết tinh tế – dịu nhẹ, ấm áp hơn */
+.ending-scene {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: radial-gradient(circle at center, rgba(255, 192, 203, 0.15), rgba(0, 0, 0, 0.6));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 2s ease;
+  z-index: 9999;
+  text-align: center;
+}
+
+.ending-scene.visible {
+  opacity: 1;
+}
+
+.ending-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: #fce4ec;
+  font-size: 2.2em;
+  margin-bottom: 15px;
+  animation: fadeGlow 4s ease-in-out infinite;
+}
+
+.ending-text p {
+  font-size: 1.1em;
+  color: #f9f5ef;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+/* 💫 Nhịp sáng chữ */
+@keyframes fadeGlow {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 200, 210, 0.7); }
+  50% { text-shadow: 0 0 20px rgba(255, 150, 180, 1); }
+}
+
+  /* ✨ Khi ending xuất hiện, phần main trượt nhẹ xuống */
+main {
+  transition: transform 1.2s ease, opacity 1.2s ease;
+}
+
+main.shifted {
+  transform: translateY(-200px);
+  opacity: 0.8; /* hơi mờ đi chút, cho nổi phần ending */
+  filter: blur(2px);
+}
+
+/* 💌 Love Letter Popup Styles */
+.love-letter {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.love-letter.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.letter-content {
+  background: #fffafc;
+  color: #3b2f2f;
+  padding: 40px 50px;
+  border-radius: 20px;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(255, 180, 200, 0.3);
+  font-family: 'Cormorant Garamond', serif;
+  position: relative;
+  animation: fadeInScale 0.6s ease;
+}
+
+@keyframes fadeInScale {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #b72559;
+}
+
+.close-btn:hover {
+  color: #e63972;
+}
+
+.love-btn {
+  background-color: #ffb3c6;
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background 0.3s ease;
+}
+
+.love-btn:hover {
+  background-color: #ff8fab;
+}
   
+  /* Nút play giữa tim */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 20px rgba(255, 150, 180, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  z-index: 10;
+}
+.play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 25px rgba(255, 170, 200, 0.8);
+}
+.play-btn::before {
+  content: "▶";
+  color: #d6336c;
+  font-size: 2rem;
+  margin-left: 5px;
+}
+
+/* Ẩn game khi chưa bấm Play */
+#game-content {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Khi hiện lên */
+#game-content.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
 </style>
 </head>
 <body>
@@ -258,10 +672,14 @@
 
 <!-- BACKGROUND -->
 <div class="sky" id="sky">
+  <div class="cloud" style="top:20%; left:15%; width:250px; height:120px; animation-duration: 70s;"></div>
+<div class="cloud" style="top:40%; left:60%; width:300px; height:150px; animation-duration: 90s;"></div>
+<div class="cloud" style="top:65%; left:30%; width:220px; height:100px; animation-duration: 80s;"></div>
   <div class="moon" id="moon"></div>
 </div>
 
 <!-- CONTENT -->
+  <main>
 <section id="section1">
   <h1>Happy 1 Year Anniversary, My Love❤️</h1>
  <p>
@@ -353,34 +771,72 @@
   </div>
 </section>
 
-<section>
+<!-- Love Letter modal (thay phần Letter 1 / Letter 2) -->
+<section id="love-letter-section">
   <h2>Love Letters 💖</h2>
-  <div class="tab" onclick="showLetter('letter1')">Letter 1</div>
-  <div class="tab" onclick="showLetter('letter2')">Letter 2</div>
-  <div id="letter1" class="letter">
-    <h3>Letter 1</h3>
-    <p>My love, this year with you has been amazing. Every moment with you is precious...</p>
-  </div>
-  <div id="letter2" class="letter">
-    <h3>Letter 2</h3>
-    <p>I still remember the day we met, and I cherish every day spent with you...</p>
+  <button id="openLetterBtn" class="love-btn">💌 Open Love Letter</button>
+
+  <div id="loveLetter" class="love-letter hidden" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="letter-content" role="document">
+      <button id="closeLetterBtn" class="close-btn" aria-label="Close letter">✖</button>
+      <h2>My Dearest 💖</h2>
+      <p>
+It’s been one year — 365 days of laughter, adventures, and even a few tears. <br><br>
+I still remember your first email, inviting me to play badminton… who knew a simple message could change everything? 💌<br><br>
+
+Since then, we’ve shared so many “firsts”: our early morning zoo trip, our first trip to Vũng Tàu, our first time traveling abroad, and all the little moments in between.<br><br>
+Even the tough days — our little break, or the “worst birthday” — showed me how strong we are together.<br><br>
+
+I never thought we could come this far, because from the very beginning it was clear we came from two very different worlds.<br><br>
+You, so calm and logical, always thinking about physics and the world in your head…<br><br>
+And me, the childish, emotional one, feeling everything so deeply. 😅<br><br>
+Yet somehow, we balance each other perfectly — you ground me when I’m too emotional, and I bring warmth and spontaneity to your world.<br><br>
+Against all odds, we found a way to make it work, and together we’ve grown in ways I never expected.<br><br>
+<br><br>
+You make me laugh, feel safe, and loved in ways I never imagined —
+even if your love is the coldest, most low‑key kind I’ve ever known. 😤<br><br>
+And don’t you dare say I’m too clingy again, you unromantic nerd! 💢<br><br>
+(Okay fine, maybe I am… just a little. But it’s your fault for being impossible to resist!) 💞
+<br><br><br><br>
+Traveling, exploring, and simply being with you has become my favorite thing.<br><br>
+Every trip, every laugh, every quiet moment has made me fall even more in love with you.<br><br>
+
+I don’t know what the future holds, but I know one thing:<br><br>
+I want to keep writing our story with you, one happy, silly, and sweet page at a time.<br><br>
+<br><br><br><br>
+Happy anniversary, my love.<br><br>
+Here’s to many more adventures, and to us. 💖
+      </p>
+      <p class="signature">— Yours always, Alice 💌</p>
+    </div>
   </div>
 </section>
+
 
 <!-- ❤️ Mini Game -->
 <section>
-  <h2>🧩 Xếp Hình Trái Tim 💗</h2>
-  <p>Kéo các mảnh vào khung trái tim — thử xem ghép nhanh không nha 😘</p>
+  <h2>🧩Solving Problem💗</h2>
 
-  <div class="board-wrap" id="board"></div>
-  <div id="pieces"></div>
+  <!-- Tim + Play -->
+  <div class="heart-wrap" style="position:relative; width:450px; height:450px; margin:0 auto;">
+    <div class="board-wrap"></div> <!-- chỉ để tạo hình tim -->
+    <div class="play-btn" id="playBtn"></div>
+  </div>
 
-  <div style="margin-top:12px;">
-    <button id="shuffleBtn">🔀 Xáo lại mảnh</button>
-    <button id="resetBtn">♻️ Đặt lại</button>
+  <!-- Game nội dung, tách hẳn ra -->
+  <div id="game-content">
+    <p>Drag the pieces into the heart. Let's see if you can fulfill it! 😘</p>
+    <div class="board-wrap" id="board"></div>
+    <div id="pieces"></div>
+    <div style="margin-top:12px;">
+      <button id="shuffleBtn">🔀Shuffle</button>
+      <button id="resetBtn">♻️Again</button>
+    </div>
   </div>
 </section>
 
+</main>
+    
 <audio id="bg-music" loop>
   <source src="mylove.mp3" type="audio/mpeg">
 </audio>
@@ -491,6 +947,38 @@ window.addEventListener("scroll", () => {
 
 
 /* ========== MINI GAME ========== */
+
+/* ========== MINI GAME ========== */
+
+// 🎬 Khi bấm nút Play -> Hiện game (chỉ 1 listener, không có thẻ <script> lồng)
+document.getElementById("playBtn").addEventListener("click", () => {
+  const playBtn = document.getElementById("playBtn");
+  const gameContent = document.getElementById("game-content");
+  const heartWrap = playBtn.closest('.heart-wrap'); // khung trái tim trang trí
+
+  // 1) Ẩn nút Play
+  playBtn.style.opacity = "0";
+  playBtn.style.pointerEvents = "none";
+  setTimeout(() => playBtn.style.display = "none", 600);
+
+  // 2) Ẩn luôn khung trang trí (nếu muốn thay bằng game)
+  if (heartWrap) {
+    heartWrap.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+    heartWrap.style.opacity = "0";
+    heartWrap.style.transform = "scale(0.96)";
+    setTimeout(() => {
+      heartWrap.style.display = "none";
+    }, 420);
+  }
+
+  // 3) Hiện game sau khi hiệu ứng xong
+  setTimeout(() => {
+    gameContent.classList.add("visible");
+    gameContent.style.marginTop = "20px";
+  }, 400);
+});
+
+// --- Game logic: tạo ô, mảnh, drag & drop, kiểm tra thắng ---
 const board = document.getElementById("board");
 const piecesContainer = document.getElementById("pieces");
 const gridSize = 3;
@@ -528,6 +1016,7 @@ function createPieces(shuffle = true) {
     const piece = document.createElement("div");
     piece.className = "piece";
     piece.id = "p-" + i;
+    // backgroundPosition dựa trên vị trí ảnh gốc
     piece.style.backgroundPosition = `-${pos.c * cellSize}px -${pos.r * cellSize}px`;
     piece.dataset.correctIndex = pos.idx;
     piece.draggable = true;
@@ -545,12 +1034,30 @@ function handleDrop(e) {
   const pieceId = e.dataTransfer.getData("text/plain");
   const dragged = document.getElementById(pieceId);
   if (!dragged) return;
-  if (this.querySelector(".piece")) return;
+  if (this.querySelector(".piece")) return; // slot đã có piece
   this.appendChild(dragged);
   checkWin();
 }
 
-/* 🎆 Hiệu ứng pháo hoa */
+function checkWin() {
+  const slots = document.querySelectorAll(".slot");
+  let filled = 0, correct = 0;
+  slots.forEach((slot, i) => {
+    const piece = slot.querySelector(".piece");
+    if (piece) {
+      filled++;
+      if (parseInt(piece.dataset.correctIndex) === i) correct++;
+    }
+  });
+
+  // Khi đủ 9 mảnh và đúng hết
+  if (filled === gridSize * gridSize && correct === gridSize * gridSize) {
+    showFireworks();
+    setTimeout(showReward, 1000); // xuất hiện ảnh thưởng sau 1s
+  }
+}
+
+/* 🎆 Hiệu ứng pháo hoa (nhẹ) */
 function showFireworks() {
   const fireContainer = document.createElement("div");
   fireContainer.id = "fireworks";
@@ -570,7 +1077,7 @@ function showFireworks() {
     spark.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
     spark.style.top = Math.random() * 100 + "%";
     spark.style.left = Math.random() * 100 + "%";
-    spark.style.animation = "burst 1.2s ease-out forwards";
+    spark.style.animation = "burst 1s ease-out forwards";
     fireContainer.appendChild(spark);
   }
 
@@ -579,7 +1086,7 @@ function showFireworks() {
   }, 1800);
 }
 
-/* 🖼️ Hiện ảnh phần thưởng */
+/* 🖼️ Hiện ảnh phần thưởng + ending */
 function showReward() {
   const reward = document.createElement("div");
   reward.id = "reward";
@@ -593,37 +1100,89 @@ function showReward() {
 
   reward.innerHTML = `
     <div style="text-align:center;">
-      <h2 style="color:#fff;font-size:2em;margin-bottom:15px;">🎉 You Did It! 🎉</h2>
+      <h2 style="color:#fff;font-size:2em;margin-bottom:15px;">🎉 You Completed Us! 🎉</h2>
       <img src="anni.jpg" alt="Reward" style="width:400px;border-radius:20px;box-shadow:0 0 25px rgba(255,255,255,0.5);">
-      <p style="color:#fce4ec;margin-top:10px;">Happy Anniversary, my love 💖</p>
-      <button style="margin-top:15px;padding:10px 25px;border:none;border-radius:10px;background:#ff6f91;color:white;cursor:pointer;font-size:1rem;" onclick="document.getElementById('reward').remove();">Close 💫</button>
+      <p style="color:#fce4ec;margin-top:10px;">Love overflowing…💖</p>
+      <button id="closeRewardBtn" style="margin-top:15px;padding:10px 25px;border:none;border-radius:10px;background:#ff6f91;color:white;cursor:pointer;font-size:1rem;">Close 💫</button>
     </div>
   `;
   document.body.appendChild(reward);
-}
-  
-  
-function checkWin() {
-  const slots = board.querySelectorAll(".slot");
-  let win = true;
-  slots.forEach((slot, idx) => {
-    const piece = slot.querySelector(".piece");
-    if (!piece || parseInt(piece.dataset.correctIndex, 10) !== idx) win = false;
-  });
- if (win) {
-  setTimeout(() => {
-    showFireworks();
-    showReward();
-  }, 300);
-}
+
+  // Khi bấm Close -> Hiện kết
+  document.getElementById("closeRewardBtn").onclick = () => {
+    reward.remove();
+    document.querySelector("main").classList.add("shifted");
+
+    // Hiệu ứng nền kết nhẹ
+    document.body.style.transition = "background-color 3s ease";
+    document.body.style.backgroundColor = "#2b0a18";
+
+    // Hiện màn kết
+    const endScene = document.createElement("div");
+    endScene.className = "ending-scene";
+    endScene.innerHTML = `
+      <div class="ending-text">
+        <h2>To be continued…</h2>
+        <p>This is just our first chapter.<br>I can’t wait to write the rest with you. ❤️</p>
+      </div>
+    `;
+    document.body.appendChild(endScene);
+    setTimeout(() => endScene.classList.add("visible"), 100);
+  };
 }
 
-
+// Shuffle và Reset buttons
 document.getElementById("shuffleBtn").addEventListener("click", () => createPieces(true));
 document.getElementById("resetBtn").addEventListener("click", () => { createSlots(); createPieces(false); });
 
+// Khởi tạo lần đầu
 createSlots();
 createPieces(true);
+
+// Cho phép double click để ẩn ending và hiện lại main (nếu có)
+document.addEventListener("DOMContentLoaded", () => {
+  const observer = new MutationObserver(() => {
+    const endingScene = document.querySelector(".ending-scene");
+    const main = document.querySelector("main");
+    if (endingScene && !endingScene.dataset.bound) {
+      endingScene.dataset.bound = "true";
+      endingScene.addEventListener("dblclick", () => {
+        endingScene.style.transition = "opacity 1s ease";
+        endingScene.style.opacity = "0";
+        setTimeout(() => {
+          endingScene.style.display = "none";
+          if (main) {
+            main.classList.remove("shifted");
+            main.style.filter = "none";
+            main.style.opacity = "1";
+            main.style.transform = "translateY(0)";
+          }
+        }, 1000);
+      });
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+});
+// 💌 Love Letter Popup Logic
+const openLetterBtn = document.getElementById("openLetterBtn");
+const closeLetterBtn = document.getElementById("closeLetterBtn");
+const loveLetter = document.getElementById("loveLetter");
+
+if (openLetterBtn && closeLetterBtn && loveLetter) {
+  openLetterBtn.addEventListener("click", () => {
+    loveLetter.classList.add("visible");
+  });
+
+  closeLetterBtn.addEventListener("click", () => {
+    loveLetter.classList.remove("visible");
+  });
+
+  // Đóng khi bấm ngoài khung thư
+  loveLetter.addEventListener("click", (e) => {
+    if (e.target === loveLetter) loveLetter.classList.remove("visible");
+  });
+}
+  
 </script>
 </body>
 </html>
