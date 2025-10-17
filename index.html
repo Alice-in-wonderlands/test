@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>1 Year Anniversary</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+
 <style>
   body {
     margin: 0;
@@ -671,8 +675,9 @@ main.shifted {
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
   max-width: 600px;
   width: 90%;
-  font-family: 'Dancing Script', 'Segoe Script', cursive;
-  font-size: 1.3em;
+  font-family: 'Homemade Apple', 'Segoe Script', cursive;
+  text-align: justify;
+  font-size: 0.8em;
   line-height: 1.8;
   position: relative;
   border: 1px solid #d1c7b9;
@@ -683,9 +688,11 @@ main.shifted {
 .letter-content h3 {
   text-align: center;
   margin-bottom: 20px;
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.8em;
-  color: #5a4740;
+font-family: 'Great Vibes', cursive;
+font-size: 1.7em;
+line-height: 1.8;
+color: #2e1c1c;
+
 }
 
 .close-btn {
@@ -708,6 +715,7 @@ main.shifted {
   to { opacity: 1; transform: scale(1); }
 }
 /* 💌 Overlay thư tay */
+/* 💌 Overlay của thư */
 .letter-overlay {
   position: fixed;
   inset: 0;
@@ -724,6 +732,7 @@ main.shifted {
   animation: fadeIn 0.6s ease forwards;
 }
 
+/* 💌 Hộp thư tay vintage thật hơn */
 .letter-box {
   position: relative;
   width: 80%;
@@ -732,42 +741,48 @@ main.shifted {
   overflow-y: auto;
   border-radius: 20px;
   padding: 60px 60px 50px;
-  box-shadow: 0 0 40px rgba(255, 180, 200, 0.3);
-  animation: slideUp 0.7s ease forwards;
-
-  /* ✨ Vân giấy vintage */
   background-color: #fffaf1;
   background-image: 
-    radial-gradient(circle at 1px 1px, rgba(220,200,170,0.15) 1px, transparent 0),
-    radial-gradient(circle at 3px 3px, rgba(200,180,150,0.15) 1px, transparent 0);
-  background-size: 6px 6px;
-  border: 1px solid rgba(170,140,110,0.3);
+    radial-gradient(circle at 1px 1px, rgba(210,190,160,0.12) 1px, transparent 0),
+    radial-gradient(circle at 3px 3px, rgba(180,160,130,0.12) 1px, transparent 0);
+  background-size: 7px 7px;
+  border: 1px solid rgba(160,130,100,0.35);
+  box-shadow: 0 0 40px rgba(255, 180, 200, 0.25);
+  transform-origin: top center;
+  animation: openLetter 1.2s ease forwards;
+  perspective: 1000px;
+
+  /* ✍️ Font thư tay thật */
+font-family: 'Homemade Apple', cursive;
+font-size: 1.4em;
+line-height: 1.7;
+color: #3a2929;
 }
 
-.letter-content {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25em;
-  line-height: 1.8;
-  text-align: left;
-  color: #3b2f2f;
-  white-space: pre-line;
-}
-
-.letter-content h3 {
-  text-align: center;
-  font-size: 1.8em;
-  margin-bottom: 25px;
-  color: #5a2a2a;
-}
-
-/* ✖ Nút đóng nổi hẳn lên trên */
+/* ❌ Nút đóng ở góc trên của thư */
 .close-btn {
-  position: fixed;
-  top: 40px;
-  right: 60px;
-  font-size: 1.8em;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rg
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  font-size: 1.5em;
+  color: #5a2a2a;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(90, 42, 42, 0.25);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 210, 220, 0.9);
+  color: #b22e53;
+  transform: scale(1.1);
+}
 
 </style>
 </head>
@@ -902,10 +917,32 @@ main.shifted {
     <div class="letter-content">
       <h3>My Love,</h3>
       <p>
-        This year with you has been nothing short of magical. Every laugh, every tear, every
-        little moment we shared means more to me than words could ever say.  
-        You’ve become my home, my comfort, and my forever.  
-        Thank you for choosing me, for understanding me, and for loving me so deeply.  
+        Dear Silly Sam, <br><br>
+
+It’s been one year — 365 days of laughter, adventures, and even a few tears.
+I still remember your first email, inviting me to play badminton… who knew a simple message could change everything? 💌
+ <br><br> 
+Since then, we’ve shared so many “firsts”: our early morning zoo trip, our first trip to Vũng Tàu, our first time traveling abroad, and all the little moments in between.
+Even the tough days — our little break, or the “worst birthday” — showed me how strong we are together.
+ <br><br> 
+I never thought we could come this far, because from the very beginning it was clear we came from two very different worlds. <br><br>
+You, so calm and logical, always thinking about physics and the world in your head…
+And me, the childish, emotional one, feeling everything so deeply. 😅 <br><br>
+Yet somehow, we balance each other perfectly — you ground me when I’m too emotional, and I bring warmth and spontaneity to your world.
+Against all odds, we found a way to make it work, and together we’ve grown in ways I never expected.
+ <br><br> 
+You make me laugh, feel safe, and loved in ways I never imagined —
+even if your love is the coldest, most low‑key kind I’ve ever known. 😤
+And don’t you dare say I’m too clingy again, you unromantic nerd! 💢
+(Okay fine, maybe I am… just a little. But it’s your fault for being impossible to resist!) 💞
+ <br><br> 
+Traveling, exploring, and simply being with you has become my favorite thing.
+Every trip, every laugh, every quiet moment has made me fall even more in love with you.
+ <br><br> 
+I don’t know what the future holds, but I know one thing:
+I want to keep writing our story with you, one happy, silly, and sweet page at a time.
+ <br><br> 
+Happy anniversary, my love. 
         <br><br>
         No matter what happens next, I’ll always cherish this love we’ve built together.  
         <br><br>
