@@ -243,7 +243,7 @@
   <div id="pwOverlay">
     <div class="pwCard">
       <h2>🍁 Secret Autumn Door 🍁</h2>
-      <p>Enter the password to open Gemma’s cozy fall birthday surprise!</p>
+      <p>Enter the password to open!</p>
       <div>
         <input type="password" id="pwInput" placeholder="Password" />
         <button id="pwSubmit">Open</button>
@@ -299,7 +299,7 @@
       </div>
     </section>
 
-    <footer>Made with love & autumn vibes by your team 🍁</footer>
+    <footer>Made with love🍁</footer>
   </div>
 
   <script>
@@ -324,7 +324,7 @@
     });
     pwInput.addEventListener('keydown', e => { if(e.key==='Enter') pwSubmit.click(); });
     hintBtn.addEventListener('click', ()=> {
-      hintText.textContent = 'Hint: something dark... like autumn nights 🍂';
+      hintText.textContent = 'Hint: A black';
       setTimeout(()=> hintText.textContent='',4000);
     });
 
