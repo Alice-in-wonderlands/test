@@ -1,78 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday Gemma! 🎉</title>
+  <title>Happy Birthday Gemma 🎉</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
-    body{
-      font-family:'Comic Neue', cursive;
-      margin:0;
-      padding:0;
-      background: linear-gradient(180deg,#fff0f5,#ffebcd);
-      overflow-x:hidden;
-    }
-    /* Overlay Password */
-    #pwOverlay{
-      position: fixed;
-      inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0.7));
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:9999;
-    }
-    .pwCard{
-      background:#fff0f8;
-      padding:30px;
-      border-radius:18px;
-      max-width:480px;
-      width:90%;
-      text-align:center;
-      box-shadow:0 10px 30px rgba(0,0,0,0.25);
-    }
-    .pwCard h2{color:#ff1493; margin-bottom:12px;}
-    .pwCard input{
-      width:65%;
-      padding:10px 14px;
-      border-radius:999px;
-      border:2px solid #ffb6c1;
-      font-size:16px;
-      margin-right:6px;
-    }
-    .pwCard button{
-      padding:10px 16px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      background:#ff69b4;
-      color:white;
-      font-weight:700;
-      transition: transform .2s;
-    }
-    .pwCard button:hover{transform:scale(1.05);}
-    .hintText{margin-top:10px; color:#444; font-weight:700; min-height:18px;}
-    .errorText{color:#ff0044; font-weight:700; margin-top:8px; display:none;}
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-    /* Main site (hidden initially) */
-    #mainContent{display:none;}
-    section{padding:40px 20px; text-align:center;}
-    h1{color:#ff1493;}
-    h2{color:#ff69b4;}
-    .card{
-      background:#fff;
-      padding:18px;
-      margin:12px auto;
-      border-radius:14px;
-      max-width:720px;
-      text-align:left;
-      box-shadow:0 8px 18px rgba(0,0,0,0.1);
-      transition: transform .25s;
+    :root {
+      --pink: #ff80ab;
+      --rose: #ffb6c1;
+      --light: #fff5f8;
+      --accent: #ff4081;
+      --text: #333;
     }
-    .card:hover{transform:translateY(-4px) scale(1.01);}
-    #giftMessage{display:none; color:#ff1493; font-weight:bold; font-size:20px; margin-top:15px;}
-    footer{padding:16px; font-weight:700;}
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(180deg, #fff0f5, #ffe6eb);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Overlay Password */
+    #pwOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(6px);
+      transition: opacity 0.5s ease;
+    }
+
+    .pwCard {
+      background: var(--light);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease;
+    }
+
+    .pwCard h2 {
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .pwCard p {
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .pwCard input {
+      width: 65%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 2px solid var(--rose);
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .pwCard input:focus {
+      border-color: var(--accent);
+    }
+
+    .pwCard button {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .pwCard button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+    }
+
+    .hintText {
+      margin-top: 10px;
+      color: var(--accent);
+      font-weight: 600;
+      min-height: 18px;
+    }
+
+    .errorText {
+      color: #ff0044;
+      font-weight: 600;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Main site */
+    #mainContent {
+      display: none;
+      animation: fadeIn 1s ease;
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 2.2rem;
+    }
+
+    h2 {
+      color: var(--pink);
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      margin: 15px auto;
+      border-radius: 16px;
+      max-width: 720px;
+      text-align: left;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    #startBtn, #giftBtn {
+      padding: 12px 26px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    #startBtn:hover, #giftBtn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 12px rgba(255, 105, 180, 0.5);
+    }
+
+    #giftMessage {
+      display: none;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 20px;
+      margin-top: 15px;
+      animation: pop 0.6s ease forwards;
+    }
+
+    footer {
+      padding: 18px;
+      background: var(--light);
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes pop {
+      0% {transform: scale(0.6); opacity: 0;}
+      100% {transform: scale(1); opacity: 1;}
+    }
   </style>
 </head>
 <body>
@@ -81,58 +190,58 @@
   <div id="pwOverlay">
     <div class="pwCard">
       <h2>🎀 Secret Entrance 🎀</h2>
-      <p>Enter the password to open the birthday surprise for Gemma</p>
+      <p>Enter the password to unlock Gemma’s birthday surprise!</p>
       <div>
         <input type="password" id="pwInput" placeholder="Password" />
         <button id="pwSubmit">Open</button>
-        <button id="hintBtn">Hint</button>
+        <button id="hintBtn" style="background:#ccc; color:#333; margin-left:5px;">Hint</button>
       </div>
       <div class="hintText" id="hintText"></div>
-      <div class="errorText" id="pwError">Wrong password — try again.</div>
+      <div class="errorText" id="pwError">Wrong password — try again!</div>
     </div>
   </div>
 
-  <!-- Main content hidden initially -->
+  <!-- Main Content -->
   <div id="mainContent">
     <section id="landing">
-      <h1>🎉 Happy Birthday Gemma! 🎉</h1>
-      <p>Welcome! Click below to start the journey full of messages and fun surprises.</p>
-      <button id="startBtn">Start Exploring</button>
+      <h1>🎉 Happy Birthday, Gemma! 🎉</h1>
+      <p>Welcome to your special page — a journey full of love, smiles, and surprises 🎂💖</p>
+      <button id="startBtn">Start the Journey</button>
     </section>
 
     <section id="story">
-      <h2>Gemma's Journey</h2>
+      <h2>🌸 Gemma’s Journey 🌸</h2>
       <div class="card">
-        <h3>First Day at Company</h3>
-        <p>Gemma joined the team and brought smiles from day one.</p>
+        <h3>✨ First Day at the Company</h3>
+        <p>From the moment Gemma joined, she brought laughter and energy to the team.</p>
       </div>
       <div class="card">
-        <h3>Major Project Success</h3>
-        <p>Led the project to a big success!</p>
+        <h3>🏆 Major Project Success</h3>
+        <p>With leadership and passion, Gemma led the project to an incredible success.</p>
       </div>
       <div class="card">
-        <h3>Team Building Fun</h3>
-        <p>Always energetic and inspiring during activities.</p>
+        <h3>🎈 Team Building Fun</h3>
+        <p>Always the spark of joy — spreading positivity and enthusiasm everywhere!</p>
       </div>
     </section>
 
     <section id="messages">
-      <h2>Messages from the Team</h2>
+      <h2>💌 Messages from the Team</h2>
       <div class="card">
-        <p>"Happy Birthday Gemma! Wishing you joy and success!" – Alice</p>
+        <p>"Happy Birthday Gemma! Wishing you endless happiness and achievements ahead!" – Alice</p>
       </div>
       <div class="card">
-        <p>"Thanks for being a great leader! Have a wonderful birthday!" – Bob</p>
+        <p>"Thank you for your inspiration and kindness! Have the best birthday ever!" – Bob</p>
       </div>
     </section>
 
     <section id="game">
-      <h2>Open Your Birthday Gift 🎁</h2>
-      <button id="giftBtn">Click to Reveal</button>
-      <p id="giftMessage">Surprise! You are awesome! 🎉💖</p>
+      <h2>🎁 Your Birthday Gift</h2>
+      <button id="giftBtn">Open the Gift</button>
+      <p id="giftMessage">Surprise! You are amazing, Gemma! 🎉💖</p>
     </section>
 
-    <footer>Thanks to the team for celebrating Gemma!</footer>
+    <footer>💖 Made with love by your team 💖</footer>
   </div>
 
   <script>
@@ -146,39 +255,42 @@
     const mainContent = document.getElementById('mainContent');
 
     // Password submit
-    pwSubmit.addEventListener('click', ()=>{
+    pwSubmit.addEventListener('click', () => {
       const val = pwInput.value.trim().toLowerCase();
-      if(val === CORRECT){
-        overlay.style.display='none';
-        mainContent.style.display='block';
-      }else{
-        pwError.style.display='block';
-        setTimeout(()=> pwError.style.display='none',2000);
+      if (val === CORRECT) {
+        overlay.style.opacity = '0';
+        setTimeout(() => overlay.style.display = 'none', 600);
+        mainContent.style.display = 'block';
+        mainContent.scrollIntoView({behavior: 'smooth'});
+      } else {
+        pwError.style.display = 'block';
+        setTimeout(() => pwError.style.display = 'none', 2000);
       }
     });
-    pwInput.addEventListener('keydown',(e)=>{
-      if(e.key==='Enter'){ pwSubmit.click(); }
+
+    pwInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') pwSubmit.click();
     });
 
     // Hint
-    hintBtn.addEventListener('click', ()=>{
-      hintText.textContent = 'Hint: black';
-      setTimeout(()=> hintText.textContent='',4000);
+    hintBtn.addEventListener('click', () => {
+      hintText.textContent = 'Hint: something... dark 😉';
+      setTimeout(() => hintText.textContent = '', 4000);
     });
 
     // Mini game reveal
     const giftBtn = document.getElementById('giftBtn');
     const giftMessage = document.getElementById('giftMessage');
-    giftBtn.addEventListener('click', ()=>{
-      giftMessage.style.display='block';
+    giftBtn.addEventListener('click', () => {
+      giftMessage.style.display = 'block';
+      giftMessage.style.animation = 'pop 0.6s ease';
     });
 
-    // Landing start scroll
+    // Scroll to story
     const startBtn = document.getElementById('startBtn');
-    startBtn.addEventListener('click', ()=>{
-      document.getElementById('story').scrollIntoView({behavior:'smooth'});
+    startBtn.addEventListener('click', () => {
+      document.getElementById('story').scrollIntoView({behavior: 'smooth'});
     });
   </script>
-
 </body>
 </html>
