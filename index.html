@@ -1,267 +1,308 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy Birthday Gemma — Autumn Surprise 🍂</title>
-
-  <!-- Font: Homemade Apple -->
-  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Gemma 🍂</title>
   <style>
-    :root{
-      --orange:#d96b3b;
-      --amber:#f0c27b;
-      --cream:#fff8ef;
-      --brown:#3b2f2f;
-      --leaf:#b86b2a;
-      --muted:#6b5852;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:"Homemade Apple", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#fff8ef,#f6e6d3);
-      color:var(--brown);
-      -webkit-font-smoothing:antialiased;
-      overflow-x:hidden;
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+
+    :root {
+      --orange: #e07a5f;
+      --amber: #f2cc8f;
+      --cream: #fefae0;
+      --brown: #3d2c2e;
+      --leaf: #d68c45;
     }
 
-    /* Falling leaves */
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(180deg, #fefae0, #faedcd);
+      color: var(--brown);
+      overflow-x: hidden;
+    }
+
+    @keyframes fall {
+      0% {transform: translateY(-10%) rotate(0deg);}
+      100% {transform: translateY(110vh) rotate(360deg);}
+    }
     .leaf {
-      position:fixed;
-      top:-10vh;
-      z-index:1;
-      opacity:0.9;
-      pointer-events:none;
-      transform-origin:center;
-      will-change:transform, opacity;
-      font-size:20px;
+      position: fixed;
+      top: -50px;
+      font-size: 22px;
+      color: var(--leaf);
+      animation: fall linear infinite;
+      z-index: 1;
+      opacity: 0.8;
     }
 
-    /* Overlay password */
-    #pwOverlay{
-      position:fixed; inset:0;
-      display:flex; align-items:center; justify-content:center;
-      background: rgba(10,10,10,0.6);
+    #pwOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(5px);
-      z-index:9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
-    .pwCard{
-      width:92%; max-width:480px;
-      background:linear-gradient(180deg,#fffaf3,#fff2e6);
-      border-radius:16px;
-      padding:28px;
-      box-shadow:0 12px 40px rgba(0,0,0,0.25);
-      text-align:center;
-      border: 2px solid rgba(184,107,42,0.12);
-    }
-    .pwCard h2{margin:0 0 6px; color:var(--leaf); font-size:26px}
-    .pwCard p{margin:0 0 14px; color:var(--muted)}
 
-    .pwRow{display:flex; gap:8px; justify-content:center; align-items:center}
-    .pwRow input{
-      padding:10px 12px; border-radius:999px; border:2px solid #f0c27b; width:62%;
-      font-size:16px; outline:none; background:white;
+    .pwCard {
+      background: var(--cream);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border: 3px solid var(--amber);
     }
-    .pwRow button{
-      padding:9px 14px; border-radius:999px; border:none; cursor:pointer;
-      background:var(--orange); color:#fff; font-weight:700;
-      box-shadow:0 6px 16px rgba(217,107,59,0.18);
-    }
-    .hintBtn{background:#f7d9b0; color:var(--brown); font-weight:700; border:none; padding:9px 10px; border-radius:999px; cursor:pointer}
-    .hintText{height:20px; margin-top:10px; color:var(--leaf); font-weight:700}
-    .errorText{color:#d62828; margin-top:8px; display:none; font-weight:700}
 
-    /* Main content */
-    #mainContent{display:none; position:relative; z-index:2; padding-bottom:60px}
-    header{padding:42px 20px 10px; text-align:center}
-    header h1{font-size:34px; margin:0; color:var(--leaf)}
-    header p{margin:8px 0 0; color:var(--muted); font-size:16px}
+    .pwCard h2 { color: var(--orange); margin-bottom: 12px; }
+    .pwCard input {
+      width: 65%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 2px solid var(--amber);
+      font-size: 16px;
+    }
+    .pwCard button {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: var(--orange);
+      color: white;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+    .pwCard button:hover { transform: scale(1.05); }
+    .hintText { margin-top: 10px; color: var(--orange); font-weight: 600; min-height: 18px; }
+    .errorText { color: #d62828; font-weight: 600; margin-top: 8px; display: none; }
 
-    .container{max-width:980px; margin:26px auto; padding:0 18px}
-    section{margin:28px 0; padding:20px; border-radius:14px; background:linear-gradient(180deg,#fff,#fffaf6);
-             box-shadow:0 8px 24px rgba(0,0,0,0.06); border-left:6px solid rgba(184,107,42,0.12)}
+    #mainContent { display: none; position: relative; z-index: 2; }
+    section { padding: 60px 20px; text-align: center; }
+    h1 { color: var(--orange); font-size: 2.3rem; }
+    h2 { color: var(--leaf); margin-bottom: 25px; }
 
-    .center{display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px}
-    .btn{
-      background:var(--leaf); color:#fff; border:none; padding:12px 20px; border-radius:999px; cursor:pointer;
-      font-weight:700; box-shadow:0 8px 24px rgba(184,107,42,0.15)
+    .card {
+      background: #fffdf6;
+      padding: 22px;
+      margin: 15px auto;
+      border-radius: 16px;
+      max-width: 720px;
+      text-align: left;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      border-left: 6px solid var(--amber);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .btn.secondary{background:#f7d9b0; color:var(--brown)}
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
 
-    /* Quiz styles */
-    .quiz-card{padding:18px; margin:12px auto; max-width:820px; border-radius:12px; background:#fffefb}
-    .question{font-size:20px; margin-bottom:10px}
-    .answers{display:flex; gap:10px; flex-wrap:wrap}
-    .opt{
-      padding:10px 12px; border-radius:10px; border:2px solid #f0e4d8; cursor:pointer; min-width:160px;
-      background:transparent;
+    #startBtn, #nextQuizBtn, #letterBtn, #giftBtn {
+      padding: 12px 26px;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.3s;
+      margin-top: 20px;
     }
-    .opt.selected{border-color:var(--leaf); background:linear-gradient(180deg,#fff7f0,#fff2ea)}
-    .quiz-footer{display:flex; justify-content:space-between; align-items:center; margin-top:14px}
-    .resultBox{margin-top:12px; font-weight:800; color:var(--leaf); font-size:18px; display:none}
+    button:hover { transform: scale(1.07); }
 
-    /* Letter (envelope) */
-    .envelope{
-      width:320px; height:200px; position:relative; perspective:900px; margin:20px auto;
+    footer {
+      padding: 18px;
+      background: var(--cream);
+      font-weight: 600;
+      color: var(--orange);
+      text-align: center;
     }
-    .env-inner{
-      width:100%; height:100%; transform-style:preserve-3d; transition:transform .8s cubic-bezier(.2,.9,.3,1);
-      position:relative;
-    }
-    .env-front, .env-back, .env-flap{
-      position:absolute; left:0; top:0; width:100%; height:100%; border-radius:10px; overflow:hidden;
-      backface-visibility:hidden;
-    }
-    .env-front{background:linear-gradient(180deg,#fff8f0,#fff1e3); border:1px solid rgba(0,0,0,0.06);}
-    .env-back{background:transparent}
-    .env-flap{
-      height:60%; top:-5%; transform-origin:center top; background:linear-gradient(180deg,#f6d8b0,#f0c27b); border-radius:10px 10px 0 0;
-      border:1px solid rgba(0,0,0,0.06); transform:rotateX(0deg);
-      transition:transform .6s cubic-bezier(.2,.9,.3,1);
-    }
-    .env-open .env-flap{transform:rotateX(-180deg)}
-    .letter{
-      position:absolute; left:6%; top:10%; width:88%; height:80%; background:#fff; padding:18px;border-radius:8px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.06); transform:translateY(8px); opacity:0; transition:all .6s ease;
-    }
-    .env-open .letter{transform:translateY(0); opacity:1}
 
-    /* Gift box */
-    .giftWrap{width:220px; height:160px; margin:18px auto; position:relative}
-    .box{
-      width:100%; height:100%; background:linear-gradient(180deg,#f9e6d6,#f2d6bb);
-      border-radius:12px; position:relative; box-shadow:0 12px 28px rgba(0,0,0,0.12);
-      transition:transform .5s ease;
+    /* Quiz Section */
+    .quiz-question {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
     }
-    .lid{
-      position:absolute; left:6px; right:6px; top:-28px; height:60px; background:linear-gradient(180deg,#d97b46,#c56737);
-      border-radius:12px; transform-origin:center; transition:transform .6s cubic-bezier(.2,.9,.3,1);
-      box-shadow:0 8px 22px rgba(0,0,0,0.12);
+    .quiz-option {
+      display: block;
+      background: #fff;
+      border: 2px solid var(--amber);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px auto;
+      max-width: 400px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    .box.open .lid{transform:translateY(-48px) rotateX(25deg)}
-    .ribbon{position:absolute; left:50%; transform:translateX(-50%); width:12px; top:0; height:100%; background:linear-gradient(180deg,#8b3a2e,#6d2418); border-radius:6px}
-    .bow{position:absolute; left:50%; top:-18px; transform:translateX(-50%); width:56px; height:36px; border-radius:18px; background:linear-gradient(180deg,#e9966b,#d96b3b); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.12)}
-    .presentImg{max-width:92%; max-height:110px; display:block; margin:8px auto; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.12); display:none}
+    .quiz-option:hover { background: #fff1da; }
+    #quizResult {
+      margin-top: 15px;
+      font-weight: 700;
+      color: var(--orange);
+    }
 
-    /* Small utilities */
-    .muted{color:var(--muted); font-size:14px}
-    .navRow{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px}
+    /* Letter */
+    .letter-container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      perspective: 1000px;
+    }
+    .letter {
+      background: #fffaf2;
+      border: 2px solid var(--amber);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transform-style: preserve-3d;
+      transform: rotateX(-90deg);
+      transition: transform 1s ease;
+      font-family: 'Homemade Apple', cursive;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #5a3e36;
+    }
+    .letter.open { transform: rotateX(0deg); }
 
-    /* Responsive */
-    @media (max-width:640px){
-      header h1{font-size:28px}
-      .envelope{width:260px;height:170px}
-      .giftWrap{width:200px;height:140px}
+    /* Gift Box */
+    .gift-box {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 30px auto;
+      background: var(--orange);
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+    .gift-box::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 160px;
+      background: var(--amber);
+    }
+    .gift-box::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 160px;
+      height: 30px;
+      background: var(--amber);
+      transform: translateY(-50%);
+    }
+    .gift-lid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 160px;
+      height: 40px;
+      background: var(--orange);
+      border-radius: 12px 12px 0 0;
+      transition: transform 0.5s ease;
+    }
+    .gift-open .gift-lid { transform: translateY(-80px) rotate(-10deg); }
+    .gift-content {
+      display: none;
+      margin-top: 20px;
+    }
+    .gift-content img {
+      max-width: 200px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
 
-  <!-- Falling leaves (generated by JS) -->
-  <!-- Password overlay -->
-  <div id="pwOverlay" aria-hidden="false">
-    <div class="pwCard" role="dialog" aria-labelledby="pwTitle">
-      <h2 id="pwTitle">🍁 Cửa vào mùa thu</h2>
-      <p>Nhập mật khẩu để mở bất ngờ sinh nhật cho Gemma</p>
-      <div class="pwRow">
-        <input id="pwInput" type="password" placeholder="Mật khẩu..." aria-label="password">
-        <button id="pwSubmit" aria-label="Open">Mở</button>
-        <button id="hintBtn" class="hintBtn" aria-label="Hint">Gợi ý</button>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const leafIcons = ['🍁','🍂','🍃'];
+      for(let i=0;i<20;i++){
+        const leaf = document.createElement('div');
+        leaf.classList.add('leaf');
+        leaf.textContent = leafIcons[Math.floor(Math.random()*leafIcons.length)];
+        leaf.style.left = Math.random()*100 + 'vw';
+        leaf.style.animationDuration = (8 + Math.random()*10) + 's';
+        leaf.style.animationDelay = Math.random()*5 + 's';
+        leaf.style.fontSize = (16 + Math.random()*12) + 'px';
+        document.body.appendChild(leaf);
+      }
+    });
+  </script>
+
+  <div id="pwOverlay">
+    <div class="pwCard">
+      <h2>🍁 Secret Autumn Door 🍁</h2>
+      <p>Enter the password to open Gemma’s cozy fall birthday surprise!</p>
+      <div>
+        <input type="password" id="pwInput" placeholder="Password" />
+        <button id="pwSubmit">Open</button>
+        <button id="hintBtn" style="background:#f2cc8f; color:#3d2c2e; margin-left:5px;">Hint</button>
       </div>
       <div class="hintText" id="hintText"></div>
-      <div class="errorText" id="pwError">Sai mật khẩu — thử lại nhé!</div>
+      <div class="errorText" id="pwError">Wrong password — try again!</div>
     </div>
   </div>
 
-  <!-- Main -->
-  <div id="mainContent" aria-hidden="true">
-    <header>
-      <h1>🍂 Happy Birthday, Gemma!</h1>
-      <p>Chúc mừng sinh nhật tháng 10 — ấm áp như mùa thu.</p>
-    </header>
+  <div id="mainContent">
+    <section id="landing">
+      <h1>🍂 Happy Birthday, Gemma! 🍂</h1>
+      <p>Welcome to your cozy autumn surprise! Let’s start with a little fun.</p>
+      <button id="startBtn">Start the Journey</button>
+    </section>
 
-    <div class="container">
-      <!-- Landing -->
-      <section id="landing" class="center">
-        <p class="muted">Một hành trình nhỏ: quiz, lá thư, và hộp quà bí ẩn — chuẩn mùa thu 🍁</p>
-        <div class="navRow">
-          <button class="btn" id="btnStart">Bắt đầu</button>
-          <button class="btn secondary" id="btnQuizJump">Quiz vui</button>
-          <button class="btn secondary" id="btnLetterJump">Mở thư</button>
-          <button class="btn secondary" id="btnGiftJump">Hộp quà</button>
-        </div>
-      </section>
+    <section id="quiz" style="display:none;">
+      <h2>🎯 Fun Quiz about Gemma</h2>
+      <div id="quizBox">
+        <div class="quiz-question" id="quizQ"></div>
+        <div id="quizOptions"></div>
+        <div id="quizResult"></div>
+      </div>
+      <button id="nextQuizBtn" style="display:none;">Next</button>
+    </section>
 
-      <!-- Quiz Section -->
-      <section id="quizSection">
-        <h2 style="margin-top:0">🧠 Quiz vui về Gemma</h2>
-        <div class="quiz-card" id="quizCard">
-          <!-- Questions inserted by JS -->
+    <section id="letterSection" style="display:none;">
+      <h2>💌 A Birthday Letter</h2>
+      <div class="letter-container">
+        <div class="letter" id="letter">
+          Dear Gemma,<br><br>
+          As the leaves turn gold and the air turns crisp, another beautiful chapter begins for you.  
+          You’ve been a warm light in our team, much like autumn sunlight through amber trees — calm, kind, and bright.  
+          May this year bring you laughter that warms your heart, success that feels effortless, and days filled with calm joy.  
+          <br><br>
+          Happy Birthday, Gemma.  
+          You are cherished more than words can tell.  
+          <br><br>With love,<br>Your Team 🍁
         </div>
-        <div class="center">
-          <div class="quiz-footer" style="width:100%; max-width:760px">
-            <button class="btn" id="submitQuiz">Nộp đáp án</button>
-            <div class="resultBox" id="quizResult"></div>
-          </div>
-        </div>
-      </section>
+      </div>
+      <button id="letterBtn">Open the Letter</button>
+    </section>
 
-      <!-- Letter Section -->
-      <section id="letterSection" class="center">
-        <h2>💌 Một lá thư ấm áp</h2>
-        <div class="envelope" id="envelope" aria-hidden="false">
-          <div class="env-inner" id="envInner">
-            <div class="env-flap"></div>
-            <div class="env-front"></div>
-            <div class="letter" id="letterContent" role="document" aria-label="Letter">
-              <!-- Letter text -->
-              <h3 style="margin:0 0 6px; color:var(--leaf)">Dear Gemma,</h3>
-              <p style="margin:6px 0; color:var(--muted); line-height:1.5">
-                Trong những ngày hanh hao của mùa thu, ánh nắng dịu dàng như nụ cười của em.
-                Cảm ơn em đã mang đến hơi ấm, cảm hứng và sự tin tưởng cho cả đội.
-                Chúc em một tuổi mới thật an yên, tràn đầy những dự định đã ấp ủ và thật nhiều niềm vui.
-              </p>
-              <p style="margin:8px 0 0; font-weight:800; color:var(--orange)">Happy Birthday — from your team 🍂</p>
-            </div>
-          </div>
-        </div>
-        <div class="navRow">
-          <button class="btn" id="openLetterBtn">Mở thư</button>
-          <button class="btn secondary" id="closeLetterBtn">Đóng thư</button>
-        </div>
-      </section>
+    <section id="giftSection" style="display:none;">
+      <h2>🎁 The Mystery Gift</h2>
+      <div class="gift-box" id="giftBox">
+        <div class="gift-lid"></div>
+      </div>
+      <div class="gift-content" id="giftContent">
+        <p>Surprise! Here’s your special memory 💖</p>
+        <img src="https://i.imgur.com/xYzTzjK.png" alt="Gemma gift"/>
+      </div>
+    </section>
 
-      <!-- Gift Section -->
-      <section id="giftSection" class="center">
-        <h2>🎁 Hộp quà bí ẩn</h2>
-        <p class="muted">Bấm mở để xem bí mật — bạn có thể thay ảnh bên dưới bằng ảnh thật của mình.</p>
-
-        <div class="giftWrap" id="giftWrap" aria-hidden="false">
-          <div class="box" id="giftBox" role="button" tabindex="0" aria-pressed="false" aria-label="Gift box">
-            <div class="lid"></div>
-            <div class="ribbon"></div>
-            <div class="bow">🎀</div>
-            <!-- Placeholder image; đổi 'your-image.jpg' thành ảnh thực tế của bạn -->
-            <img id="presentImg" class="presentImg" src="your-image.jpg" alt="Image inside gift (replace with your own)">
-          </div>
-        </div>
-
-        <div class="navRow">
-          <button class="btn" id="openGiftBtn">Mở hộp</button>
-          <button class="btn secondary" id="resetGiftBtn">Đóng lại</button>
-        </div>
-      </section>
-
-      <footer style="text-align:center; margin-top:28px; color:var(--muted); font-weight:700">
-        Made with autumn love by the team 🍁
-      </footer>
-    </div>
+    <footer>Made with love & autumn vibes by your team 🍁</footer>
   </div>
 
   <script>
-    /*********** Password logic ***********/
     const CORRECT = 'bruce';
     const overlay = document.getElementById('pwOverlay');
     const pwInput = document.getElementById('pwInput');
@@ -271,206 +312,86 @@
     const pwError = document.getElementById('pwError');
     const mainContent = document.getElementById('mainContent');
 
-    pwSubmit.addEventListener('click', ()=>{
+    pwSubmit.addEventListener('click', () => {
       const val = pwInput.value.trim().toLowerCase();
-      if(val === CORRECT){
-        overlay.style.opacity = '0';
-        setTimeout(()=> overlay.style.display = 'none', 400);
+      if (val === CORRECT) {
+        overlay.style.display = 'none';
         mainContent.style.display = 'block';
-        mainContent.setAttribute('aria-hidden','false');
-        document.body.style.overflowY = 'auto';
       } else {
         pwError.style.display = 'block';
-        setTimeout(()=> pwError.style.display = 'none', 2000);
+        setTimeout(() => pwError.style.display = 'none', 2000);
       }
     });
-    pwInput.addEventListener('keydown', (e)=> { if(e.key==='Enter') pwSubmit.click(); });
-
-    hintBtn.addEventListener('click', ()=>{
-      hintText.textContent = 'Gợi ý: màu tối (5s)';
-      setTimeout(()=> hintText.textContent = '', 5000);
+    pwInput.addEventListener('keydown', e => { if(e.key==='Enter') pwSubmit.click(); });
+    hintBtn.addEventListener('click', ()=> {
+      hintText.textContent = 'Hint: something dark... like autumn nights 🍂';
+      setTimeout(()=> hintText.textContent='',4000);
     });
 
-    /*********** Falling leaves generation ***********/
-    (function makeLeaves(){
-      const icons = ['🍁','🍂'];
-      for(let i=0;i<18;i++){
-        const d = document.createElement('div');
-        d.className = 'leaf';
-        d.textContent = icons[Math.floor(Math.random()*icons.length)];
-        const size = 14 + Math.random()*20;
-        d.style.fontSize = size + 'px';
-        d.style.left = (Math.random()*100) + 'vw';
-        const dur = 8 + Math.random()*10;
-        d.style.animation = `fall ${dur}s linear ${Math.random()*4}s infinite`;
-        // random rotation & sway via transform
-        d.style.transform = `rotate(${Math.random()*360}deg)`;
-        document.body.appendChild(d);
-      }
-      // add keyframes dynamically (to vary horizontal drift)
-      const style = document.createElement('style');
-      style.innerHTML = `
-        @keyframes fall { 
-          0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity:0 }
-          10% { opacity:1 }
-          50% { transform: translateY(40vh) rotate(180deg) translateX(8vw) }
-          100% { transform: translateY(110vh) rotate(360deg) translateX(-6vw); opacity:0.95 }
-        }`;
-      document.head.appendChild(style);
-    })();
-
-    /*********** Navigation buttons ***********/
-    document.getElementById('btnStart').addEventListener('click', ()=> document.getElementById('quizSection').scrollIntoView({behavior:'smooth'}));
-    document.getElementById('btnQuizJump').addEventListener('click', ()=> document.getElementById('quizSection').scrollIntoView({behavior:'smooth'}));
-    document.getElementById('btnLetterJump').addEventListener('click', ()=> document.getElementById('letterSection').scrollIntoView({behavior:'smooth'}));
-    document.getElementById('btnGiftJump').addEventListener('click', ()=> document.getElementById('giftSection').scrollIntoView({behavior:'smooth'}));
-
-    /*********** Quiz logic ***********/
-    const quizQuestions = [
-      {
-        q: "Gemma thích uống gì buổi sáng?",
-        options: ["Cà phê", "Trà", "Sinh tố", "Nước lọc"],
-        a: 0
-      },
-      {
-        q: "Nếu Gemma là một mùa, cô ấy sẽ là mùa nào?",
-        options: ["Mùa xuân", "Mùa hè", "Mùa thu", "Mùa đông"],
-        a: 2
-      },
-      {
-        q: "Món ăn yêu thích của Gemma là gì?",
-        options: ["Pizza", "Phở", "Sushi", "Salad"],
-        a: 2
-      },
-      {
-        q: "Gemma thư giãn bằng cách nào?",
-        options: ["Đọc sách", "Xem phim", "Đi dạo", "Tập thể thao"],
-        a: 0
-      }
+    // Quiz
+    const quizData = [
+      { q: "What’s Gemma’s favorite drink?", o: ["Coffee ☕", "Tea 🍵", "Juice 🧃"], a: 0 },
+      { q: "If Gemma were a season, she’d be…", o: ["Spring 🌸", "Autumn 🍂", "Winter ❄️"], a: 1 },
+      { q: "Gemma’s secret superpower?", o: ["Making people smile 😄", "Cooking 👩‍🍳", "Teleportation 🌀"], a: 0 }
     ];
-
-    const quizCard = document.getElementById('quizCard');
+    let quizIndex = 0;
+    const quizQ = document.getElementById('quizQ');
+    const quizOptions = document.getElementById('quizOptions');
     const quizResult = document.getElementById('quizResult');
-
-    function renderQuiz(){
-      quizCard.innerHTML = '';
-      quizQuestions.forEach((item, idx) => {
-        const qWrap = document.createElement('div');
-        qWrap.className = 'qWrap';
-        qWrap.innerHTML = `
-          <div class="question">${idx+1}. ${item.q}</div>
-          <div class="answers" data-q="${idx}"></div>
-        `;
-        quizCard.appendChild(qWrap);
-        const answersEl = qWrap.querySelector('.answers');
-        item.options.forEach((opt, oi) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'opt';
-          btn.textContent = opt;
-          btn.dataset.q = idx;
-          btn.dataset.opt = oi;
-          btn.addEventListener('click', ()=> {
-            // deselect siblings
-            const siblings = answersEl.querySelectorAll('.opt');
-            siblings.forEach(s => s.classList.remove('selected'));
-            btn.classList.add('selected');
-          });
-          answersEl.appendChild(btn);
-        });
+    const nextQuizBtn = document.getElementById('nextQuizBtn');
+    function loadQuiz(){
+      const data = quizData[quizIndex];
+      quizQ.textContent = data.q;
+      quizOptions.innerHTML = '';
+      data.o.forEach((opt,i)=>{
+        const div = document.createElement('div');
+        div.className = 'quiz-option';
+        div.textContent = opt;
+        div.onclick = ()=>checkAnswer(i);
+        quizOptions.appendChild(div);
       });
+      quizResult.textContent='';
+      nextQuizBtn.style.display='none';
     }
-    renderQuiz();
-
-    document.getElementById('submitQuiz').addEventListener('click', ()=>{
-      let score = 0;
-      quizQuestions.forEach((item, idx)=>{
-        const chosen = document.querySelector(`.answers[data-q="${idx}"] .opt.selected`);
-        if(chosen && Number(chosen.dataset.opt) === item.a) score++;
-      });
-      quizResult.style.display = 'block';
-      quizResult.textContent = `Bạn trả lời đúng ${score}/${quizQuestions.length}`;
-      // show a small message based on score
-      let msg = '';
-      if(score === quizQuestions.length) msg = 'Bạn hiểu Gemma quá tốt! 🎉';
-      else if(score >= Math.ceil(quizQuestions.length*0.6)) msg = 'Tuyệt! Bạn gần như đoán đúng rồi 😊';
-      else msg = 'Chưa hết đâu — hãy thử hỏi team để biết thêm về Gemma nhé!';
-      quizResult.textContent += ' — ' + msg;
-      // scroll to letter after a short delay to encourage flow
-      setTimeout(()=> document.getElementById('letterSection').scrollIntoView({behavior:'smooth'}), 1500);
-    });
-
-    /*********** Letter open/close ***********/
-    const envInner = document.getElementById('envInner');
-    const openLetterBtn = document.getElementById('openLetterBtn');
-    const closeLetterBtn = document.getElementById('closeLetterBtn');
-
-    openLetterBtn.addEventListener('click', ()=>{
-      envInner.parentElement.classList.add('env-open');
-      envInner.querySelector('.env-flap').style.transform = 'rotateX(-180deg)';
-      envInner.querySelector('.letter').style.opacity = 1;
-      envInner.classList.add('open');
-      // scroll to letter content
-      setTimeout(()=> document.getElementById('letterContent').scrollIntoView({behavior:'smooth'}), 200);
-    });
-    closeLetterBtn.addEventListener('click', ()=>{
-      envInner.parentElement.classList.remove('env-open');
-      envInner.querySelector('.env-flap').style.transform = '';
-      envInner.querySelector('.letter').style.opacity = 0;
-    });
-
-    // Make envelope clickable too
-    document.getElementById('envelope').addEventListener('click', ()=> {
-      if(envInner.classList.contains('open')) {
-        closeLetterBtn.click();
-        envInner.classList.remove('open');
-      } else {
-        openLetterBtn.click();
-        envInner.classList.add('open');
+    function checkAnswer(i){
+      const correct = quizData[quizIndex].a;
+      quizResult.textContent = i===correct ? "Correct! 🌟" : "Almost! But you know her heart anyway ❤️";
+      nextQuizBtn.style.display='inline-block';
+    }
+    nextQuizBtn.onclick = ()=>{
+      quizIndex++;
+      if(quizIndex < quizData.length) loadQuiz();
+      else {
+        document.getElementById('quiz').style.display='none';
+        document.getElementById('letterSection').style.display='block';
+        window.scrollTo({top:0,behavior:'smooth'});
       }
-    });
+    };
 
-    /*********** Gift open/close ***********/
+    document.getElementById('startBtn').onclick = ()=>{
+      document.getElementById('landing').style.display='none';
+      document.getElementById('quiz').style.display='block';
+      loadQuiz();
+    };
+
+    // Letter
+    const letterBtn = document.getElementById('letterBtn');
+    const letter = document.getElementById('letter');
+    letterBtn.onclick = ()=>{
+      letter.classList.add('open');
+      letterBtn.style.display='none';
+      setTimeout(()=>{
+        document.getElementById('giftSection').style.display='block';
+      }, 2500);
+    };
+
+    // Gift Box
     const giftBox = document.getElementById('giftBox');
-    const presentImg = document.getElementById('presentImg');
-    const openGiftBtn = document.getElementById('openGiftBtn');
-    const resetGiftBtn = document.getElementById('resetGiftBtn');
-
-    function openGift(){
-      giftBox.classList.add('open');
-      presentImg.style.display = 'block';
-      presentImg.style.opacity = 0;
-      setTimeout(()=> presentImg.style.opacity = 1, 60);
-      // scroll
-      setTimeout(()=> document.getElementById('giftSection').scrollIntoView({behavior:'smooth'}), 120);
-      giftBox.setAttribute('aria-pressed','true');
-    }
-    function closeGift(){
-      giftBox.classList.remove('open');
-      presentImg.style.opacity = 0;
-      setTimeout(()=> presentImg.style.display = 'none', 380);
-      giftBox.setAttribute('aria-pressed','false');
-    }
-
-    openGiftBtn.addEventListener('click', openGift);
-    resetGiftBtn.addEventListener('click', closeGift);
-    giftBox.addEventListener('click', ()=> {
-      if(giftBox.classList.contains('open')) closeGift(); else openGift();
-    });
-    giftBox.addEventListener('keydown', (e)=> { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); giftBox.click(); }});
-
-    /*********** Accessibility: ensure focus lands nicely after open ***********/
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape'){
-        // close overlays if any open
-        closeGift();
-        closeLetterBtn.click();
-      }
-    });
-
-    /*********** NOTE: Replace placeholder image ***********/
-    // To change the image shown in the gift box, replace the 'src' attribute of #presentImg above
-    // e.g. document.getElementById('presentImg').src = 'https://example.com/your-photo.jpg'
+    const giftContent = document.getElementById('giftContent');
+    giftBox.onclick = ()=>{
+      giftBox.classList.add('gift-open');
+      setTimeout(()=> giftContent.style.display='block',600);
+    };
   </script>
 </body>
 </html>
