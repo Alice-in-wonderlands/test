@@ -6,444 +6,179 @@
   <title>Happy Birthday Gemma! 🎉</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
-    :root{
-      --pink:#ff69b4;
-      --soft:#fff0f5;
-      --accent:#ffb6c1;
+    body{
+      font-family:'Comic Neue', cursive;
+      margin:0;
+      padding:0;
+      background: linear-gradient(180deg,#fff0f5,#ffebcd);
+      overflow-x:hidden;
     }
-    *{box-sizing:border-box}
-    body {
-      font-family: 'Comic Neue', cursive;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(180deg, #fff8fc 0%, #fffaf0 100%);
-      color: #333;
-      overflow-x: hidden;
-    }
-    /* Password overlay */
-    .overlay {
+    /* Overlay Password */
+    #pwOverlay{
       position: fixed;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.6));
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      padding: 20px;
-    }
-    .pw-card {
-      width: 100%;
-      max-width: 520px;
-      background: linear-gradient(180deg,#fff,#fff8ff);
-      border-radius: 16px;
-      padding: 28px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      position: relative;
-    }
-    .pw-card h2 {
-      margin: 0 0 10px;
-      color: var(--pink);
-      font-size: 28px;
-    }
-    .pw-card p {
-      margin: 0 0 18px;
-      color: #444;
-    }
-    .pw-input {
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0.7));
       display:flex;
-      gap:10px;
       justify-content:center;
-      margin-bottom:12px;
+      align-items:center;
+      z-index:9999;
     }
-    input[type="password"]{
-      padding:12px 14px;
-      font-size:16px;
+    .pwCard{
+      background:#fff0f8;
+      padding:30px;
+      border-radius:18px;
+      max-width:480px;
+      width:90%;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    }
+    .pwCard h2{color:#ff1493; margin-bottom:12px;}
+    .pwCard input{
+      width:65%;
+      padding:10px 14px;
       border-radius:999px;
-      border:2px solid rgba(0,0,0,0.08);
-      outline:none;
-      width:60%;
+      border:2px solid #ffb6c1;
+      font-size:16px;
+      margin-right:6px;
     }
-    .btn {
-      padding:10px 18px;
+    .pwCard button{
+      padding:10px 16px;
       border-radius:999px;
       border:none;
       cursor:pointer;
-      background:var(--accent);
+      background:#ff69b4;
       color:white;
-      font-weight:bold;
-      transition:transform .18s ease;
-    }
-    .btn:hover{ transform:scale(1.05) }
-    .hint-btn {
-      background: transparent;
-      border: 2px dashed rgba(255,255,255,0.25);
-      color: white;
-      padding:8px 12px;
-      border-radius:999px;
-      cursor:pointer;
-      margin-left:8px;
-    }
-    .hint-text {
-      margin-top:10px;
-      color:#fff;
       font-weight:700;
-      min-height:20px;
-      opacity:0.95;
+      transition: transform .2s;
     }
-    .pw-error {
-      color:#ffdddd;
-      background: rgba(255,0,80,0.12);
-      padding:8px 12px;
-      display:inline-block;
-      border-radius:8px;
-      margin-top:8px;
-    }
+    .pwCard button:hover{transform:scale(1.05);}
+    .hintText{margin-top:10px; color:#444; font-weight:700; min-height:18px;}
+    .errorText{color:#ff0044; font-weight:700; margin-top:8px; display:none;}
 
-    /* Main site styles */
-    header {
-      padding: 18px 24px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .logo {
-      font-size:20px;
-      color:var(--pink);
-      font-weight:700;
-    }
-    .music-control{
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    section {
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-    }
-    h1 { color: var(--pink); font-size: 40px; margin: 8px 0 10px;}
-    h2 { color: var(--pink); font-size: 26px; margin: 8px 0 18px; }
-
-    .cta {
-      padding: 12px 26px;
-      border-radius: 24px;
-      background: linear-gradient(90deg,#ff9ecf,#ff6fa8);
-      color: white;
-      border: none;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow: 0 8px 18px rgba(255,105,180,0.2);
-      transition: transform .18s;
-    }
-    .cta:hover{ transform:translateY(-3px) scale(1.02); }
-
-    .timeline, .messages {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:12px;
-      margin-top:12px;
-    }
-    .card {
-      background: linear-gradient(180deg,#ffffff,#fff7fb);
-      width:90%;
-      max-width:720px;
+    /* Main site (hidden initially) */
+    #mainContent{display:none;}
+    section{padding:40px 20px; text-align:center;}
+    h1{color:#ff1493;}
+    h2{color:#ff69b4;}
+    .card{
+      background:#fff;
       padding:18px;
+      margin:12px auto;
       border-radius:14px;
-      box-shadow: 0 8px 22px rgba(0,0,0,0.08);
-      transition: transform .25s, box-shadow .25s;
+      max-width:720px;
       text-align:left;
-      position:relative;
-      overflow:hidden;
+      box-shadow:0 8px 18px rgba(0,0,0,0.1);
+      transition: transform .25s;
     }
-    .card:hover{
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-    }
-    .card h3{ margin:0 0 8px; color:#ff4ea1 }
-    .card p{ margin:0; color:#444 }
-
-    #giftMessage {
-      font-size:20px;
-      margin-top: 15px;
-      display: none;
-      font-weight: bold;
-      color: #ff1493;
-    }
-
-    footer{
-      padding:16px;
-      text-align:center;
-      background:linear-gradient(180deg,#fff0f8,#fff5f2);
-      margin-top:24px;
-      font-weight:700;
-    }
-
-    /* confetti/balloons basic */
-    .confetti {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      top: -10px;
-      opacity: 0.95;
-      z-index: 50;
-      pointer-events:none;
-      border-radius:2px;
-    }
-
-    /* small responsive */
-    @media (max-width:560px){
-      h1{font-size:28px}
-      .pw-card{padding:20px}
-      input[type="password"]{width:55%}
-    }
+    .card:hover{transform:translateY(-4px) scale(1.01);}
+    #giftMessage{display:none; color:#ff1493; font-weight:bold; font-size:20px; margin-top:15px;}
+    footer{padding:16px; font-weight:700;}
   </style>
 </head>
 <body>
 
-  <!-- Password overlay -->
-  <div id="pwOverlay" class="overlay" aria-hidden="false">
-    <div class="pw-card" role="dialog" aria-labelledby="pwTitle">
-      <h2 id="pwTitle">A little secret first ✨</h2>
-      <p>Please enter the password to open the birthday surprise for Gemma.</p>
-
-      <div class="pw-input">
-        <input id="pwInput" type="password" placeholder="Enter password" aria-label="Password input" />
-        <button id="pwSubmit" class="btn">Open</button>
-        <button id="hintBtn" class="hint-btn" title="Click for a hint">Hint</button>
+  <!-- Password Overlay -->
+  <div id="pwOverlay">
+    <div class="pwCard">
+      <h2>🎀 Secret Entrance 🎀</h2>
+      <p>Enter the password to open the birthday surprise for Gemma</p>
+      <div>
+        <input type="password" id="pwInput" placeholder="Password" />
+        <button id="pwSubmit">Open</button>
+        <button id="hintBtn">Hint</button>
       </div>
-
-      <div class="hint-text" id="hintText" aria-live="polite"></div>
-      <div id="pwError" class="pw-error" style="display:none;">Wrong password — try again.</div>
-
-      <p style="margin-top:12px; font-size:13px; color:rgba(255,255,255,0.9)">
-        Hint: Click <strong>Hint</strong> if you need help.
-      </p>
+      <div class="hintText" id="hintText"></div>
+      <div class="errorText" id="pwError">Wrong password — try again.</div>
     </div>
   </div>
 
-  <!-- Header -->
-  <header>
-    <div class="logo">Happy Birthday • Gemma</div>
-    <div class="music-control">
-      <label for="muteToggle" style="font-size:14px; color:#666">Music</label>
-      <input id="muteToggle" type="checkbox" title="Toggle background music" />
-    </div>
-  </header>
+  <!-- Main content hidden initially -->
+  <div id="mainContent">
+    <section id="landing">
+      <h1>🎉 Happy Birthday Gemma! 🎉</h1>
+      <p>Welcome! Click below to start the journey full of messages and fun surprises.</p>
+      <button id="startBtn">Start Exploring</button>
+    </section>
 
-  <!-- Main Landing -->
-  <section id="landing" aria-hidden="true">
-    <h1>🎉 Happy Birthday Gemma! 🎉</h1>
-    <p style="max-width:760px; margin:6px auto 18px; color:#555">
-      Welcome! Click the button below to start a fun and playful journey full of messages, memories and surprises made by your team.
-    </p>
-    <button id="startBtn" class="cta">Start Exploring</button>
-  </section>
-
-  <!-- Story / Timeline -->
-  <section id="story" aria-hidden="true">
-    <h2>Gemma's Journey</h2>
-    <div class="timeline" id="timelineList">
+    <section id="story">
+      <h2>Gemma's Journey</h2>
       <div class="card">
         <h3>First Day at Company</h3>
-        <p>Gemma joined the team and quickly became a source of inspiration and smiles.</p>
+        <p>Gemma joined the team and brought smiles from day one.</p>
       </div>
       <div class="card">
         <h3>Major Project Success</h3>
-        <p>Her leadership helped the team finish an ambitious project with great results.</p>
+        <p>Led the project to a big success!</p>
       </div>
       <div class="card">
         <h3>Team Building Fun</h3>
-        <p>Always bringing creative ideas and energy to every activity.</p>
+        <p>Always energetic and inspiring during activities.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Messages -->
-  <section id="messages" aria-hidden="true">
-    <h2>Messages from the Team</h2>
-    <div class="messages">
+    <section id="messages">
+      <h2>Messages from the Team</h2>
       <div class="card">
-        <h3>Alice</h3>
-        <p>"Happy Birthday Gemma! Wishing you joy and success!"</p>
+        <p>"Happy Birthday Gemma! Wishing you joy and success!" – Alice</p>
       </div>
       <div class="card">
-        <h3>Bob</h3>
-        <p>"Thanks for being a great leader! Have a wonderful birthday!"</p>
+        <p>"Thanks for being a great leader! Have a wonderful birthday!" – Bob</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Mini Game -->
-  <section id="game" aria-hidden="true">
-    <h2>Open Your Birthday Gift 🎁</h2>
-    <button id="giftBtn" class="cta">Click to Reveal</button>
-    <p id="giftMessage">Surprise! You are awesome! 🎉💖</p>
-  </section>
+    <section id="game">
+      <h2>Open Your Birthday Gift 🎁</h2>
+      <button id="giftBtn">Click to Reveal</button>
+      <p id="giftMessage">Surprise! You are awesome! 🎉💖</p>
+    </section>
 
-  <footer aria-hidden="true">
-    Thanks to the team for celebrating Gemma!
-  </footer>
-
-  <!-- Background music (optional) -->
-  <audio id="bgMusic" loop preload="auto">
-    <!-- sample royalty-free source; if blocked by browser, user can toggle Music checkbox to start after interaction -->
-    <source src="https://www.bensound.com/bensound-music/bensound-funnysong.mp3" type="audio/mpeg">
-  </audio>
+    <footer>Thanks to the team for celebrating Gemma!</footer>
+  </div>
 
   <script>
-    // Elements
+    const CORRECT = 'bruce';
     const overlay = document.getElementById('pwOverlay');
     const pwInput = document.getElementById('pwInput');
     const pwSubmit = document.getElementById('pwSubmit');
     const hintBtn = document.getElementById('hintBtn');
     const hintText = document.getElementById('hintText');
     const pwError = document.getElementById('pwError');
+    const mainContent = document.getElementById('mainContent');
 
-    const mainSections = ['landing','story','messages','game','footer'];
-    const startBtn = document.getElementById('startBtn');
-    const giftBtn = document.getElementById('giftBtn');
-    const giftMessage = document.getElementById('giftMessage');
-    const bgMusic = document.getElementById('bgMusic');
-    const muteToggle = document.getElementById('muteToggle');
-
-    // Password logic: correct password = 'bruce' (case-insensitive)
-    const CORRECT = 'bruce';
-
-    function openSite() {
-      // hide overlay
-      overlay.style.display = 'none';
-      overlay.setAttribute('aria-hidden','true');
-      // reveal main content (aria)
-      document.getElementById('landing').setAttribute('aria-hidden','false');
-      mainSections.forEach(id=>{
-        const el = document.getElementById(id);
-        if(el) el.setAttribute('aria-hidden','false');
-      });
-      // create a subtle welcome confetti
-      createConfetti(30);
-    }
-
-    function showError(msg){
-      pwError.textContent = msg;
-      pwError.style.display = 'inline-block';
-      setTimeout(()=> pwError.style.display = 'none',2500);
-    }
-
+    // Password submit
     pwSubmit.addEventListener('click', ()=>{
       const val = pwInput.value.trim().toLowerCase();
       if(val === CORRECT){
-        openSite();
-      } else {
-        showError('Wrong password — try again.');
+        overlay.style.display='none';
+        mainContent.style.display='block';
+      }else{
+        pwError.style.display='block';
+        setTimeout(()=> pwError.style.display='none',2000);
       }
     });
-
-    // allow Enter key
-    pwInput.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter'){
-        pwSubmit.click();
-      }
+    pwInput.addEventListener('keydown',(e)=>{
+      if(e.key==='Enter'){ pwSubmit.click(); }
     });
 
-    // hint button shows the word "black" (briefly)
+    // Hint
     hintBtn.addEventListener('click', ()=>{
       hintText.textContent = 'Hint: black';
-      // small visual flash to emphasize
-      hintText.style.transition = 'opacity .2s';
-      hintText.style.opacity = '1';
-      setTimeout(()=> {
-        hintText.style.opacity = '0.9';
-      }, 200);
-      // hide after a few seconds
-      setTimeout(()=> {
-        hintText.textContent = '';
-      }, 4500);
+      setTimeout(()=> hintText.textContent='',4000);
     });
 
-    // After site open: interactions
+    // Mini game reveal
+    const giftBtn = document.getElementById('giftBtn');
+    const giftMessage = document.getElementById('giftMessage');
+    giftBtn.addEventListener('click', ()=>{
+      giftMessage.style.display='block';
+    });
+
+    // Landing start scroll
+    const startBtn = document.getElementById('startBtn');
     startBtn.addEventListener('click', ()=>{
       document.getElementById('story').scrollIntoView({behavior:'smooth'});
-      createBalloons(18);
-      // try to play music when user interacts (some browsers allow)
-      if(!muteToggle.checked){
-        bgMusic.play().catch(()=>{});
-      }
     });
-
-    giftBtn.addEventListener('click', ()=>{
-      giftMessage.style.display = 'block';
-      giftMessage.scrollIntoView({behavior:'smooth'});
-      createConfetti(70);
-    });
-
-    // music toggle
-    muteToggle.addEventListener('change', (e)=>{
-      if(e.target.checked){
-        bgMusic.pause();
-      } else {
-        bgMusic.play().catch(()=>{});
-      }
-    });
-
-    // small helper functions for confetti & balloons
-    function createConfetti(amount){
-      for(let i=0;i<amount;i++){
-        const el = document.createElement('div');
-        el.className = 'confetti';
-        el.style.left = Math.random()*100 + 'vw';
-        el.style.background = `hsl(${Math.random()*360}, 90%, 65%)`;
-        el.style.width = (6 + Math.random()*12) + 'px';
-        el.style.height = el.style.width;
-        document.body.appendChild(el);
-        // animate using Web Animations if available
-        const dist = 70 + Math.random()*120;
-        el.animate([
-          { transform: `translateY(-10vh) rotate(${Math.random()*360}deg)`, opacity:1 },
-          { transform: `translateY(${dist}vh) rotate(${Math.random()*720}deg)`, opacity:0 }
-        ], {
-          duration: 2200 + Math.random()*1400,
-          easing: 'cubic-bezier(.2,.8,.2,1)'
-        });
-        setTimeout(()=> el.remove(), 4000);
-      }
-    }
-
-    function createBalloons(amount){
-      for(let i=0;i<amount;i++){
-        const el = document.createElement('div');
-        el.className = 'confetti';
-        el.style.borderRadius = '50%';
-        el.style.width = (18 + Math.random()*18) + 'px';
-        el.style.height = (26 + Math.random()*26) + 'px';
-        el.style.left = Math.random()*100 + 'vw';
-        el.style.top = (100 + Math.random()*20) + 'vh';
-        el.style.background = `hsl(${Math.random()*360}, 85%, 60%)`;
-        document.body.appendChild(el);
-        el.animate([
-          { transform: `translateY(0)`, opacity:1 },
-          { transform: `translateY(-130vh)`, opacity:0.9 }
-        ], {
-          duration: 4200 + Math.random()*2200,
-          easing: 'ease-out'
-        });
-        setTimeout(()=> el.remove(), 7000);
-      }
-    }
-
-    // Accessibility: focus the password input on load
-    window.addEventListener('load', ()=>{
-      pwInput.focus();
-      // try to preload music muted (so play later is smooth)
-      bgMusic.volume = 0.8;
-      bgMusic.pause();
-    });
-
-    // Optional: small Easter egg - if user types correct password in console, also open
-    window.unlockBirthday = function(pw){
-      if(String(pw).trim().toLowerCase() === 'bruce') openSite();
-    };
   </script>
+
 </body>
 </html>
