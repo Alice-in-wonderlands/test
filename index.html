@@ -3,58 +3,75 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday Gemma 🎉</title>
+  <title>Happy Birthday Gemma 🍂</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
 
     :root {
-      --pink: #ff80ab;
-      --rose: #ffb6c1;
-      --light: #fff5f8;
-      --accent: #ff4081;
-      --text: #333;
+      --orange: #e07a5f;
+      --amber: #f2cc8f;
+      --cream: #fefae0;
+      --brown: #3d2c2e;
+      --leaf: #d68c45;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Quicksand', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(180deg, #fff0f5, #ffe6eb);
-      color: var(--text);
+      background: linear-gradient(180deg, #fefae0, #faedcd);
+      color: var(--brown);
       overflow-x: hidden;
+    }
+
+    /* Falling leaves effect */
+    @keyframes fall {
+      0% {transform: translateY(-10%) rotate(0deg);}
+      100% {transform: translateY(110vh) rotate(360deg);}
+    }
+
+    .leaf {
+      position: fixed;
+      top: -50px;
+      font-size: 22px;
+      color: var(--leaf);
+      animation: fall linear infinite;
+      z-index: 1;
+      opacity: 0.8;
     }
 
     /* Overlay Password */
     #pwOverlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      backdrop-filter: blur(6px);
-      transition: opacity 0.5s ease;
+      transition: opacity 0.6s ease;
     }
 
     .pwCard {
-      background: var(--light);
+      background: var(--cream);
       padding: 40px 30px;
       border-radius: 20px;
       text-align: center;
       width: 90%;
       max-width: 420px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border: 3px solid var(--amber);
       animation: fadeIn 1s ease;
     }
 
     .pwCard h2 {
-      color: var(--accent);
+      color: var(--orange);
       margin-bottom: 12px;
     }
 
     .pwCard p {
-      color: #444;
+      color: var(--brown);
       margin-bottom: 20px;
     }
 
@@ -62,14 +79,15 @@
       width: 65%;
       padding: 10px 14px;
       border-radius: 999px;
-      border: 2px solid var(--rose);
+      border: 2px solid var(--amber);
       font-size: 16px;
       outline: none;
       transition: border-color 0.3s;
+      background: #fff;
     }
 
     .pwCard input:focus {
-      border-color: var(--accent);
+      border-color: var(--orange);
     }
 
     .pwCard button {
@@ -77,7 +95,7 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      background: var(--accent);
+      background: var(--orange);
       color: white;
       font-weight: 600;
       transition: transform 0.2s, box-shadow 0.3s;
@@ -85,18 +103,18 @@
 
     .pwCard button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+      box-shadow: 0 0 10px rgba(224, 122, 95, 0.5);
     }
 
     .hintText {
       margin-top: 10px;
-      color: var(--accent);
+      color: var(--orange);
       font-weight: 600;
       min-height: 18px;
     }
 
     .errorText {
-      color: #ff0044;
+      color: #d62828;
       font-weight: 600;
       margin-top: 8px;
       display: none;
@@ -106,6 +124,8 @@
     #mainContent {
       display: none;
       animation: fadeIn 1s ease;
+      position: relative;
+      z-index: 2;
     }
 
     section {
@@ -114,34 +134,35 @@
     }
 
     h1 {
-      color: var(--accent);
-      font-size: 2.2rem;
+      color: var(--orange);
+      font-size: 2.3rem;
     }
 
     h2 {
-      color: var(--pink);
+      color: var(--leaf);
       margin-bottom: 25px;
     }
 
     .card {
-      background: white;
+      background: #fffdf6;
       padding: 22px;
       margin: 15px auto;
       border-radius: 16px;
       max-width: 720px;
       text-align: left;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-left: 6px solid var(--amber);
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
 
     #startBtn, #giftBtn {
       padding: 12px 26px;
-      background: var(--accent);
+      background: var(--orange);
       color: white;
       border: none;
       border-radius: 999px;
@@ -153,12 +174,12 @@
 
     #startBtn:hover, #giftBtn:hover {
       transform: scale(1.07);
-      box-shadow: 0 0 12px rgba(255, 105, 180, 0.5);
+      box-shadow: 0 0 12px rgba(224, 122, 95, 0.4);
     }
 
     #giftMessage {
       display: none;
-      color: var(--accent);
+      color: var(--orange);
       font-weight: 700;
       font-size: 20px;
       margin-top: 15px;
@@ -167,9 +188,9 @@
 
     footer {
       padding: 18px;
-      background: var(--light);
+      background: var(--cream);
       font-weight: 600;
-      color: var(--accent);
+      color: var(--orange);
       text-align: center;
     }
 
@@ -186,15 +207,32 @@
 </head>
 <body>
 
+  <!-- Falling leaves -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const leafIcons = ['🍁','🍂','🍃'];
+      for(let i=0;i<20;i++){
+        const leaf = document.createElement('div');
+        leaf.classList.add('leaf');
+        leaf.textContent = leafIcons[Math.floor(Math.random()*leafIcons.length)];
+        leaf.style.left = Math.random()*100 + 'vw';
+        leaf.style.animationDuration = (8 + Math.random()*10) + 's';
+        leaf.style.animationDelay = Math.random()*5 + 's';
+        leaf.style.fontSize = (16 + Math.random()*12) + 'px';
+        document.body.appendChild(leaf);
+      }
+    });
+  </script>
+
   <!-- Password Overlay -->
   <div id="pwOverlay">
     <div class="pwCard">
-      <h2>🎀 Secret Entrance 🎀</h2>
-      <p>Enter the password to unlock Gemma’s birthday surprise!</p>
+      <h2>🍁 Secret Autumn Door 🍁</h2>
+      <p>Enter the password to open Gemma’s cozy fall birthday surprise!</p>
       <div>
         <input type="password" id="pwInput" placeholder="Password" />
         <button id="pwSubmit">Open</button>
-        <button id="hintBtn" style="background:#ccc; color:#333; margin-left:5px;">Hint</button>
+        <button id="hintBtn" style="background:#f2cc8f; color:#3d2c2e; margin-left:5px;">Hint</button>
       </div>
       <div class="hintText" id="hintText"></div>
       <div class="errorText" id="pwError">Wrong password — try again!</div>
@@ -204,44 +242,44 @@
   <!-- Main Content -->
   <div id="mainContent">
     <section id="landing">
-      <h1>🎉 Happy Birthday, Gemma! 🎉</h1>
-      <p>Welcome to your special page — a journey full of love, smiles, and surprises 🎂💖</p>
-      <button id="startBtn">Start the Journey</button>
+      <h1>🍂 Happy Birthday, Gemma! 🍂</h1>
+      <p>October has arrived — crisp air, golden leaves, and your special day. Let’s celebrate your warmth and light!</p>
+      <button id="startBtn">Begin the Autumn Journey</button>
     </section>
 
     <section id="story">
-      <h2>🌸 Gemma’s Journey 🌸</h2>
+      <h2>Gemma’s Autumn Journey</h2>
       <div class="card">
-        <h3>✨ First Day at the Company</h3>
-        <p>From the moment Gemma joined, she brought laughter and energy to the team.</p>
+        <h3>🌻 New Beginnings</h3>
+        <p>Just like fall leaves, Gemma brought color and beauty into every project since day one.</p>
       </div>
       <div class="card">
-        <h3>🏆 Major Project Success</h3>
-        <p>With leadership and passion, Gemma led the project to an incredible success.</p>
+        <h3>🍎 Achievements to Remember</h3>
+        <p>From challenges to triumphs, she guided the team with kindness and steady confidence.</p>
       </div>
       <div class="card">
-        <h3>🎈 Team Building Fun</h3>
-        <p>Always the spark of joy — spreading positivity and enthusiasm everywhere!</p>
+        <h3>☕ Cozy Memories</h3>
+        <p>Team coffee chats, laughter, and stories that warm everyone’s heart — just like autumn itself.</p>
       </div>
     </section>
 
     <section id="messages">
-      <h2>💌 Messages from the Team</h2>
+      <h2>Warm Wishes from the Team</h2>
       <div class="card">
-        <p>"Happy Birthday Gemma! Wishing you endless happiness and achievements ahead!" – Alice</p>
+        <p>"Happy Birthday Gemma! Wishing you a season full of peace, joy, and cinnamon-scented smiles." – Alice</p>
       </div>
       <div class="card">
-        <p>"Thank you for your inspiration and kindness! Have the best birthday ever!" – Bob</p>
+        <p>"You’re our autumn sunshine! Thanks for your inspiration and heart." – Bob</p>
       </div>
     </section>
 
     <section id="game">
-      <h2>🎁 Your Birthday Gift</h2>
+      <h2>🎁 Your Cozy Gift</h2>
       <button id="giftBtn">Open the Gift</button>
-      <p id="giftMessage">Surprise! You are amazing, Gemma! 🎉💖</p>
+      <p id="giftMessage">🍯 Surprise! You make this team warmer every day. Happy Birthday, Gemma! 🍂✨</p>
     </section>
 
-    <footer>💖 Made with love by your team 💖</footer>
+    <footer>Made with love & autumn vibes by your team 🍁</footer>
   </div>
 
   <script>
@@ -254,7 +292,6 @@
     const pwError = document.getElementById('pwError');
     const mainContent = document.getElementById('mainContent');
 
-    // Password submit
     pwSubmit.addEventListener('click', () => {
       const val = pwInput.value.trim().toLowerCase();
       if (val === CORRECT) {
@@ -272,13 +309,11 @@
       if (e.key === 'Enter') pwSubmit.click();
     });
 
-    // Hint
     hintBtn.addEventListener('click', () => {
-      hintText.textContent = 'Hint: something... dark 😉';
+      hintText.textContent = 'Hint: something dark... like autumn nights 🍂';
       setTimeout(() => hintText.textContent = '', 4000);
     });
 
-    // Mini game reveal
     const giftBtn = document.getElementById('giftBtn');
     const giftMessage = document.getElementById('giftMessage');
     giftBtn.addEventListener('click', () => {
@@ -286,7 +321,6 @@
       giftMessage.style.animation = 'pop 0.6s ease';
     });
 
-    // Scroll to story
     const startBtn = document.getElementById('startBtn');
     startBtn.addEventListener('click', () => {
       document.getElementById('story').scrollIntoView({behavior: 'smooth'});
