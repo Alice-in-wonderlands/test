@@ -296,32 +296,6 @@
   .env-open .env-flap{ transform:rotateX(-180deg); z-index:0; }
   .env-open .letter{ opacity:1; transform:translateY(0); }
 </style>
-
-<script>
-  const envelope = document.getElementById('envelope');
-  const openLetterBtn = document.getElementById('openLetterBtn');
-  const closeLetterBtn = document.getElementById('closeLetterBtn');
-
-  function openLetter(){
-    envelope.classList.add('env-open');
-    openLetterBtn.style.display='none';
-    closeLetterBtn.style.display='inline-block';
-  }
-  function closeLetter(){
-    envelope.classList.remove('env-open');
-    openLetterBtn.style.display='inline-block';
-    closeLetterBtn.style.display='none';
-  }
-
-  envelope.addEventListener('click',()=>{
-    if(envelope.classList.contains('env-open')) closeLetter();
-    else openLetter();
-  });
-  openLetterBtn.addEventListener('click',openLetter);
-  closeLetterBtn.addEventListener('click',closeLetter);
-</script>
-
-
       <!-- Gift section -->
       <section id="giftSection" aria-labelledby="giftTitle">
         <h2 id="giftTitle">🎁 The Mystery Gift</h2>
